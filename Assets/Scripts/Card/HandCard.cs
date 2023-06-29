@@ -9,6 +9,7 @@ public class HandCard : GrandCard
     public bool isExchangeCard;//Ωªªª¿‡(E) ÷≈∆
     public GameObject panel_HandCardDetail;
     public Image image_HandCard;
+    
     public HandCard(int index, int count,bool isAttackCard, bool isExchangeCard)
     {
         index_Card = index;
