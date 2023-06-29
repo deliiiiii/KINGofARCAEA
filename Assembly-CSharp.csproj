@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E74FCE31-9C54-F700-C38E-60E8779F39C1}</ProjectGuid>
+    <ProjectGuid>{C045C6FD-B7CE-1F23-9B8E-CD1DB159846F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -59,6 +59,11 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
+    <Compile Include="Assets\Scripts\Card\ScoreCard.cs" />
+    <Compile Include="Assets\Scripts\Card\ScoreCardManager.cs" />
+    <Compile Include="Assets\Scripts\Card\HandCardManager.cs" />
+    <Compile Include="Assets\Scripts\Card\HandCard.cs" />
+    <Compile Include="Assets\Scripts\Card\GrandCard.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
