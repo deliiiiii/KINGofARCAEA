@@ -16,9 +16,9 @@ public class ScoreCardManager : MonoBehaviour
         instance = this;
         scoreCardsCatagory = new List<ScoreCard>()
         {
-            new ScoreCard(1,3,6),
-            new ScoreCard(2,1,5),
-            new ScoreCard(3,0,5),
+            new ScoreCard(1,3,6),//完美收割
+            new ScoreCard(2,1,5),//轻松全连
+            new ScoreCard(3,0,5),//遗憾离场
         };
     }
     void Start()
@@ -38,7 +38,7 @@ public class ScoreCardManager : MonoBehaviour
         {
             for (int j = 0; j < scoreCardsCatagory[i].grossCount; j++)//一个种类重复数
             {
-                scoreCardsStock.Add(scoreCardsPrefab[scoreCardsCatagory[i].index_Card - 1]);
+                scoreCardsStock.Add(scoreCardsPrefab[i]);
             }
         }
         text_CardNum.text = count_ScoreCard.ToString();

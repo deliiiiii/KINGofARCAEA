@@ -13,7 +13,7 @@ public class HandCard : GrandCard
     
     public HandCard(int index, int count,bool isAttackCard, bool isExchangeCard, bool isTimingCard)
     {
-        index_Card = index;
+        base.index_Card = index;
         this.grossCount = count;
         this.isAttackCard = isAttackCard;
         this.isExchangeCard = isExchangeCard;

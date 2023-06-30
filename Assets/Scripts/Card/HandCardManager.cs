@@ -9,7 +9,7 @@ public class HandCardManager : MonoBehaviour
 {
     public static HandCardManager instance;
     public int count_HandCard;//手牌总数（算重复）
-    public List<HandCard> handCardsCatagory;//种类+数量列表（不重复）
+    public List<HandCard> handCards_info;//种类+数量列表（不重复）
     public List<HandCard> handCardsPrefab = new List<HandCard>();//预制体列表（不重复）
     public List<HandCard> handCardsStock = new List<HandCard>();//卡组仓库（重复）
     public Text text_CardNum;
@@ -19,34 +19,39 @@ public class HandCardManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        handCardsCatagory = new List<HandCard>()
+        handCards_info = new List<HandCard>()
         {
-            new HandCard(1,2,true,false,false),
-            new HandCard(2,2,false,true,false),
-            new HandCard(3,4,true,false,false),
-            new HandCard(4,4,true,false,false),
-            new HandCard(5,4,false,true,false),
-            new HandCard(6,4,false,true,false),
-            new HandCard(7,4,true,false,false),
-            new HandCard(8,4,true,false,true),
-            new HandCard(9,4,true,true,false),
-            new HandCard(10,4,true,false,false),
+            new HandCard(1001,2,true,false,false),//代打
+            new HandCard(1002,2,false,true,false),//天下第一音游祭
+            new HandCard(1003,4,true,false,false),//指点江山
+            new HandCard(1004,4,true,false,false),//观看手元
+            new HandCard(1005,4,false,true,false),//神之左手
+            new HandCard(1006,4,false,true,false),//鬼之右手
+            new HandCard(1007,4,true,false,false),//音游窝
+            new HandCard(1008,4,true,false,true),//音游王
+            new HandCard(1009,4,true,true,false),//联机
+            new HandCard(1010,4,true,false,false),//自来熟
 
-            new HandCard(11,6,false,false,false),
-            new HandCard(12,6,false,false,false),
-            new HandCard(13,4,false,false,false),
+            new HandCard(2001,6,false,false,false),//手癖
+            new HandCard(2002,6,false,false,false),//降噪耳机
+            new HandCard(2003,4,false,false,false),//网络延迟
 
-            new HandCard(14,4,false,false,false),
-            new HandCard(15,4,false,false,true),
-            new HandCard(16,4,false,false,false),
-            new HandCard(17,4,false,false,false),
+            new HandCard(3001,4,false,false,false),//看铺
+            new HandCard(3002,4,false,false,true),//私人订制手台
+            new HandCard(3003,4,false,false,false),//底力提升
+            new HandCard(3004,4,false,false,false),//从头开始
         };
 
     }
     void Start()
     {
-       
-        
+        for (int i = 0; i < handCards_info.Count; i++)////手牌新增属性记得更新
+        {
+            handCardsPrefab[i].index_Card = handCards_info[i].index_Card;
+            handCardsPrefab[i].isAttackCard = handCards_info[i].isAttackCard;
+            handCardsPrefab[i].isExchangeCard = handCards_info[i].isExchangeCard;
+            handCardsPrefab[i].isTimingCard = handCards_info[i].isTimingCard;
+        }
     }
 
     public void Initialize()
@@ -62,21 +67,22 @@ public class HandCardManager : MonoBehaviour
             
             list_Scroll_MyHandCard[i].SetActive(false);
         }
+        
         RefillHandCards();
     }
     public void RefillHandCards()
     {
         count_HandCard = 0;
-        for (int i = 0; i < handCardsCatagory.Count; i++)//种类数
+        for (int i = 0; i < handCards_info.Count; i++)//种类数
         {
-            count_HandCard += handCardsCatagory[i].grossCount;//一个种类重复数
+            count_HandCard += handCards_info[i].grossCount;//一个种类重复数
         }
         handCardsStock.Clear();
-        for (int i = 0; i < handCardsCatagory.Count; i++)//种类数
+        for (int i = 0; i < handCards_info.Count; i++)//种类数
         {
-            for (int j = 0; j < handCardsCatagory[i].grossCount; j++)//一个种类重复数
+            for (int j = 0; j < handCards_info[i].grossCount; j++)//一个种类重复数
             {
-                handCardsStock.Add(handCardsPrefab[handCardsCatagory[i].index_Card - 1]);
+                handCardsStock.Add(handCardsPrefab[i]);
             }
         }
         text_CardNum.text = count_HandCard.ToString();
@@ -108,5 +114,15 @@ public class HandCardManager : MonoBehaviour
         HandCard p = Instantiate(handCardsStock[0], list_Scroll_MyHandCard[index].gameObject.transform.GetChild(0).GetChild(0));
         p.gameObject.SetActive(true);
         handCardsStock.RemoveAt(0);/////判断空
+        GameObject content_MyHandCard = list_Scroll_MyHandCard[index].gameObject.transform.GetChild(0).GetChild(0).gameObject;
+        int count = content_MyHandCard.transform.childCount;
+        for (int i = 3;i<content_MyHandCard.transform.childCount;i++)
+        {
+            if (content_MyHandCard.transform.GetChild(i).gameObject.GetComponent<HandCard>().index_Card > content_MyHandCard.transform.GetChild(count-1).gameObject.GetComponent<HandCard>().index_Card)
+            {
+                content_MyHandCard.transform.GetChild(i).SetSiblingIndex(count-1);
+                content_MyHandCard.transform.GetChild(count - 2).SetSiblingIndex(i);
+            }
+        }
     }
 }
