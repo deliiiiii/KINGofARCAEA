@@ -7,14 +7,15 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;//调用函数和变量!
     public int count_Player;
     public int index_Round;//局数，1局 = 2圈
-    public int count_Circle;//圈数
+    public int index_Circle;//圈数
+    public bool isSwitchHolder;//换主持人
     public int init_draw_num;//初始手牌数
-    
 
     public enum STATE
     {
         STATE_GAME_IDLING,
         STATE_GAME_STARTED,
+        STATE_GAME_SUMMARY,
         STATE_DRAW_CARDS,
         STATE_JUDGE_CARDS,
         STATE_YIELD_CARDS,
@@ -28,7 +29,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         instance.count_Player = PlayerManager.list_player_info.Count;
-        Initialize();
+        //Initialize();
     }
 
     // Update is called once per frame
@@ -39,6 +40,8 @@ public class GameManager : MonoBehaviour
             case STATE.STATE_GAME_IDLING:
                 break;
             case STATE.STATE_GAME_STARTED:
+                break;
+            case STATE.STATE_GAME_SUMMARY:
                 break;
             case STATE.STATE_DRAW_CARDS:
                 break;
@@ -55,8 +58,9 @@ public class GameManager : MonoBehaviour
 
     public void Initialize()
     {
-        index_Round = 0;
+        instance.index_Round = 0;
         instance.init_draw_num = 4;
+        instance.isSwitchHolder = false;
         PlayerManager.instance.Initialize();
         ScoreCardManager.instance.RefillScoreCards();
         HandCardManager.instance.Initialize();
@@ -65,81 +69,82 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        Initialize();
         state_ = STATE.STATE_GAME_STARTED;
-        NewRound(0);//0代表第一局之前
+        NewRound();//0代表第一局之前
     }
-    public void NewRound(int state)
+    public void NewRound()
     {
-        Debug.Log("1CurrentHolder = " + PlayerManager.index_CurrentHolder);
-        instance.count_Circle = 0;
-        UIManager.instance.text_CircleNum.text = instance.count_Circle.ToString();
-        if (instance.index_Round == 0)//第一局之前
+        instance.index_Round++;
+        instance.index_Circle = 1;
+        instance.isSwitchHolder = true;
+        UIManager.instance.text_CircleNum.text = instance.index_Circle.ToString();
+        if (instance.index_Round == 1)//第一局之前
         {
-            
             PlayerManager.index_CurrentHolder = 1;
-            Debug.Log("2CurrentHolder = " + PlayerManager.index_CurrentHolder);
             PlayerManager.list_player[PlayerManager.index_CurrentHolder - 1].image_Holder.SetActive(true);
-            //index_Round = 1;
             for (int i = 0; i < instance.count_Player; i++)
             {
-                PlayerManager.list_player[i].DrawCards(4,i);
+                PlayerManager.list_player[i].DrawHandCards(4,i);
+                PlayerManager.list_player[i].DrawScoreCards(1,i);
+
             }
+            
         }
         else
         {
             PlayerManager.list_player[PlayerManager.index_CurrentHolder - 1].image_Holder.SetActive(false);
             PlayerManager.index_CurrentHolder++;
-            Debug.Log("3CurrentHolder = " + PlayerManager.index_CurrentHolder);
-            index_Round++;
             if (PlayerManager.index_CurrentHolder > instance.count_Player)
             {
                 SummaryGame();
+                return;
             }
             PlayerManager.list_player[PlayerManager.index_CurrentHolder - 1].image_Holder.SetActive(true);
         }
+        
         NewTurn();
-
+        instance.isSwitchHolder = false;
     }
     public void NewTurn()
     {
-        if(index_Round == 0)
+        if(instance.isSwitchHolder)
         {
-            Debug.Log("0CurrentPlayer" + PlayerManager.index_CurrentPlayer);
-            index_Round = 1;
-            PlayerManager.index_CurrentPlayer = 1;
-            Debug.Log("1CurrentPlayer" + PlayerManager.index_CurrentPlayer);
-            PlayerManager.instance.MyTurn();
-            return;
+            if (instance.index_Round == 1)//第一局
+            {
+                PlayerManager.index_CurrentPlayer = 1;
+            }
+            else if (instance.index_Round != 1)//非第一局
+            {
+                PlayerManager.instance.PassTurn();
+                PlayerManager.index_CurrentPlayer = PlayerManager.index_CurrentHolder;
+            }
         }
-        
-        PlayerManager.instance.PassTurn();
-        Debug.Log("2CurrentPlayer" + PlayerManager.index_CurrentPlayer);
-
-        if (PlayerManager.index_CurrentPlayer > instance.count_Player)
+        else
         {
-            PlayerManager.index_CurrentPlayer = 1;
-            Debug.Log("3CurrentPlayer" + PlayerManager.index_CurrentPlayer);
+            PlayerManager.instance.PassTurn();
+            PlayerManager.index_CurrentPlayer++;
+            if (PlayerManager.index_CurrentPlayer > instance.count_Player)
+            {
+                PlayerManager.index_CurrentPlayer = 1;
+            }
+            if (PlayerManager.index_CurrentPlayer == PlayerManager.index_CurrentHolder)
+            {
+                instance.index_Circle++;
+                UIManager.instance.text_CircleNum.text = instance.index_Circle.ToString();
+            }
+            if (instance.index_Circle == 3)
+            {
+                NewRound();
+                return;
+            }
         }
-
-        if(PlayerManager.index_CurrentPlayer == PlayerManager.index_CurrentHolder)
-        {
-            instance.count_Circle++;
-            UIManager.instance.text_CircleNum.text = instance.count_Circle.ToString();
-        }
-        
-        if (instance.count_Circle == 2)
-        {
-            NewRound();
-            return;
-        }else
-        {
-            PlayerManager.instance.MyTurn();
-        }
-        
+        PlayerManager.instance.MyTurn();
     }
     
     public void SummaryGame()
     {
+        state_ = STATE.STATE_GAME_SUMMARY;
         Debug.Log("GAME OVER !!!");
     }
 }

@@ -145,5 +145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0856239f1cf8074dab80a8c6312dc22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  index_Card: 0
+  grossCount: 0
+  usedRound: 0
+  index_attacker: 
+  index_offender: 
   score: 5
-  count: 0

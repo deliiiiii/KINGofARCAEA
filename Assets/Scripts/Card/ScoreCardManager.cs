@@ -28,11 +28,11 @@ public class ScoreCardManager : MonoBehaviour
 
     public void RefillScoreCards()
     {
+        count_ScoreCard = 0;
         for (int i = 0; i < scoreCardsCatagory.Count; i++)//种类数
         {
             count_ScoreCard += scoreCardsCatagory[i].grossCount;//一个种类重复数
         }
-        Debug.Log(count_ScoreCard);
         scoreCardsStock.Clear();
         for (int i = 0; i < scoreCardsCatagory.Count; i++)//种类数
         {
@@ -62,5 +62,12 @@ public class ScoreCardManager : MonoBehaviour
         newList.Insert(UnityEngine.Random.Range(0, newList.Count), tempT2);
         inList = newList;
         return inList;
+    }
+    public void DrawOneCard(int index)
+    {
+        text_CardNum.text = (int.Parse(text_CardNum.text) - 1).ToString();
+        ScoreCard p = Instantiate(scoreCardsStock[0], HandCardManager.list_Scroll_MyHandCard[index].transform.GetChild(1));
+        p.gameObject.SetActive(true);
+        scoreCardsStock.RemoveAt(0);/////判断空
     }
 }

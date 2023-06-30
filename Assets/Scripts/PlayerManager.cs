@@ -38,7 +38,12 @@ public class PlayerManager : MonoBehaviour
 
     public void Initialize()
     {
+        index_CurrentHolder = index_CurrentPlayer = 0;
         list_player.Clear();
+        for(int i=1;i<content_Player.transform.childCount;i++)
+        {
+            Destroy(content_Player.transform.GetChild(i).gameObject);
+        }
         for (int i = 0 ; i < GameManager.instance.count_Player ; i++)
         {
             list_player.Add(playerPrefab);

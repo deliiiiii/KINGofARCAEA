@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
 {
     public int totalScore;
     public List<int> roundScore = new List<int>();
+    public int totalMove;
+    public List<int> roundMove = new List<int>();
     public int scoreCard;
     public int count_HandCard;
     public int count_RoundUsedCard;
@@ -34,13 +36,22 @@ public class Player : MonoBehaviour
     {
         
     }
-    public void DrawCards(int num,int index)//0开始
+    public void DrawHandCards(int num,int index)//0开始
     {
-        Debug.Log("index " + index + " draw " + num + " cards");
+        Debug.Log("index " + index + " draw " + num + "hand cards");
         for(int i=0;i<num;i++)
         {
             HandCardManager.instance.DrawOneCard(index);
             PlayerManager.list_player[index].Text_CardNum.text =  (int.Parse(PlayerManager.list_player[index].Text_CardNum.text)+1).ToString();
+        }
+    }
+    public void DrawScoreCards(int num, int index)//0开始
+    {
+        Debug.Log("index " + index + " draw " + num + "score cards");
+        for (int i = 0; i < num; i++)
+        {
+            ScoreCardManager.instance.DrawOneCard(index);
+            
         }
     }
 }
