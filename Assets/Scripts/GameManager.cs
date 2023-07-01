@@ -87,7 +87,6 @@ public class GameManager : MonoBehaviour
             {
                 PlayerManager.list_player[i].DrawHandCards(4,i);
                 PlayerManager.list_player[i].DrawScoreCards(1,i);
-
             }
             
         }

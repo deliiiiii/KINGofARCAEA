@@ -66,8 +66,13 @@ public class ScoreCardManager : MonoBehaviour
     public void DrawOneCard(int index)
     {
         text_CardNum.text = (int.Parse(text_CardNum.text) - 1).ToString();
-        ScoreCard p = Instantiate(scoreCardsStock[0], HandCardManager.list_Scroll_MyHandCard[index].transform.GetChild(1));
-        p.gameObject.SetActive(true);
+        if (PlayerManager.list_player[index].scoreCard)
+        {
+            UIManager.instance.DiscardCard(PlayerManager.list_player[index].scoreCard);
+            Destroy(PlayerManager.list_player[index].scoreCard);
+        }
+        PlayerManager.list_player[index].scoreCard = Instantiate(scoreCardsStock[0], HandCardManager.list_Scroll_MyHandCard[index].transform.GetChild(1)).gameObject;
+        PlayerManager.list_player[index].scoreCard.gameObject.SetActive(true);
         scoreCardsStock.RemoveAt(0);/////еп╤о©у
     }
 }

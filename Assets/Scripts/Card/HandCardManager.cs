@@ -45,9 +45,10 @@ public class HandCardManager : MonoBehaviour
     }
     void Start()
     {
-        for (int i = 0; i < handCards_info.Count; i++)////手牌新增属性记得更新
+        for (int i = 0; i < handCards_info.Count; i++)////手牌新增属性
         {
             handCardsPrefab[i].index_Card = handCards_info[i].index_Card;
+            handCardsPrefab[i].grossCount = handCards_info[i].grossCount;
             handCardsPrefab[i].isAttackCard = handCards_info[i].isAttackCard;
             handCardsPrefab[i].isExchangeCard = handCards_info[i].isExchangeCard;
             handCardsPrefab[i].isTimingCard = handCards_info[i].isTimingCard;

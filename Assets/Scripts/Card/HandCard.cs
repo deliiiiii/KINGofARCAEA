@@ -10,7 +10,8 @@ public class HandCard : GrandCard
     public bool isTimingCard;//延时类(T)手牌
     public GameObject panel_HandCardDetail;
     public Image image_HandCard;
-    
+    public List<int> index_attacker = new List<int>();////待添加 攻击者序号列表
+    public List<int> index_offender = new List<int>();////待添加 受击者序号列表
     public HandCard(int index, int count,bool isAttackCard, bool isExchangeCard, bool isTimingCard)
     {
         base.index_Card = index;
@@ -22,9 +23,15 @@ public class HandCard : GrandCard
 
     public void ShowDetail()
     {
+        PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].selectedCard = gameObject;
         panel_HandCardDetail.SetActive(true);
         image_HandCard.sprite = gameObject.GetComponent<Image>().sprite;
+        UIManager.index_SelectedHandCard = gameObject.GetComponent<HandCard>().index_Card;
+        UIManager.index_Card_In_Hand = gameObject.transform.GetSiblingIndex();
     }
-
-
+    public void CloseDetail()
+    {
+        panel_HandCardDetail.SetActive(false);
+    }
+    
 }

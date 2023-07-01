@@ -11,8 +11,8 @@ public class PlayerManager : MonoBehaviour
     public static List<Player> list_player = new List<Player>();
     public Player playerPrefab;
 
-    public static int index_CurrentPlayer = 0;
-    public static int index_CurrentHolder = 0;
+    public static int index_CurrentPlayer = 0;//从1开始数
+    public static int index_CurrentHolder = 0;//从1开始数
 
     public GameObject content_Player;
     // Start is called before the first frame update
@@ -67,5 +67,9 @@ public class PlayerManager : MonoBehaviour
     {
         HandCardManager.list_Scroll_MyHandCard[index_CurrentPlayer - 1].SetActive(true);
         list_player[index_CurrentPlayer - 1].image_MyTurn.SetActive(true);
+        GameManager.state_ = GameManager.STATE.STATE_DRAW_CARDS;
+        list_player[index_CurrentPlayer - 1].DrawHandCards(2, index_CurrentPlayer - 1);
+        GameManager.state_ = GameManager.STATE.STATE_YIELD_CARDS;
+        list_player[index_CurrentPlayer - 1].turnMove.Add(0);
     }
 }
