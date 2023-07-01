@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     public static int index_SelectedHandCard;
     public static int index_Card_In_Hand;
     public GameObject panel_DiscardedCards;
+    public Text text_NoticeThrowCard;
     public Text text_CircleNum;
     public Button button_YieldCard;//打出按钮
     public Button button_FinishYieldCard;//结束出牌按钮
@@ -28,7 +29,6 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(GameManager.state_);
         switch (GameManager.state_)
         {
 
@@ -37,6 +37,7 @@ public class UIManager : MonoBehaviour
                     //button_YieldCard.gameObject.SetActive(true);
                     button_FinishYieldCard.gameObject.SetActive(true);
                     button_ThrowCard.gameObject.SetActive(false);
+                    text_NoticeThrowCard.gameObject.SetActive(false);
                     break;
                 }
             case GameManager.STATE.STATE_THROW_CARDS:
@@ -44,6 +45,7 @@ public class UIManager : MonoBehaviour
                     //button_YieldCard.gameObject.SetActive(false);
                     button_FinishYieldCard.gameObject.SetActive(false);
                     button_ThrowCard.gameObject.SetActive(true);
+                    text_NoticeThrowCard.gameObject.SetActive(true);
                     //Debug.Log("THROW CARDS !!!");
                     break;
                 }
@@ -52,6 +54,7 @@ public class UIManager : MonoBehaviour
                     //button_YieldCard.gameObject.SetActive(false);
                     button_FinishYieldCard.gameObject.SetActive(false);
                     button_ThrowCard.gameObject.SetActive(false);
+                    text_NoticeThrowCard.gameObject.SetActive(false);
                     break;
                 }
         }
