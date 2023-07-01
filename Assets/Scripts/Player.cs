@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public static Player instance;
+    //public static Player instance;
 
     public int totalScore;
     public List<int> roundScore = new List<int>();////´ýÌí¼Ó
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     }
     private void Awake()
     {
-        instance = this;
+        //instance = this;
     }
 
     private void Start()
