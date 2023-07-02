@@ -325,20 +325,20 @@
     <Reference Include="Unity.Plastic.Antlr3.Runtime">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.4\Lib\Editor\PlasticSCM\Unity.Plastic.Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="websocket-sharp">
+      <HintPath>Assets\Photon\PhotonLibs\WebSocket\websocket-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Plastic.Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.4\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.4\Lib\Editor\PlasticSCM\log4netPlastic.dll</HintPath>
     </Reference>
-    <Reference Include="unityplastic">
-      <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.4\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
-    </Reference>
     <Reference Include="Photon3Unity3D">
       <HintPath>Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll</HintPath>
     </Reference>
-    <Reference Include="websocket-sharp">
-      <HintPath>Assets\Photon\PhotonLibs\WebSocket\websocket-sharp.dll</HintPath>
+    <Reference Include="unityplastic">
+      <HintPath>Library\PackageCache\com.unity.collab-proxy@2.0.4\Lib\Editor\PlasticSCM\unityplastic.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
@@ -820,14 +820,14 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.SpriteShape.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.SpriteShape.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.IK.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
@@ -837,10 +837,6 @@
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{C045C6FD-B7CE-1F23-9B8E-CD1DB159846F}</Project>
       <Name>Assembly-CSharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="PunDemos.DemoHubEditor.csproj">
-      <Project>{FA36C108-C087-63DB-6E94-3461C2DEA74E}</Project>
-      <Name>PunDemos.DemoHubEditor</Name>
     </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Editor.csproj">
       <Project>{BE563111-AA40-AD62-3C69-72B8E1E3806E}</Project>
@@ -877,6 +873,10 @@
     <ProjectReference Include="PhotonUnityNetworking.Utilities.csproj">
       <Project>{940A8BA0-106E-CD68-8ED3-E736D426CD09}</Project>
       <Name>PhotonUnityNetworking.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="PunDemos.DemoHubEditor.csproj">
+      <Project>{FA36C108-C087-63DB-6E94-3461C2DEA74E}</Project>
+      <Name>PunDemos.DemoHubEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

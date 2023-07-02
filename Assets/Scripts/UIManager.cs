@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
     }
     public void UIYieldCard()
     {
-        PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().YieldCard(PlayerManager.index_CurrentPlayer - 1);
+        PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].GetComponent<MyPlayer>().YieldCard(PlayerManager.index_CurrentPlayer - 1);
     }
     public void UIFinishYieldCard()
     {
@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
     }
     public void UIThrowCard()
     {
-        PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().ThrowCard(PlayerManager.index_CurrentPlayer - 1);
+        PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].GetComponent<MyPlayer>().ThrowCard(PlayerManager.index_CurrentPlayer - 1);
     }
     public void DiscardCard(GameObject card)//将牌放在弃牌区
     {

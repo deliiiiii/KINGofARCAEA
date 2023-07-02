@@ -66,16 +66,18 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\FriendItem.cs" />
     <Compile Include="Assets\Scripts\Card\ScoreCardManager.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\AppSettingsExtensions.cs" />
+    <Compile Include="Assets\Scripts\Test\Testttt.cs" />
     <Compile Include="Assets\Scripts\Card\HandCardManager.cs" />
     <Compile Include="Assets\Scripts\Card\ScoreCard.cs" />
+    <Compile Include="Assets\Scripts\Test\Launcher.cs" />
     <Compile Include="Assets\Scripts\Card\GrandCard.cs" />
     <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\IgnoreUiRaycastWhenInactive.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatGui.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\EventSystemSpawner.cs" />
+    <Compile Include="Assets\Scripts\Test\PlayerNameInputField.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
-    <Compile Include="Assets\Scripts\Launcher.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\WebSocket.cs" />
     <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
@@ -350,11 +352,11 @@
     <Reference Include="Unity.Collections.LowLevel.ILSupport">
       <HintPath>Library\PackageCache\com.unity.collections@1.2.4\Unity.Collections.LowLevel.ILSupport\Unity.Collections.LowLevel.ILSupport.dll</HintPath>
     </Reference>
-    <Reference Include="Photon3Unity3D">
-      <HintPath>Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll</HintPath>
-    </Reference>
     <Reference Include="websocket-sharp">
       <HintPath>Assets\Photon\PhotonLibs\WebSocket\websocket-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Photon3Unity3D">
+      <HintPath>Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:\Program Files\2022.3.1f1c1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -818,24 +820,20 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.2D.SpriteShape.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Animation.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.Animation.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.SpriteShape.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.2D.SpriteShape.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.2D.IK.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.2D.IK.Editor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="PunDemos.DemoHubEditor.csproj">
-      <Project>{FA36C108-C087-63DB-6E94-3461C2DEA74E}</Project>
-      <Name>PunDemos.DemoHubEditor</Name>
-    </ProjectReference>
     <ProjectReference Include="PhotonUnityNetworking.Editor.csproj">
       <Project>{BE563111-AA40-AD62-3C69-72B8E1E3806E}</Project>
       <Name>PhotonUnityNetworking.Editor</Name>
@@ -871,6 +869,10 @@
     <ProjectReference Include="PhotonUnityNetworking.Utilities.csproj">
       <Project>{940A8BA0-106E-CD68-8ED3-E736D426CD09}</Project>
       <Name>PhotonUnityNetworking.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="PunDemos.DemoHubEditor.csproj">
+      <Project>{FA36C108-C087-63DB-6E94-3461C2DEA74E}</Project>
+      <Name>PunDemos.DemoHubEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

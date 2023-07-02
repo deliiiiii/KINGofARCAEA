@@ -1,15 +1,17 @@
+using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices; 
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviourPunCallbacks,IPunObservable
 {
     public static PlayerManager instance;
-    public static List<Player> list_player_info = new List<Player>();
-    public static List<Player> list_player = new List<Player>();
-    public Player playerPrefab;
+    public static List<MyPlayer> list_player_info = new List<MyPlayer>();
+    public static List<MyPlayer> list_player = new List<MyPlayer>();
+    public MyPlayer playerPrefab;
 
     public static int index_CurrentPlayer = 0;//从1开始数
     public static int index_CurrentHolder = 0;//从1开始数
@@ -20,9 +22,9 @@ public class PlayerManager : MonoBehaviour
     {
         instance = this;
         list_player_info.Clear();
-        list_player_info.Add(new Player(1, "Andy"));
-        list_player_info.Add(new Player(2, "Bob"));
-        list_player_info.Add(new Player(3, "F**k"));
+        list_player_info.Add(new MyPlayer(1, "Andy"));
+        list_player_info.Add(new MyPlayer(2, "Bob"));
+        list_player_info.Add(new MyPlayer(3, "F**k"));
     }
 
     private void Start()
@@ -35,9 +37,22 @@ public class PlayerManager : MonoBehaviour
     {
         
     }
-
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            Debug.Log("555");
+            stream.SendNext(list_player);
+        }
+        else
+        {
+            Debug.Log("666");
+            list_player = (List<MyPlayer>)stream.ReceiveNext();
+        }
+    }
     public void Initialize()
     {
+        Debug.Log("PlayerManager Initailize");
         index_CurrentHolder = index_CurrentPlayer = 0;
         list_player.Clear();
         for(int i=1;i<content_Player.transform.childCount;i++)

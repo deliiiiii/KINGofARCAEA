@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -5,7 +6,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class MyPlayer : MonoBehaviourPunCallbacks
 {
     //public static Player instance;
 
@@ -26,7 +27,7 @@ public class Player : MonoBehaviour
     public GameObject image_MyTurn;
     public GameObject selectedCard;
     public GameObject scoreCard;
-    public Player(int index_Player, string name_player)
+    public MyPlayer(int index_Player, string name_player)
     {
         totalScore = totalMove = 0;
         count_HandCard = 0;
@@ -39,11 +40,13 @@ public class Player : MonoBehaviour
     {
         //instance = this;
     }
-
     private void Start()
     {
         
     }
+
+    
+
     public void DrawHandCards(int num,int index)//0¿ªÊ¼
     {
         Debug.Log("index " + index + " draw " + num + "hand cards");

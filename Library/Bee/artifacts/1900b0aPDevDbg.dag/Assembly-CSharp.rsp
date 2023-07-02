@@ -352,9 +352,11 @@
 "Assets/Scripts/Card/ScoreCardManager.cs"
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/InputManager.cs"
-"Assets/Scripts/Launcher.cs"
 "Assets/Scripts/Player.cs"
 "Assets/Scripts/PlayerManager.cs"
+"Assets/Scripts/Test/Launcher.cs"
+"Assets/Scripts/Test/PlayerNameInputField.cs"
+"Assets/Scripts/Test/Testttt.cs"
 "Assets/Scripts/UIManager.cs"
 -langversion:9.0
 

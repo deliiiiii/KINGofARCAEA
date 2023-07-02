@@ -1,8 +1,10 @@
+using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     public static GameManager instance;//调用函数和变量!
     public int count_Player;
