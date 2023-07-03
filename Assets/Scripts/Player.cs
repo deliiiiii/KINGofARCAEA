@@ -4,8 +4,8 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class Player : MonoBehaviour
+using Mirror;
+public class Player : NetworkBehaviour
 {
     public static Player instance;
 
