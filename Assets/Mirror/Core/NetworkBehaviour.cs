@@ -320,11 +320,11 @@ namespace Mirror
             // this was in Weaver before
             // NOTE: we could remove this later to allow calling Cmds on Server
             //       to avoid Wrapper functions. a lot of people requested this.
-            if (!NetworkClient.active)
-            {
-                Debug.LogError($"Command {functionFullName} called on {name} without an active client.", gameObject);
-                return;
-            }
+            //if (!NetworkClient.active)
+            //{
+            //    Debug.LogError($"Command {functionFullName} called on {name} without an active client.", gameObject);
+            //    return;
+            //}
 
             // previously we used NetworkClient.readyConnection.
             // now we check .ready separately.

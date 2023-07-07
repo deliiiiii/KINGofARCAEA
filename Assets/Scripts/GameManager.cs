@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        instance.count_Player = PlayerManager.list_player_info.Count;
+        //list_instance.count_Player = PlayerManager.list_player_info.Count;
         //Initialize();
     }
 
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         PlayerManager.instance.Initialize();
         ScoreCardManager.instance.RefillScoreCards();
         HandCardManager.instance.Initialize();
-        //GameCardManager.instance.Initialize();
+        //GameCardManager.list_instance.Initialize();
     }
 
     public void StartGame()
@@ -82,24 +82,24 @@ public class GameManager : MonoBehaviour
         if (instance.index_Round == 1)//第一局之前
         {
             PlayerManager.index_CurrentHolder = 1;
-            PlayerManager.list_player[PlayerManager.index_CurrentHolder - 1].image_Holder.SetActive(true);
+            PlayerManager.list_player[PlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(true);
             for (int i = 0; i < instance.count_Player; i++)
             {
-                PlayerManager.list_player[i].DrawHandCards(4,i);
-                PlayerManager.list_player[i].DrawScoreCards(1,i);
+                PlayerManager.list_player[i].GetComponent<Player>().DrawHandCards(4,i);
+                PlayerManager.list_player[i].GetComponent<Player>().DrawScoreCards(1,i);
             }
             
         }
         else
         {
-            PlayerManager.list_player[PlayerManager.index_CurrentHolder - 1].image_Holder.SetActive(false);
+            PlayerManager.list_player[PlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(false);
             PlayerManager.index_CurrentHolder++;
             if (PlayerManager.index_CurrentHolder > instance.count_Player)
             {
                 SummaryGame();
                 return;
             }
-            PlayerManager.list_player[PlayerManager.index_CurrentHolder - 1].image_Holder.SetActive(true);
+            PlayerManager.list_player[PlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(true);
         }
         
         NewTurn();

@@ -57,7 +57,7 @@ namespace Mirror
         public static NetworkIdentity localPlayer { get; internal set; }
 
         // NetworkClient state
-        internal static ConnectState connectState = ConnectState.None;
+        public static ConnectState connectState = ConnectState.None;
 
         /// <summary>active is true while a client is connecting/connected either as standalone or as host client.</summary>
         // (= while the network is active)

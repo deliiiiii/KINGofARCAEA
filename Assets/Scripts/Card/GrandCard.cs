@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class GrandCard : MonoBehaviour
 {
     public int index_Card;//卡牌在图鉴的序号，不会重复

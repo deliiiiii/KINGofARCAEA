@@ -11,7 +11,7 @@ namespace ParrelSync.Example
         // Start is called before the first frame update
         void Start()
         {
-            // Is this editor instance running a clone project?
+            // Is this editor list_instance running a clone project?
             if (ClonesManager.IsClone())
             {
                 Debug.Log("This is a clone project.");

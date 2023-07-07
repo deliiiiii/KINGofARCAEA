@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
@@ -66,7 +65,7 @@ public class UIManager : MonoBehaviour
     public void UIFinishYieldCard()
     {
         GameManager.state_ = GameManager.STATE.STATE_THROW_CARDS;
-        PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].ThrowCard_Judge(PlayerManager.index_CurrentPlayer - 1);
+        PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().ThrowCard_Judge(PlayerManager.index_CurrentPlayer - 1);
     }
     public void UIThrowCard()
     {

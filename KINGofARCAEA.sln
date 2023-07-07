@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Examples", "Mirror.Examples.csproj", "{D462F842-6679-43C0-922F-0B369669D881}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror", "Mirror.csproj", "{479E93B6-8350-CF76-58FD-2A0D1D0BDE3A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mirror.Editor", "Mirror.Editor.csproj", "{D2EB7218-728C-75C4-271A-48B40EF91E5C}"
@@ -33,10 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D462F842-6679-43C0-922F-0B369669D881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D462F842-6679-43C0-922F-0B369669D881}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D462F842-6679-43C0-922F-0B369669D881}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D462F842-6679-43C0-922F-0B369669D881}.Release|Any CPU.Build.0 = Release|Any CPU
 		{479E93B6-8350-CF76-58FD-2A0D1D0BDE3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{479E93B6-8350-CF76-58FD-2A0D1D0BDE3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{479E93B6-8350-CF76-58FD-2A0D1D0BDE3A}.Release|Any CPU.ActiveCfg = Release|Any CPU

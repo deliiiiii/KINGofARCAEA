@@ -8,7 +8,8 @@ using Mirror;
 public class Player : NetworkBehaviour
 {
     public static Player instance;
-
+    public int my_netID;
+    public int listID;
     public int totalScore;
     public List<int> roundScore = new List<int>();////待添加
     public int totalMove;
@@ -40,17 +41,13 @@ public class Player : NetworkBehaviour
         instance = this;
     }
 
-    private void Start()
-    {
-        
-    }
     public void DrawHandCards(int num,int index)//0开始
     {
         Debug.Log("index " + index + " draw " + num + "hand cards");
         for(int i=0;i<num;i++)
         {
             HandCardManager.instance.DrawOneCard(index);
-            PlayerManager.list_player[index].Text_CardNum.text =  (int.Parse(PlayerManager.list_player[index].Text_CardNum.text)+1).ToString();
+            PlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text =  (int.Parse(PlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text)+1).ToString();
         }
     }
     public void DrawScoreCards(int num, int index)//0开始
@@ -65,7 +62,7 @@ public class Player : NetworkBehaviour
     {
         selectedCard.GetComponent<HandCard>().CloseDetail();
         Debug.Log("打出序号" + selectedCard.GetComponent<HandCard>().index_Card);
-        PlayerManager.list_player[index].Text_CardNum.text = (int.Parse(PlayerManager.list_player[index].Text_CardNum.text) - 1).ToString();
+        PlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(PlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) - 1).ToString();
         
         switch (selectedCard.GetComponent<HandCard>().index_Card)////手牌新增
         {
@@ -126,10 +123,10 @@ public class Player : NetworkBehaviour
                 break;
         }
 
-        int count_turn = PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].turnMove.Count;
-        PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].turnMove[count_turn - 1]++;
-        PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].totalMove++;
-        if (PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].turnMove[count_turn - 1] >= 3)
+        int count_turn = PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().turnMove.Count;
+        PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().turnMove[count_turn - 1]++;
+        PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().totalMove++;
+        if (PlayerManager.list_player[PlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().turnMove[count_turn - 1] >= 3)
         {
             UIManager.instance.UIFinishYieldCard();
         }
@@ -149,7 +146,7 @@ public class Player : NetworkBehaviour
     {
         selectedCard.GetComponent<HandCard>().CloseDetail();
         Debug.Log("丢弃序号" + selectedCard.GetComponent<HandCard>().index_Card);
-        PlayerManager.list_player[index].Text_CardNum.text = (int.Parse(PlayerManager.list_player[index].Text_CardNum.text) - 1).ToString();
+        PlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(PlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) - 1).ToString();
         UIManager.instance.DiscardCard(selectedCard);
         Destroy(selectedCard);
         ThrowCard_Judge(index);
