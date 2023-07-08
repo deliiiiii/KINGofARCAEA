@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         switch (GameManager.state_)
         {
 
@@ -57,6 +58,7 @@ public class UIManager : MonoBehaviour
                     break;
                 }
         }
+        */
     }
     public void UIYieldCard()
     {

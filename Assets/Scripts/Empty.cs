@@ -74,19 +74,11 @@ public class Empty : NetworkBehaviour
     [ClientRpc]
     public void RpcClearPlayer()
     {
-        if (isServer)
-        {
-            //return;
-        }
         list_netId.Clear();
     }
     [ClientRpc]
     public void RpcAddPlayer(int netId)
     {
-        if(isServer)
-        {
-            //return;
-        }
         //Debug.Log("[Client] ServerAddPlayer()");
         list_netId.Add(netId);
         Debug.Log("[Client] list_netId = " + GetContent(list_netId));
