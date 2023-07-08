@@ -13,6 +13,7 @@ public class Empty : NetworkBehaviour
     public int count_player = 0;
     //[SyncVar(hook = nameof(OnChange_list_netId))]
     public List<int> list_netId = new();
+    public List<string> list_playerName = new();
     public float delay = 0.2f;
     //public int index_instance;
     //public float delay = 0.033f;
@@ -33,6 +34,17 @@ public class Empty : NetworkBehaviour
             Invoke(nameof(Delay_set_instance), delay);
         }
     }
+    [Command]
+    public void CmdSetName(string name)
+    {
+        ServerSetName(name);
+        list_playerName.Add(name);
+    }
+    [Server]
+    public void ServerSetName(string name)
+    {
+        Debug.Log("[Server] 加入名 :" + name);
+    }
     [Server]
     public void ServerAddPlayer(int netId)
     {
@@ -46,7 +58,6 @@ public class Empty : NetworkBehaviour
         {
             RpcAddPlayer(list_netId[i]);
         }
-       
     }
     [Server]
     public void ServerRomovePlayer(int netId)
@@ -89,7 +100,12 @@ public class Empty : NetworkBehaviour
     //    //Debug.Log("[Client] list_netId.Count = " + list_netId.Count);
     //    //Debug.Log("[Client] list_netId = " + GetContent(newValue));
     //}
-
+    [Client]
+    public void SetName(string name)
+    {
+        Debug.Log("[Client] 加入名 :" + name);
+        CmdSetName(name);
+    }
     public string GetContent(List<int> list)
     {
         string a="";

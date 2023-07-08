@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        //list_instance.count_Player = PlayerManager.list_player_info.Count;
-        //Initialize();
+        instance.count_Player = PlayerManager.list_player_info.Count;
+        Initialize();
     }
 
     // Update is called once per frame

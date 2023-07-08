@@ -30,7 +30,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
     public Button cancel_connection_attempt;
     public GameObject inputfield_PlayerName;
     public Text input_PlayerName;
-
+    public Button hereWeGo;
     new void Awake()
     {
         manager = GetComponent<MyNetworkManager>();
@@ -44,7 +44,8 @@ public class MyNetworkManagerHUD : MonoBehaviour
             stop_Host.gameObject,
             stop_Client.gameObject,
             cancel_connection_attempt.gameObject,
-            inputfield_PlayerName
+            inputfield_PlayerName,
+            hereWeGo.gameObject
         };
 
         
@@ -58,7 +59,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
         stop_Client.onClick.AddListener(CheckState);
         cancel_connection_attempt.onClick.AddListener(MyStopClient);
         cancel_connection_attempt.onClick.AddListener(CheckState);
-
+        hereWeGo.onClick.AddListener(HereWeGo);
         CheckState();
     }
     void Update()
@@ -195,7 +196,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
         }
         if (!Empty.instance)
         {
-            Debug.Log("Delay_EditName()");
+            //Debug.Log("Delay_EditName()");
             Invoke(nameof(Delay_EditName), delay);
             return; 
         }
@@ -209,5 +210,11 @@ public class MyNetworkManagerHUD : MonoBehaviour
         ClearAll();
         inputfield_PlayerName.SetActive(true);
         stop_Client.gameObject.SetActive(true);
+        hereWeGo.gameObject.SetActive(true);
+    }
+
+    void HereWeGo()
+    {
+        Empty.instance.SetName(input_PlayerName.text);
     }
 }

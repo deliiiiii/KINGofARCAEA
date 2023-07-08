@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
-    //public static List<Player> list_player_info = new List<Player>();
+    public static List<Player> list_player_info = new List<Player>();
     public static List<int> list_netId = new();
     public static List<GameObject> list_player = new();
     public GameObject playerPrefab;
@@ -19,10 +19,10 @@ public class PlayerManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        //list_player_info.Clear();
-        //list_player_info.Add(new Player(1, "Andy"));
-        //list_player_info.Add(new Player(2, "Bob"));
-        //list_player_info.Add(new Player(3, "F**k"));
+        list_player_info.Clear();
+        list_player_info.Add(new Player(1, "Andy"));
+        list_player_info.Add(new Player(2, "Bob"));
+        list_player_info.Add(new Player(3, "F**k"));
     }
 
     public void Initialize()
@@ -35,8 +35,8 @@ public class PlayerManager : MonoBehaviour
         {
             list_player.Add(playerPrefab);
             list_player[i].GetComponent<Player>().index_Player = i + 1;
-            //list_player[i].text_Index_Player.text = list_player_info[i].index_Player.ToString();
-            //list_player[i].text_Name_Player.text = list_player_info[i].name_Player.ToString();
+            list_player[i].GetComponent<Player>().text_Index_Player.text = list_player_info[i].index_Player.ToString();
+            list_player[i].GetComponent<Player>().text_Name_Player.text = list_player_info[i].name_Player.ToString();
             list_player[i].GetComponent<Player>().roundScore.Clear();
             for (int j = 0; j < GameManager.instance.count_Player; j++)
             {
