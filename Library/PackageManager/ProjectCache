@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638241709058282793
-    m_Hash: 1110538400
+      ticks: 638244207918878364
+    m_Hash: 3485620094
   m_LockFileStatus:
     m_FilePath: D:/SAVE/code/NEW/KINGofARCAEA/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 638241709065643196
-    m_Hash: 1342756539
+      ticks: 638244207918889771
+    m_Hash: 215939098
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:

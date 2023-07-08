@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
+    public GameObject canvas;
 
     public static int index_SelectedHandCard;
     public static int index_Card_In_Hand;
@@ -21,44 +22,44 @@ public class UIManager : MonoBehaviour
         button_FinishYieldCard.onClick.AddListener(UIFinishYieldCard);
         button_ThrowCard.onClick.AddListener(UIThrowCard);
     }
-    void Start()
-    {
-    }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        switch (GameManager.state_)
+        if(canvas.activeSelf)
         {
+            switch (GameManager.state_)
+            {
 
-            case GameManager.STATE.STATE_YIELD_CARDS:
-                {
-                    //button_YieldCard.gameObject.SetActive(true);
-                    button_FinishYieldCard.gameObject.SetActive(true);
-                    button_ThrowCard.gameObject.SetActive(false);
-                    text_NoticeThrowCard.gameObject.SetActive(false);
-                    break;
-                }
-            case GameManager.STATE.STATE_THROW_CARDS:
-                {
-                    //button_YieldCard.gameObject.SetActive(false);
-                    button_FinishYieldCard.gameObject.SetActive(false);
-                    button_ThrowCard.gameObject.SetActive(true);
-                    text_NoticeThrowCard.gameObject.SetActive(true);
-                    //Debug.Log("THROW CARDS !!!");
-                    break;
-                }
-            default:
-                {
-                    //button_YieldCard.gameObject.SetActive(false);
-                    button_FinishYieldCard.gameObject.SetActive(false);
-                    button_ThrowCard.gameObject.SetActive(false);
-                    text_NoticeThrowCard.gameObject.SetActive(false);
-                    break;
-                }
+                case GameManager.STATE.STATE_YIELD_CARDS:
+                    {
+                        //button_YieldCard.gameObject.SetActive(true);
+                        button_FinishYieldCard.gameObject.SetActive(true);
+                        button_ThrowCard.gameObject.SetActive(false);
+                        text_NoticeThrowCard.gameObject.SetActive(false);
+                        break;
+                    }
+                case GameManager.STATE.STATE_THROW_CARDS:
+                    {
+                        //button_YieldCard.gameObject.SetActive(false);
+                        button_FinishYieldCard.gameObject.SetActive(false);
+                        button_ThrowCard.gameObject.SetActive(true);
+                        text_NoticeThrowCard.gameObject.SetActive(true);
+                        //Debug.Log("THROW CARDS !!!");
+                        break;
+                    }
+                default:
+                    {
+                        //button_YieldCard.gameObject.SetActive(false);
+                        button_FinishYieldCard.gameObject.SetActive(false);
+                        button_ThrowCard.gameObject.SetActive(false);
+                        text_NoticeThrowCard.gameObject.SetActive(false);
+                        break;
+                    }
+            }
         }
-        */
+        
+        
     }
     public void UIYieldCard()
     {

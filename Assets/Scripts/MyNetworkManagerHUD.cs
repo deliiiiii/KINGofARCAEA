@@ -10,8 +10,8 @@ public class MyNetworkManagerHUD : MonoBehaviour
 
     public MyNetworkManager manager;
     float delay = 0.033f;
-    float time_CheckState = 0.2f;
-    float timer_CheckState = 0f;
+    //float time_CheckState = 0.2f;
+    //float timer_CheckState = 0f;
     public string last_input_IP = string.Empty;
     public string last_input_PlayerName = string.Empty;
     public bool stop_ALL_delay = false;
@@ -31,7 +31,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
     public GameObject inputfield_PlayerName;
     public Text input_PlayerName;
     public Button hereWeGo;
-    new void Awake()
+    void Awake()
     {
         manager = GetComponent<MyNetworkManager>();
         manager.networkAddress = last_input_IP;
