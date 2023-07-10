@@ -229,6 +229,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
         Empty.instance.ClientAddPlayer((int)Empty.instance.netId, input_PlayerName.text);
         ClearAll();
         canvas.SetActive(true);
+        UIManager.instance.Delay_ShowStartGame();
         stop_Client.gameObject.SetActive(true);
     }
 }

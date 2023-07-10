@@ -28,8 +28,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        instance.count_Player = PlayerManager.list_player_info.Count;
-        Initialize();
+        //RefillHandCards();
     }
 
     // Update is called once per frame
@@ -61,10 +60,11 @@ public class GameManager : MonoBehaviour
         instance.index_Round = 0;
         instance.init_draw_num = 4;
         instance.isSwitchHolder = false;
-        PlayerManager.instance.Initialize();
+        //UIPlayerManager.instance.Initialize();
         ScoreCardManager.instance.RefillScoreCards();
-        HandCardManager.instance.Initialize();
-        //GameCardManager.list_instance.Initialize();
+        HandCardManager.instance.RefillHandCards();
+
+        //GameCardManager.list_instance.RefillHandCards();
     }
 
     public void StartGame()
@@ -81,25 +81,25 @@ public class GameManager : MonoBehaviour
         UIManager.instance.text_CircleNum.text = instance.index_Circle.ToString();
         if (instance.index_Round == 1)//第一局之前
         {
-            PlayerManager.index_CurrentHolder = 1;
-            PlayerManager.list_player[PlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(true);
+            UIPlayerManager.index_CurrentHolder = 1;
+            UIPlayerManager.list_player[UIPlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(true);
             for (int i = 0; i < instance.count_Player; i++)
             {
-                PlayerManager.list_player[i].GetComponent<Player>().DrawHandCards(4,i);
-                PlayerManager.list_player[i].GetComponent<Player>().DrawScoreCards(1,i);
+                UIPlayerManager.list_player[i].GetComponent<Player>().DrawHandCards(4,i);
+                UIPlayerManager.list_player[i].GetComponent<Player>().DrawScoreCards(1,i);
             }
             
         }
         else
         {
-            PlayerManager.list_player[PlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(false);
-            PlayerManager.index_CurrentHolder++;
-            if (PlayerManager.index_CurrentHolder > instance.count_Player)
+            UIPlayerManager.list_player[UIPlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(false);
+            UIPlayerManager.index_CurrentHolder++;
+            if (UIPlayerManager.index_CurrentHolder > instance.count_Player)
             {
                 SummaryGame();
                 return;
             }
-            PlayerManager.list_player[PlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(true);
+            UIPlayerManager.list_player[UIPlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(true);
         }
         
         NewTurn();
@@ -111,23 +111,23 @@ public class GameManager : MonoBehaviour
         {
             if (instance.index_Round == 1)//第一局
             {
-                PlayerManager.index_CurrentPlayer = 1;
+                UIPlayerManager.index_CurrentPlayer = 1;
             }
             else if (instance.index_Round != 1)//非第一局
             {
-                PlayerManager.instance.PassTurn();
-                PlayerManager.index_CurrentPlayer = PlayerManager.index_CurrentHolder;
+                UIPlayerManager.instance.PassTurn();
+                UIPlayerManager.index_CurrentPlayer = UIPlayerManager.index_CurrentHolder;
             }
         }
         else
         {
-            PlayerManager.instance.PassTurn();
-            PlayerManager.index_CurrentPlayer++;
-            if (PlayerManager.index_CurrentPlayer > instance.count_Player)
+            UIPlayerManager.instance.PassTurn();
+            UIPlayerManager.index_CurrentPlayer++;
+            if (UIPlayerManager.index_CurrentPlayer > instance.count_Player)
             {
-                PlayerManager.index_CurrentPlayer = 1;
+                UIPlayerManager.index_CurrentPlayer = 1;
             }
-            if (PlayerManager.index_CurrentPlayer == PlayerManager.index_CurrentHolder)
+            if (UIPlayerManager.index_CurrentPlayer == UIPlayerManager.index_CurrentHolder)
             {
                 instance.index_Circle++;
                 UIManager.instance.text_CircleNum.text = instance.index_Circle.ToString();
@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
-        PlayerManager.instance.MyTurn();
+        UIPlayerManager.instance.MyTurn();
     }
     
     public void SummaryGame()

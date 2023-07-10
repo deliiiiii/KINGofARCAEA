@@ -6,30 +6,62 @@ using Telepathy;
 using Unity.Collections.LowLevel.Unsafe;
 using System.Linq;
 using System.Data.Common;
+using UnityEngine.UI;
 
 public class Empty : NetworkBehaviour
 {
-    //[SyncVar(hook = nameof(OnChange_count_player))]
-    public int count_player = 0;
-    //[SyncVar(hook = nameof(OnChange_list_netId))]
-    public static List<int> list_netId = new();
-    public static List<string> list_playerName = new();
+    public static Empty instance;
+
+    public static List<int> list_netId = new();//玩家Id列表
+    public static List<string> list_playerName = new();//玩家姓名列表
+
+
+    public static int index_Round;//局数，1局 = 2轮
+    public static int index_Circle;//轮数
+    public static bool isSwitchHolder;//换主持人
+    public static int init_draw_num;//初始手牌数
+
+
+    public static int index_CurrentPlayer = 0;//从1开始数
+    public static int index_CurrentHolder = 0;//从1开始数
+
+    public int my_netID;
+    public int listID;
+    public int totalScore;
+    public List<int> roundScore = new();////待添加
+    public int totalMove;
+    public List<int> turnMove = new();////待添加
+
+    public int count_HandCard;
+    public int count_RoundUsedCard;
+    public int count_TotalUsedCard;
+    public int index_Player;
+    public Text text_Index_Player;
+    public string name_Player;
+    public Text text_Name_Player;
+    public Text Text_CardNum;
+    public GameObject image_Holder;
+    public GameObject image_MyTurn;
+    public GameObject selectedCard;
+    public GameObject scoreCard;
+
+
+
     public float delay = 0.2f;
-    //public int index_instance;
-    //public float delay = 0.033f;
 
-    public static Empty instance;// { get; private set; }
-   
-    //protected virtual void Awake()
-    //{
-    //    if (isLocalPlayer)
-    //    {
-    //        instance = this;
-    //        
-    //    }
-            
 
-    //}
+    public enum STATE
+    {
+        STATE_GAME_IDLING,
+        STATE_GAME_STARTED,
+        STATE_GAME_SUMMARY,
+        STATE_DRAW_CARDS,
+        STATE_JUDGE_CARDS,
+        STATE_YIELD_CARDS,
+        STATE_THROW_CARDS
+    }
+    public static STATE state_ = STATE.STATE_GAME_IDLING;
+
     private void Awake()
     {
         Delay_set_instance();
@@ -54,18 +86,16 @@ public class Empty : NetworkBehaviour
         //Debug.Log("CmdAddPlayer()");
         ServerAddPlayer(added_netId, added_name);
     }
-    //[Server]
-    //public void ServerSetName(string name)
-    //{
-    //    Debug.Log("[Server] 加入名 :" + name);
-    //    list_playerName.Add(name);
-    //    Debug.Log("[Server] list_playerName = " + GetContent_string(list_playerName));
-    //    RpcClearName();
-    //    for(int i=0;i<list_playerName.Count;i++)
-    //    {
-    //        RpcSetName(list_playerName[i]);
-    //    }
-    //}
+    [Command]
+    public void CmdStartGame()
+    {
+        ServerStartGame();
+    }
+    [Command]
+    public void CmdDiscardCard(GameObject card)
+    {
+        RpcDiscardCard(card);
+    }
     [Server]
     public void ServerAddPlayer(int added_netId, string added_name)
     {
@@ -86,7 +116,7 @@ public class Empty : NetworkBehaviour
         {
             RpcAddPlayer(list_netId[i], list_playerName[i]);
         }
-        PlayerManager.instance.RefreshPlayer(list_netId, list_playerName);
+        UIPlayerManager.instance.RefreshPlayer(list_netId, list_playerName);
         RpcRefreshPlayer();
         Debug.Log("[Server] list_netId = " + GetContent_int(list_netId));
         Debug.Log("[Server] list_playerName = " + GetContent_string(list_playerName));
@@ -124,16 +154,24 @@ public class Empty : NetworkBehaviour
             RpcAddPlayer(list_netId[i], list_playerName[i]) ;
         }
 
-        PlayerManager.instance.RefreshPlayer(list_netId, list_playerName);
+        UIPlayerManager.instance.RefreshPlayer(list_netId, list_playerName);
         RpcRefreshPlayer();
     }
-        
-    
-    //[Client]
-    //public void OnChange_count_player(int oldValue,int newValue)
-    //{
-    //Debug.Log("[Client] count_player = " + newValue);
-    //}
+    [Server]
+    public void ServerStartGame()
+    {
+        index_Round = 0;
+        init_draw_num = 4;
+        isSwitchHolder = false;
+        index_CurrentHolder = index_CurrentPlayer = 0;
+        ScoreCardManager.instance.RefillScoreCards();
+        HandCardManager.instance.RefillHandCards();
+        RpcInitialize(ScoreCardManager.list_index,HandCardManager.list_index);
+        for (int i = 0; i < list_netId.Count; i++)
+        {
+             RpcDrawScoreCards(list_netId[i]);////判空
+        }
+    }
     [ClientRpc]
     public void RpcClearPlayer()
     {
@@ -148,13 +186,61 @@ public class Empty : NetworkBehaviour
         list_playerName.Add(added_name);
         Debug.Log("[Client] list_netId = " + GetContent_int(list_netId));
     }
-
     [ClientRpc]
     public void RpcRefreshPlayer()
     {
-        PlayerManager.instance.RefreshPlayer(list_netId, list_playerName);
+        UIPlayerManager.instance.RefreshPlayer(list_netId, list_playerName);
     }
+    [ClientRpc]
+    public void RpcInitialize(List<int> list_index_ScoreCards,List<int> list_index_HandCards)
+    {
+        roundScore.Clear();
+        for (int j = 0; j < list_netId.Count; j++)
+        {
+            roundScore.Add(0);
+        }
+        ScoreCardManager.instance.RefreshScoreCards(list_index_ScoreCards);
+        HandCardManager.instance.RefreshHandCards(list_index_HandCards);
+        //GameCardManager.list_instance.RefillHandCards();
+        
+        
 
+
+    }
+    [ClientRpc]
+    public void RpcDrawScoreCards(int ID)
+    {
+        if(netId !=ID)
+        {
+            ScoreCardManager.instance.Sync_DrawOneCard();
+        }
+        else
+        {
+            ScoreCardManager.instance.DrawOneCard();
+        }
+    }
+    [ClientRpc]
+    public void RpcDiscardCard(GameObject card)
+    {
+        UIManager.instance.DiscardCard(card, new Vector2(Random.Range(-500f, 500f), Random.Range(-200f, 300f)), Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
+    }
+    [Client]
+    public void ClientAddPlayer(int added_netId,string added_name)
+    {
+        //Debug.Log("ClientAddPlayer  netId = " + netId + " || instance.netId = " + instance.netId);
+        Debug.Log("[Client] 加入 :" + added_netId + " " + added_name);
+        CmdAddPlayer(added_netId, added_name);
+    }
+    [Client]
+    public void ClientStartGame()
+    {
+        CmdStartGame();
+    }
+    [Client]
+    public void ClientDiscardCard(GameObject card)
+    {
+        CmdDiscardCard(card);
+    }
     public bool CheckRepeatedNetId(int checked_netId)
     {
         for(int i=0;i<list_netId.Count;i++)
@@ -162,30 +248,6 @@ public class Empty : NetworkBehaviour
             if (list_netId[i] == checked_netId) return true;
         }
         return false;
-    }
-    //[ClientRpc]
-    //public void RpcClearName()
-    //{
-    //    list_playerName.Clear();
-    //}
-    //[ClientRpc]
-    //void RpcSetName(string name)
-    //{
-    //    list_playerName.Add(name);
-    //    Debug.Log("[Client] list_playerName = " + GetContent_string(list_playerName));
-    //}
-    //[Client]
-    //public void OnChange_list_netId(List<int> oldValue, List<int> newValue)
-    //{
-    //    //Debug.Log("[Client] list_netId.Count = " + list_netId.Count);
-    //    //Debug.Log("[Client] list_netId = " + GetContent_int(newValue));
-    //}
-    [Client]
-    public void ClientAddPlayer(int added_netId,string added_name)
-    {
-        //Debug.Log("ClientAddPlayer  netId = " + netId + " || instance.netId = " + instance.netId);
-        Debug.Log("[Client] 加入 :" + added_netId + " " + added_name);
-        CmdAddPlayer(added_netId, added_name);
     }
     public string GetContent_int(List<int> list)
     {
@@ -252,33 +314,33 @@ public class Empty : NetworkBehaviour
     public void ServerAddPlayer(int added_netId)
     {
         Debug.Log("[Server] ServerAddPlayer()");
-        PlayerManager.list_netId.Add(added_netId);
-        PlayerManager.instance.RefreshPlayer();
+        UIPlayerManager.list_netId.Add(added_netId);
+        UIPlayerManager.instance.RefreshPlayer();
         //Debug.Log("isClient = " + isClient);
         //Debug.Log("isServer = " + isServer);
-        RpcAddPlayer(PlayerManager.list_netId);
+        RpcAddPlayer(UIPlayerManager.list_netId);
     }
     [Server]
     public void ServerRemovePlayer(int added_netId)
     {
         Debug.Log("[Server] ServerRemovePlayer()");
         int i = 0;
-        for (; i < PlayerManager.list_netId.Count; i++)
+        for (; i < UIPlayerManager.list_netId.Count; i++)
         {
-            if (PlayerManager.list_netId[i] == added_netId) break;
+            if (UIPlayerManager.list_netId[i] == added_netId) break;
         }
-        if (i == PlayerManager.list_netId.Count)
+        if (i == UIPlayerManager.list_netId.Count)
         {
             Debug.LogError("未找到id来删除!!");
             return;
         }
         //Debug.Log("i = " + i);
-        PlayerManager.list_netId.RemoveAt(i);
-        PlayerManager.instance.RefreshPlayer();
+        UIPlayerManager.list_netId.RemoveAt(i);
+        UIPlayerManager.instance.RefreshPlayer();
         
         Debug.Log("前 RpcRemovePlayer(i)--- Empty.instance = " + Empty.instance.name);
         TEST_2();
-        RpcRemovePlayer(PlayerManager.list_netId);
+        RpcRemovePlayer(UIPlayerManager.list_netId);
         Debug.Log("后 RpcRemovePlayer(i)--- Empty.instance = " + Empty.instance.name);
     }
     [ClientRpc]
@@ -291,8 +353,8 @@ public class Empty : NetworkBehaviour
     {
 
         Debug.Log("[Client] RpcAddPlayer()");
-        PlayerManager.instance.ClearPlayer();
-        PlayerManager.list_netId = list_netId;
+        UIPlayerManager.instance.ClearPlayer();
+        UIPlayerManager.list_netId = list_netId;
         //if (!temp_netID) Debug.LogError("TNND ");
         //if(!temp_player)
         //{
@@ -300,7 +362,7 @@ public class Empty : NetworkBehaviour
         //    Invoke(nameof(RpcAddPlayer), delay);
         //    return;
         //}
-        PlayerManager.instance.RefreshPlayer();
+        UIPlayerManager.instance.RefreshPlayer();
 
     }
 
@@ -310,15 +372,15 @@ public class Empty : NetworkBehaviour
     {
         //if (!temp_netID) Debug.LogError("TNND ");
         Debug.Log("[Client] RpcRemovePlayer()");
-        PlayerManager.list_netId = list_netId;
+        UIPlayerManager.list_netId = list_netId;
         //if(!temp_player)
         //{
         //    Debug.Log("DON'T have temp_player");
         //    Invoke(nameof(RpcAddPlayer), delay);
         //    return;
         //}
-        PlayerManager.instance.RefreshPlayer();
-        Debug.Log("list_netId.Count = " + PlayerManager.list_player.Count);
+        UIPlayerManager.instance.RefreshPlayer();
+        Debug.Log("list_netId.Count = " + UIPlayerManager.list_player.Count);
 
 
         ////MyNetworkManager.instance.My_OnServerDisconnect();

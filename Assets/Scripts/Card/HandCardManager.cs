@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
 public class HandCardManager : MonoBehaviour
 {
     public static HandCardManager instance;
     public int count_HandCard;//手牌总数（算重复）
     public List<HandCard> handCards_info;//种类+数量列表（不重复）
     public List<HandCard> handCardsPrefab = new List<HandCard>();//预制体列表（不重复）
-    public List<HandCard> handCardsStock = new List<HandCard>();//卡组仓库（重复）
+    public static List<HandCard> handCardsStock = new List<HandCard>();//卡组仓库（重复）
+
+    public static List<int> list_index = new();
+
     public Text text_CardNum;
-    public GameObject list_MyHandCard;
-    public GameObject scroll_GameCard;
-    public static List<GameObject> list_Scroll_MyHandCard = new List<GameObject>();
+    public GameObject content_MyHandCard;
     void Awake()
     {
         instance = this;
@@ -55,24 +54,40 @@ public class HandCardManager : MonoBehaviour
         }
     }
 
-    public void Initialize()
+    public void RefreshHandCards(List<int> list)
     {
-        for (int i = 1; i < list_MyHandCard.transform.childCount; i++)
+        count_HandCard = list.Count;
+        handCardsStock.Clear();
+        for (int i = 0; i < list.Count; i++)
         {
-            Destroy(list_MyHandCard.transform.GetChild(i).gameObject);
+            int index = -1;
+            for (int j = 0; j < handCards_info.Count; j++)
+            {
+                if (list[i] == handCards_info[j].index_Card)
+                {
+                    index = j;
+                    break;
+                }
+            }
+            handCardsStock.Add(handCards_info[index]);
         }
-        list_Scroll_MyHandCard.Clear();
-        for (int i = 0; i < GameManager.instance.count_Player; i++)
-        {
-            list_Scroll_MyHandCard.Add(Instantiate(scroll_GameCard, list_MyHandCard.transform));
-            
-            list_Scroll_MyHandCard[i].SetActive(false);
-        }
-        
-        RefillHandCards();
+        text_CardNum.text = count_HandCard.ToString();
     }
     public void RefillHandCards()
     {
+        /*
+        //for (int i = 1; i < list_MyHandCard.transform.childCount; i++)
+        //{
+        //    Destroy(list_MyHandCard.transform.GetChild(i).gameObject);
+        //}
+        //list_Scroll_MyHandCard.Clear();
+        //for (int i = 0; i < GameManager.instance.count_Player; i++)
+        //{
+        //    list_Scroll_MyHandCard.Add(Instantiate(scroll_GameCard, list_MyHandCard.transform));
+
+        //    list_Scroll_MyHandCard[i].SetActive(false);
+        //}
+        */
         count_HandCard = 0;
         for (int i = 0; i < handCards_info.Count; i++)//种类数
         {
@@ -88,6 +103,13 @@ public class HandCardManager : MonoBehaviour
         }
         text_CardNum.text = count_HandCard.ToString();
         handCardsStock = RandomList(handCardsStock);
+
+
+        list_index.Clear();
+        for (int i = 0; i < handCardsStock.Count; i++)
+        {
+            list_index.Add(handCardsStock[i].index_Card);
+        }
     }
 
     public List<T> RandomList<T>(List<T> inList)
@@ -112,10 +134,10 @@ public class HandCardManager : MonoBehaviour
     public void DrawOneCard(int index)
     {
         text_CardNum.text = (int.Parse(text_CardNum.text)-1).ToString();
-        HandCard p = Instantiate(handCardsStock[0], list_Scroll_MyHandCard[index].gameObject.transform.GetChild(0).GetChild(0));
+        HandCard p = Instantiate(handCardsStock[0],/*list_Scroll_MyHandCard[index]*/content_MyHandCard.transform);
         p.gameObject.SetActive(true);
         handCardsStock.RemoveAt(0);/////判断空
-        GameObject content_MyHandCard = list_Scroll_MyHandCard[index].gameObject.transform.GetChild(0).GetChild(0).gameObject;
+        //GameObject content_MyHandCard = /*list_Scroll_MyHandCard[index]*/scroll_GameCard.gameObject.transform.GetChild(0).GetChild(0).gameObject;
         int count = content_MyHandCard.transform.childCount;
         for (int i = 3;i<content_MyHandCard.transform.childCount;i++)
         {

@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour
         }
         else if(Input.GetKeyDown(InputManager.button_ChangePlayer))
         {
-            PlayerManager.index_CurrentPlayer = (PlayerManager.index_CurrentPlayer+1)% PlayerManager.list_player.Count;
+            UIPlayerManager.index_CurrentPlayer = (UIPlayerManager.index_CurrentPlayer+1)% UIPlayerManager.list_player.Count;
         }
         if (canChangebutton_A)
         {
