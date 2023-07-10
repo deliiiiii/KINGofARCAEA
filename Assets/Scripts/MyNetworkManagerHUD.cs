@@ -6,15 +6,12 @@ using UnityEngine;
 using UnityEngine.UI;
 public class MyNetworkManagerHUD : MonoBehaviour
 {
-    
 
     public MyNetworkManager manager;
-    float delay = 0.033f;
+    float delay = 0.2f;
     //float time_CheckState = 0.2f;
     //float timer_CheckState = 0f;
-    public string last_input_IP = string.Empty;
-    public string last_input_PlayerName = string.Empty;
-    public bool stop_ALL_delay = false;
+    //public bool stop_ALL_delay = false;
     public bool editedName = false;
     List<GameObject> gameObjects;
 
@@ -30,11 +27,10 @@ public class MyNetworkManagerHUD : MonoBehaviour
     public Button cancel_connection_attempt;
     public GameObject inputfield_PlayerName;
     public Text input_PlayerName;
-    public Button hereWeGo;
+    //public Button hereWeGo;
     void Awake()
     {
         manager = GetComponent<MyNetworkManager>();
-        manager.networkAddress = last_input_IP;
         gameObjects = new List<GameObject>()
         {
             inputfield_IP,
@@ -45,7 +41,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
             stop_Client.gameObject,
             cancel_connection_attempt.gameObject,
             inputfield_PlayerName,
-            hereWeGo.gameObject
+            //hereWeGo.gameObject
         };
 
         
@@ -59,24 +55,11 @@ public class MyNetworkManagerHUD : MonoBehaviour
         stop_Client.onClick.AddListener(CheckState);
         cancel_connection_attempt.onClick.AddListener(MyStopClient);
         cancel_connection_attempt.onClick.AddListener(CheckState);
-        hereWeGo.onClick.AddListener(HereWeGo);
+        //hereWeGo.onClick.AddListener(HereWeGo);
         CheckState();
     }
     void Update()
     {
-        if(!NetworkClient.isConnected)
-        {
-            editedName = false;
-            return;
-        }
-        if(NetworkClient.isConnected)
-        {
-            if (/*NetworkServer.isServer && */!editedName)
-            {
-                Delay_EditName();
-                editedName = true;
-            }
-        }
         
     }
 
@@ -110,6 +93,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
             start_Host.gameObject.SetActive(true);
             start_Client.gameObject.SetActive(true);
             inputfield_IP.SetActive(true);
+            inputfield_PlayerName.SetActive(true);
         }
         else
         {
@@ -147,11 +131,11 @@ public class MyNetworkManagerHUD : MonoBehaviour
     {
         if (!NetworkClient.active && (Application.platform != RuntimePlatform.WebGLPlayer))
         {
-            last_input_IP = manager.networkAddress = input_IP.text;
+            manager.networkAddress = input_IP.text;
             if (manager.networkAddress.Length == 0)
             {
-                Debug.Log("ø’µÿ÷∑!");
-                return;
+                manager.networkAddress = "localhost";
+                //return;
             }
 
             manager.StartHost();
@@ -161,14 +145,22 @@ public class MyNetworkManagerHUD : MonoBehaviour
     {
         if (!NetworkClient.active)
         {
-            last_input_IP = manager.networkAddress = input_IP.text;
-            if (manager.networkAddress .Length == 0)
+            manager.networkAddress = input_IP.text;
+            
+            if (manager.networkAddress.Length == 0)
             {
-                Debug.Log("ø’µÿ÷∑!");
+                manager.networkAddress = "localhost";
+                //return;
+            }
+            if (input_PlayerName.text.Length == 0)
+            {
+                Debug.Log("ø’–’√˚!");
                 return;
             }
+            
             manager.StartClient();
-            Delay_EditName();
+            Delay_HereWeGo();
+            
         }
     }
     void MyStopClient()
@@ -176,7 +168,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
         if(NetworkClient.active || (NetworkServer.active && NetworkClient.isConnected))
         {
             manager.StopClient();
-            stop_ALL_delay = true;
+            canvas.SetActive(false);
         }
     }
     void MyStopHost()
@@ -184,37 +176,59 @@ public class MyNetworkManagerHUD : MonoBehaviour
         if (NetworkServer.active && NetworkClient.isConnected)
         {
             manager.StopHost();
-            stop_ALL_delay = true;
         }
     }
-    void Delay_EditName()
+    //void Delay_EditName()
+    //{
+    //    if (stop_ALL_delay)
+    //    {
+    //        stop_ALL_delay = false;
+    //        return;
+    //    }
+    //    if (!Empty.instance)
+    //    {
+    //        //Debug.Log("Delay_EditName()");
+    //        Invoke(nameof(Delay_EditName), delay);
+    //        return; 
+    //    }
+        
+    //    Debug.Log("HUD ID = " + Empty.instance.netId);
+    //    EditName();
+    //}
+    //void EditName()
+    //{
+    //    if(Empty.instance.isServer) { return; }
+    //    ClearAll();
+    //    inputfield_PlayerName.SetActive(true);
+    //    stop_Client.gameObject.SetActive(true);
+    //    hereWeGo.gameObject.SetActive(true);
+    //}
+
+    void Delay_HereWeGo()
     {
-        if (stop_ALL_delay)
+        if(!NetworkClient.active)
         {
-            stop_ALL_delay = false;
+            //Debug.Log("Delay_HereWeGo()");
+            Invoke(nameof(Delay_HereWeGo), delay);
             return;
         }
-        if (!Empty.instance)
-        {
-            //Debug.Log("Delay_EditName()");
-            Invoke(nameof(Delay_EditName), delay);
-            return; 
-        }
-        
-        Debug.Log("HUD ID = " + Empty.instance.netId);
-        EditName();
-    }
-    void EditName()
-    {
-        if(Empty.instance.isServer) { return; }
-        ClearAll();
-        inputfield_PlayerName.SetActive(true);
-        stop_Client.gameObject.SetActive(true);
-        hereWeGo.gameObject.SetActive(true);
-    }
 
-    void HereWeGo()
+        Debug.Log("AddName()");
+        Delay_AddPlayer();
+        
+    }
+    void Delay_AddPlayer()
     {
-        Empty.instance.SetName(input_PlayerName.text);
+        if(!Empty.instance)
+        {
+            //Debug.Log("Delay_AddPlayer()");
+            Invoke(nameof(Delay_AddPlayer), delay);
+            return;
+        }
+        Debug.Log("ClientAddPlayer()");
+        Empty.instance.ClientAddPlayer((int)Empty.instance.netId, input_PlayerName.text);
+        ClearAll();
+        canvas.SetActive(true);
+        stop_Client.gameObject.SetActive(true);
     }
 }

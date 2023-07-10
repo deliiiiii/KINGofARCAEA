@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -7,7 +8,6 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
     public static List<Player> list_player_info = new List<Player>();
-    public static List<int> list_netId = new();
     public static List<GameObject> list_player = new();
     public GameObject playerPrefab;
 
@@ -19,10 +19,10 @@ public class PlayerManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        list_player_info.Clear();
-        list_player_info.Add(new Player(1, "Andy"));
-        list_player_info.Add(new Player(2, "Bob"));
-        list_player_info.Add(new Player(3, "F**k"));
+        //list_player_info.Clear();
+        //list_player_info.Add(new Player(1, "Andy"));
+        //list_player_info.Add(new Player(2, "Bob"));
+        //list_player_info.Add(new Player(3, "F**k"));
     }
 
     public void Initialize()
@@ -54,27 +54,33 @@ public class PlayerManager : MonoBehaviour
             Destroy(t_child.gameObject);
         }
     }
-    //public void ClearPlayer()
-    //{
-    //    list_netId.Clear();
-    //    list_player.Clear();
-    //}
-    //public void RefreshPlayer()
-    //{
-    //    Transform t_parent;
-    //    for (int i = 0; i < content_Player.t_parent.childCount; i++)
-    //    {
-    //        t_parent = content_Player.t_parent.GetChild(i);
-    //        Destroy(t_parent.gameObject);
-    //    }
-    //    list_player.Clear();
-    //    for (int i =0;i<list_netId.Count;i++)
-    //    {
-    //        Debug.Log("instantiate i = " + i);
-    //        playerPrefab.my_netID = list_netId[i];
-    //        list_player.Add(Instantiate(playerPrefab.gameObject, content_Player.t_parent).GetComponent<Player>());
-    //    }
-    //}
+
+    public void RefreshPlayer(List<int> list_netId,List<string> list_name)
+    {
+        //Transform t_parent;
+        //for (int i = 0; i < content_Player.transform.childCount; i++)
+        //{
+        //    t_parent = content_Player.transform.GetChild(i);
+        //    Destroy(t_parent.gameObject);
+        //}
+
+
+        for (int i = 0; i< content_Player.transform.childCount; i++)
+        {
+            Destroy(content_Player.transform.GetChild(i).gameObject);
+        }
+        
+        list_player.Clear();
+        for (int i = 0; i < list_netId.Count; i++)
+        {
+            Debug.Log("instantiate i = " + i);
+            playerPrefab.GetComponent<Player>().my_netID = list_netId[i];
+            playerPrefab.GetComponent<Player>().name_Player = list_name[i];
+            playerPrefab.GetComponent<Player>().text_Index_Player.text = (i+1).ToString();
+            playerPrefab.GetComponent<Player>().text_Name_Player.text = list_name[i];
+            list_player.Add(Instantiate(playerPrefab, content_Player.transform));
+        }
+    }
 
     //public void RemovePlayer(int netID)
     //{

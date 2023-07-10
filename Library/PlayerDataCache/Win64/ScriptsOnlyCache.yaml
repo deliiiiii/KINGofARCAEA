@@ -12,6 +12,7 @@ ScriptsOnlyBuild:
     - HandCardManager
     - InputManager
     - MyNetworkManager
+    - MyNetworkManagerHUD
     - Player
     - PlayerManager
     - ScoreCard
@@ -19,15 +20,10 @@ ScriptsOnlyBuild:
     - UIManager
     Mirror:
     - Mirror.NetworkIdentity
-    Mirror.Components:
-    - Mirror.NetworkTransformReliable
-    Mirror.Components.dll:
-    - Mirror.NetworkTransformReliable
     Mirror.Transports.dll:
     - Mirror.TelepathyTransport
     Mirror.dll:
     - Mirror.NetworkIdentity
-    - Mirror.NetworkManagerHUD
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Animation.Runtime.dll:
@@ -72,6 +68,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.HorizontalLayoutGroup
     - UnityEngine.UI.Image
+    - UnityEngine.UI.InputField
     - UnityEngine.UI.Mask
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
@@ -91,6 +88,9 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Button/ButtonClickedEvent
     - UnityEngine.UI.ColorBlock
     - UnityEngine.UI.FontData
+    - UnityEngine.UI.InputField/EndEditEvent
+    - UnityEngine.UI.InputField/OnChangeEvent
+    - UnityEngine.UI.InputField/SubmitEvent
     - UnityEngine.UI.MaskableGraphic/CullStateChangedEvent
     - UnityEngine.UI.Navigation
     - UnityEngine.UI.ScrollRect/ScrollRectEvent
@@ -221,43 +221,43 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2330}
     - Class: 114
-      Script: {instanceID: 2494}
+      Script: {instanceID: 2344}
     - Class: 114
-      Script: {instanceID: 2546}
+      Script: {instanceID: 2496}
     - Class: 114
-      Script: {instanceID: 2920}
+      Script: {instanceID: 2548}
     - Class: 114
-      Script: {instanceID: 3056}
+      Script: {instanceID: 2680}
     - Class: 114
-      Script: {instanceID: 3260}
+      Script: {instanceID: 2924}
     - Class: 114
-      Script: {instanceID: 3558}
+      Script: {instanceID: 3060}
     - Class: 114
-      Script: {instanceID: 3864}
+      Script: {instanceID: 3264}
     - Class: 114
-      Script: {instanceID: 3870}
+      Script: {instanceID: 3562}
     - Class: 114
-      Script: {instanceID: 4154}
+      Script: {instanceID: 3640}
     - Class: 114
-      Script: {instanceID: 4294}
+      Script: {instanceID: 3868}
     - Class: 114
-      Script: {instanceID: 4506}
+      Script: {instanceID: 3874}
     - Class: 114
-      Script: {instanceID: 5022}
+      Script: {instanceID: 4160}
     - Class: 114
-      Script: {instanceID: 5296}
+      Script: {instanceID: 4300}
     - Class: 114
-      Script: {instanceID: 5334}
+      Script: {instanceID: 4512}
     - Class: 114
-      Script: {instanceID: 5950}
+      Script: {instanceID: 5028}
     - Class: 114
-      Script: {instanceID: 6122}
+      Script: {instanceID: 5302}
     - Class: 114
-      Script: {instanceID: 6322}
+      Script: {instanceID: 5956}
     - Class: 114
-      Script: {instanceID: 6484}
+      Script: {instanceID: 6128}
     - Class: 114
-      Script: {instanceID: 6954}
+      Script: {instanceID: 6490}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -367,7 +367,7 @@ ScriptsOnlyBuild:
     className: CCDSolver2D
   - hash:
       serializedVersion: 2
-      Hash: af94840307ef601e6a9409539e2a2b10
+      Hash: 57d714d2cacf8b337b876e0bb251248a
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Empty
@@ -403,7 +403,7 @@ ScriptsOnlyBuild:
     className: GrandCard
   - hash:
       serializedVersion: 2
-      Hash: f586c51c6767fb782fe8d238d44835d6
+      Hash: e650133ffbc74f48de7640a4c2da0de3
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UIManager
@@ -469,6 +469,12 @@ ScriptsOnlyBuild:
     className: HandCardManager
   - hash:
       serializedVersion: 2
+      Hash: e773f57340a429ad40186549bebc56b9
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: MyNetworkManager
+  - hash:
+      serializedVersion: 2
       Hash: 751e5bae2a317288c2ab58d66687092b
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UIElements
@@ -527,6 +533,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.PixelPerfect
     namespaceName: UnityEngine.U2D
     className: CinemachinePixelPerfect
+  - hash:
+      serializedVersion: 2
+      Hash: 0d06518e4f826183b688d52aecf85080
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: MyNetworkManagerHUD
   - hash:
       serializedVersion: 2
       Hash: 6f67dd406ddfc18c9b3f8a90725c6266
@@ -763,6 +775,12 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
+      Hash: dea40da928ab64e9159e5b7f2009c2a5
+    assemblyName: Mirror
+    namespaceName: Mirror
+    className: NetworkManager
+  - hash:
+      serializedVersion: 2
       Hash: 751e5bae2a317288c2ab58d66687092b
     assemblyName: Assembly-CSharp
     namespaceName: 
@@ -877,7 +895,7 @@ ScriptsOnlyBuild:
     className: Dropdown
   - hash:
       serializedVersion: 2
-      Hash: c05894c3ec1d5b370ea3e44d710fa780
+      Hash: 0d0154e263a304afdca9329a40048d32
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: PlayerManager
@@ -1145,18 +1163,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.AI.Navigation
     namespaceName: Unity.AI.Navigation
     className: NavMeshLink
-  - hash:
-      serializedVersion: 2
-      Hash: c1c1d5190a1987fde489948990677425
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: MyNetworkManager
-  - hash:
-      serializedVersion: 2
-      Hash: dea40da928ab64e9159e5b7f2009c2a5
-    assemblyName: Mirror
-    namespaceName: Mirror
-    className: NetworkManager
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

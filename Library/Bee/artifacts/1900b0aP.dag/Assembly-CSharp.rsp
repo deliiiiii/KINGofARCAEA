@@ -344,6 +344,7 @@
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/InputManager.cs"
 "Assets/Scripts/MyNetworkManager.cs"
+"Assets/Scripts/MyNetworkManagerHUD.cs"
 "Assets/Scripts/Player.cs"
 "Assets/Scripts/PlayerManager.cs"
 "Assets/Scripts/UIManager.cs"

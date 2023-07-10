@@ -17,23 +17,23 @@ public class MyNetworkManager : NetworkManager
     {
         base.OnServerAddPlayer(conn);
         temp_netId = (int)conn.identity.netId;
-        Debug.Log("[Server] 加入 ID = " + temp_netId);
-        Delay_ServerAddPlayer();
+        //Debug.Log("[Server] 加入 ID = " + temp_netId);
+        //Delay_ServerAddPlayer();
     }
 
-    public void Delay_ServerAddPlayer()
-    {
-        if(!Empty.instance)
-        {
-            Invoke(nameof(Delay_ServerAddPlayer), delay);
-            return;
-        }
-        Empty.instance.ServerAddPlayer(temp_netId);
-    }
+    //public void Delay_ServerAddPlayer()
+    //{
+    //    if(!Empty.instance)
+    //    {
+    //        Invoke(nameof(Delay_ServerAddPlayer), delay);
+    //        return;
+    //    }
+    //    //Empty.instance.ServerAddPlayer(temp_netId);
+    //}
     public override void OnServerDisconnect(NetworkConnectionToClient conn)
     {
         temp_netId = (int)conn.identity.netId;
-        Debug.Log("[Server] 离开 ID = " + temp_netId);
+        //Debug.Log("[Server] 离开 ID = " + temp_netId);
         Delay_ServerRomovePlayer();
         base.OnServerDisconnect(conn);
     }
