@@ -94,5 +94,6 @@ public class UIPlayerManager : MonoBehaviour
         ////////GameManager.state = GameManager.Temp_STATE.STATE_DRAW_CARDS;
         Empty.instance.ClientDrawHandCards((int)Empty.instance.netId,2);
         ////////GameManager.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
+        Empty.instance.turnMove.Add(0);
     }
 }

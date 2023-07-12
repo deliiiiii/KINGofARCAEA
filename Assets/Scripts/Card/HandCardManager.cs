@@ -130,7 +130,18 @@ public class HandCardManager : MonoBehaviour
         inList = newList;
         return inList;
     }
-
+    public GameObject GetHandCardByIndex(int index)
+    {
+        for (int i = 0; i < handCardsPrefab.Count; i++)
+        {
+            if (handCardsPrefab[i].GetComponent<HandCard>().index_Card == index)
+            {
+                return handCardsPrefab[i];
+            }
+        }
+        Debug.LogError("未找到对应手牌");
+        return null;
+    }
     public void Sync_DrawOneCard()
     {
         count_HandCard -= 1;

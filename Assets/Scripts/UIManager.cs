@@ -29,9 +29,10 @@ public class UIManager : MonoBehaviour
     {
         if(canvas.activeSelf)
         {
+            Debug.Log("state_ " + GameManager.state_);
             switch (GameManager.state_)
             {
-
+                
                 case GameManager.Temp_STATE.STATE_YIELD_CARDS:
                     {
                         //button_YieldCard.gameObject.SetActive(true);
@@ -69,20 +70,29 @@ public class UIManager : MonoBehaviour
     }
     public void UIYieldCard()
     {
-        UIPlayerManager.list_player[UIPlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().YieldCard(UIPlayerManager.index_CurrentPlayer - 1);
+        Empty.instance.ClientYieldCard();
     }
     public void UIFinishYieldCard()
     {
         GameManager.state_ = GameManager.Temp_STATE.STATE_THROW_CARDS;
-        UIPlayerManager.list_player[UIPlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().ThrowCard_Judge(UIPlayerManager.index_CurrentPlayer - 1);
+        Empty.instance.Client_ThrowCard_Judge();
     }
     public void UIThrowCard()
     {
-        UIPlayerManager.list_player[UIPlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().ThrowCard(UIPlayerManager.index_CurrentPlayer - 1);
+        Empty.instance.ClientThrowCard();
     }
     public void DiscardScorecard(int index,Vector2 v, Quaternion q)//将牌放在弃牌区
     {
         GameObject temp = ScoreCardManager.instance.GetScoreCardByIndex(index);
+        temp = Instantiate(temp, panel_DiscardedCards.transform);
+        temp.GetComponent<Button>().interactable = false;
+        temp.transform.localPosition = v;
+        temp.transform.localRotation = q;
+        temp.SetActive(true);
+    }
+    public void DiscardHandcard(int index, Vector2 v, Quaternion q)//将牌放在弃牌区
+    {
+        GameObject temp = HandCardManager.instance.GetHandCardByIndex(index);
         temp = Instantiate(temp, panel_DiscardedCards.transform);
         temp.GetComponent<Button>().interactable = false;
         temp.transform.localPosition = v;

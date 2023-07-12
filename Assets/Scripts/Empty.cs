@@ -1,4 +1,5 @@
 using Mirror;
+//using System;
 using System.Collections.Generic;
 using Telepathy;
 using UnityEngine;
@@ -41,17 +42,18 @@ public class Empty : NetworkBehaviour
     /// <summary>
     /// Empty <- Player
     /// </summary>
-    public int totalScore;
+    public int index_in_listId;
+    //public int totalScore;
     public List<int> roundScore = new();////待添加
     public int totalMove;
     public List<int> turnMove = new();////待添加
-    public int count_HandCard;
-    public int count_RoundUsedCard;
-    public int count_TotalUsedCard;
+    //public int count_HandCard;
+    //public int count_RoundUsedCard;
+    //public int count_TotalUsedCard;
 
     public GameObject selectedCard;
     public GameObject scoreCard;
-    public List<GameObject> handCards = new();
+    //public List<GameObject> handCards = new();
 
 
     public float delay = 0.2f;
@@ -104,14 +106,34 @@ public class Empty : NetworkBehaviour
         RpcDiscardScoreCard(index);
     }
     [Command]
+    public void CmdDiscardHandCard(int onlineID,int index)
+    {
+        RpcDiscardHandCard(onlineID,index);
+    }
+    [Command]
     public void CmdDrawHandCards(int onlineID, int times)
     {
         RpcDrawHandCards(onlineID, times);
     }
     [Command]
+    public void CmdDrawScoreCard(int onlineID)
+    {
+        RpcDiscardScoreCard(onlineID);
+    }
+    [Command]
     public void CmdNewTurn()
     {
         ServerNewTurn();
+    }
+    [Command]
+    public void CmdYieldCard()
+    {
+        RpcYieldCard();
+    }
+    [Command]
+    public void CmdThrowCard()
+    {
+        RpcThrowCard();
     }
     [Server]
     public void ServerAddPlayer(int added_netId, string added_name)
@@ -123,7 +145,9 @@ public class Empty : NetworkBehaviour
         }
         //Debug.Log("ServerAddPlayer  netId = " + netId + " || instance.netId = " + instance.netId);
         if (added_netId == 1) return;
+        instance.index_in_listId = list_netId.Count;
         list_netId.Add(added_netId);
+        
         list_playerName.Add(added_name);
 
         
@@ -250,13 +274,14 @@ public class Empty : NetworkBehaviour
             if (index_CurrentPlayer == index_CurrentHolder)
             {
                 index_Circle++;
-                RpcSetCircleNum(index_Circle);
+                
             }
             if (index_Circle == 3)
             {
                 ServerNewRound();
                 return;
             }
+            RpcSetCircleNum(index_Circle);
         }
         RpcMyTurn(index_CurrentPlayer - 1);
     }
@@ -283,6 +308,8 @@ public class Empty : NetworkBehaviour
     public void RpcInitialize(List<int> list_index_ScoreCards,List<int> list_index_HandCards)
     {
         instance.roundScore.Clear();
+        instance.turnMove.Clear();
+        totalMove = 0;
         for (int j = 0; j < list_netId.Count; j++)
         {
             instance.roundScore.Add(0);
@@ -310,27 +337,39 @@ public class Empty : NetworkBehaviour
     [ClientRpc]
     public void RpcDrawHandCards(int onlineID,int times)
     {
-        if (instance.netId != onlineID)
+        int index = GetIndex_in_list_netId(onlineID);
+        //for (int i = 0; i < list_netId.Count; i++)
+        //{
+        //    if (list_netId[i] == onlineID)
+        //    {
+        //        index_Card = i;
+        //        break;
+        //    }
+        //}
+        for (int j = 0; j < times;j++)
         {
-            for(int j = 0; j < times;j++)
+            if (instance.netId != onlineID)
             {
                 HandCardManager.instance.Sync_DrawOneCard();
             }
-            
-        }
-        else
-        {
-            for (int j = 0; j < times; j++)
+            else
             {
                 HandCardManager.instance.DrawOneCard();
             }
-            
+            UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) + 1).ToString();
         }
     }
     [ClientRpc]
-    public void RpcDiscardScoreCard(int index)
+    public void RpcDiscardScoreCard(int index_Card)
     {
-        UIManager.instance.DiscardScorecard(index,new Vector2(Random.Range(-500f, 500f), Random.Range(-200f, 300f)), Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
+        UIManager.instance.DiscardScorecard(index_Card,new Vector2(Random.Range(-500f, 500f), Random.Range(-200f, 300f)), Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
+    }
+    [ClientRpc]
+    public void RpcDiscardHandCard(int onlineID,int index_Card)
+    {
+        int index_player = GetIndex_in_list_netId((int)onlineID);
+        UIPlayerManager.list_player[index_player].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index_player].GetComponent<Player>().Text_CardNum.text) - 1).ToString();
+        UIManager.instance.DiscardHandcard(index_Card, new Vector2(Random.Range(-500f, 500f), Random.Range(-200f, 300f)), Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
     }
     [ClientRpc]
     public void RpcSetHolder(int index, bool state)
@@ -345,6 +384,7 @@ public class Empty : NetworkBehaviour
     [ClientRpc]
     public void RpcMyTurn(int index)
     {
+        GameManager.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
         if (list_netId[index] == instance.netId)
         {
             UIPlayerManager.instance.MyTurn(index);
@@ -358,6 +398,97 @@ public class Empty : NetworkBehaviour
     public void RpcSetCircleNum(int num_circle)
     {
         UIManager.instance.text_CircleNum.text = num_circle.ToString();
+    }
+    [ClientRpc]
+    public void RpcYieldCard()
+    {
+        int index = GetIndex_in_list_netId((int)instance.netId);
+        selectedCard.GetComponent<HandCard>().CloseDetail();
+        Debug.Log("打出序号" + selectedCard.GetComponent<HandCard>().index_Card);
+        UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) - 1).ToString();
+
+        switch (selectedCard.GetComponent<HandCard>().index_Card)////手牌新增
+        {
+            case 1001://代打
+                Debug.Log("代打");
+                break;
+            case 1002://天下第一音游祭
+                Debug.Log("天下第一音游祭");
+                break;
+            case 1003://指点江山
+                Debug.Log("指点江山");
+                break;
+            case 1004://观看手元
+                Debug.Log("观看手元");
+                break;
+            case 1005://神之左手
+                Debug.Log("神之左手");
+                break;
+            case 1006://鬼之右手
+                Debug.Log("鬼之右手");
+                break;
+            case 1007://音游窝
+                Debug.Log("音游窝");
+                break;
+            case 1008://音游王
+                Debug.Log("音游王");
+                break;
+            case 1009://联机
+                Debug.Log("联机");
+                break;
+            case 1010://自来熟
+                Debug.Log("自来熟");
+                break;
+
+            case 2001://手癖
+                Debug.Log("手癖");
+                break;
+            case 2002://降噪耳机
+                Debug.Log("降噪耳机");
+                break;
+            case 2003://网络延迟
+                Debug.Log("网络延迟");
+                break;
+
+            case 3001://看铺
+                Debug.Log("看铺");
+                break;
+            case 3002://私人订制手台
+                Debug.Log("私人订制手台");
+                break;
+            case 3003://底力提升
+                Debug.Log("底力提升");
+                ClientDrawHandCards((int)instance.netId, 2);
+                //DrawHandCards(2, UIPlayerManager.index_CurrentPlayer - 1);
+                break;
+            case 3004://从头开始
+                Debug.Log("从头开始");
+                ClientDrawScoreCards((int)instance.netId);
+                //DrawScoreCards(1, UIPlayerManager.index_CurrentPlayer - 1);
+                break;
+        }
+
+        int count_turn = turnMove.Count;
+        turnMove[count_turn -1]++;
+        totalMove++;
+        if (turnMove[count_turn - 1] >= 3)
+        {
+            UIManager.instance.UIFinishYieldCard();
+        }
+
+        ClientDiscardHandCard((int)instance.netId,selectedCard.GetComponent<HandCard>().index_Card);
+        Destroy(selectedCard);
+    }
+    [ClientRpc]
+    public void RpcThrowCard()
+    {
+        int index = GetIndex_in_list_netId((int)instance.netId);
+        selectedCard.GetComponent<HandCard>().CloseDetail();
+        Debug.Log("丢弃序号" + selectedCard.GetComponent<HandCard>().index_Card);
+        UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) - 1).ToString();
+        ClientDiscardHandCard((int)instance.netId, selectedCard.GetComponent<HandCard>().index_Card);
+        Destroy(selectedCard);
+        Client_ThrowCard_Judge();
     }
     [Client]
     public void ClientAddPlayer(int added_netId,string added_name)
@@ -377,14 +508,126 @@ public class Empty : NetworkBehaviour
         CmdDiscardScoreCard(index);
     }
     [Client]
+    public void ClientDiscardHandCard(int onlineID,int index)
+    {
+        CmdDiscardHandCard(onlineID,index);
+    }
+    [Client]
     public void ClientDrawHandCards(int onlineID, int times)
     {
         CmdDrawHandCards(onlineID, times);
     }
     [Client]
+    public void ClientDrawScoreCards(int onlineID)
+    {
+        CmdDrawScoreCard(onlineID);
+    }
+    
     public void ClientNewTurn()
     {
         CmdNewTurn();
+    }
+    [Client]
+    public void ClientYieldCard()
+    {
+        //CmdYieldCard();
+        int index = GetIndex_in_list_netId((int)instance.netId);
+        selectedCard.GetComponent<HandCard>().CloseDetail();
+        Debug.Log("打出序号" + selectedCard.GetComponent<HandCard>().index_Card);
+        switch (selectedCard.GetComponent<HandCard>().index_Card)////手牌新增
+        {
+            case 1001://代打
+                Debug.Log("代打");
+                break;
+            case 1002://天下第一音游祭
+                Debug.Log("天下第一音游祭");
+                break;
+            case 1003://指点江山
+                Debug.Log("指点江山");
+                break;
+            case 1004://观看手元
+                Debug.Log("观看手元");
+                break;
+            case 1005://神之左手
+                Debug.Log("神之左手");
+                break;
+            case 1006://鬼之右手
+                Debug.Log("鬼之右手");
+                break;
+            case 1007://音游窝
+                Debug.Log("音游窝");
+                break;
+            case 1008://音游王
+                Debug.Log("音游王");
+                break;
+            case 1009://联机
+                Debug.Log("联机");
+                break;
+            case 1010://自来熟
+                Debug.Log("自来熟");
+                break;
+
+            case 2001://手癖
+                Debug.Log("手癖");
+                break;
+            case 2002://降噪耳机
+                Debug.Log("降噪耳机");
+                break;
+            case 2003://网络延迟
+                Debug.Log("网络延迟");
+                break;
+
+            case 3001://看铺
+                Debug.Log("看铺");
+                break;
+            case 3002://私人订制手台
+                Debug.Log("私人订制手台");
+                break;
+            case 3003://底力提升
+                Debug.Log("底力提升");
+                ClientDrawHandCards((int)instance.netId, 2);
+                //DrawHandCards(2, UIPlayerManager.index_CurrentPlayer - 1);
+                break;
+            case 3004://从头开始
+                Debug.Log("从头开始");
+                ClientDrawScoreCards((int)instance.netId);
+                //DrawScoreCards(1, UIPlayerManager.index_CurrentPlayer - 1);
+                break;
+        }
+
+        int count_turn = turnMove.Count;
+        turnMove[count_turn - 1]++;
+        totalMove++;
+        if (turnMove[count_turn - 1] >= 3)
+        {
+            UIManager.instance.UIFinishYieldCard();
+        }
+
+        ClientDiscardHandCard((int)instance.netId, selectedCard.GetComponent<HandCard>().index_Card);
+        Destroy(selectedCard);
+    }
+    [Client]
+    public void ClientThrowCard()
+    {
+        //CmdThrowCard();
+        int index = GetIndex_in_list_netId((int)instance.netId);
+        selectedCard.GetComponent<HandCard>().CloseDetail();
+        Debug.Log("丢弃序号" + selectedCard.GetComponent<HandCard>().index_Card);
+        ClientDiscardHandCard((int)instance.netId, selectedCard.GetComponent<HandCard>().index_Card);
+        Destroy(selectedCard);
+        Client_ThrowCard_Judge();
+    }
+    [Client]
+    public void Client_ThrowCard_Judge()
+    {
+
+        int index = GetIndex_in_list_netId((int)instance.netId);
+        Debug.Log("剩余手牌数 = " + UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text);
+        if (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) <= 4)
+        {
+            
+            ClientNewTurn();
+        }
     }
     public bool CheckRepeatedNetId(int checked_netId)
     {
@@ -415,7 +658,14 @@ public class Empty : NetworkBehaviour
         return a;
     }
 
-
+    public int GetIndex_in_list_netId(int netId)
+    {
+        for(int i=0;i<list_netId.Count;i++)
+        {
+            if(netId == list_netId[i]) return i;
+        }
+        return -1;
+    }
 
 
 
