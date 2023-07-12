@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Card\ScoreCardManager.cs" />
     <Compile Include="Assets\Scripts\Card\HandCardManager.cs" />
     <Compile Include="Assets\Scripts\Card\ScoreCard.cs" />
+    <Compile Include="Assets\Scripts\TestButton.cs" />
     <Compile Include="Assets\Scripts\UIPlayerManager.cs" />
     <Compile Include="Assets\Scripts\Card\GrandCard.cs" />
     <Compile Include="Assets\Scripts\MyNetworkManager.cs" />

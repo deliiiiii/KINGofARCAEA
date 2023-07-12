@@ -14,7 +14,6 @@ public class UIPlayerManager : MonoBehaviour
     public static int index_CurrentHolder = 0;//从1开始数
 
     public GameObject content_Player;
-    // Start is called before the first frame update
     void Awake()
     {
         instance = this;
@@ -68,44 +67,32 @@ public class UIPlayerManager : MonoBehaviour
         {
             Destroy(content_Player.transform.GetChild(i).gameObject);
         }
-        
+        list_player.Clear();
         for (int i = 0; i < list_netId.Count; i++)
         {
             playerPrefab.GetComponent<Player>().my_netID = list_netId[i];
             playerPrefab.GetComponent<Player>().text_Index_Player.text = (i+1).ToString();
             playerPrefab.GetComponent<Player>().name_Player = list_name[i];
             playerPrefab.GetComponent<Player>().text_Name_Player.text = list_name[i];
-            Instantiate(playerPrefab, content_Player.transform);
+            list_player.Add (Instantiate(playerPrefab, content_Player.transform));
         }
     }
 
-    //public void RemovePlayer(int netID)
-    //{
-    //    for(int i=0;i<list_player.Count;i++)
-    //    {
-    //        if (list_player[i].my_netID == netID)
-    //        {
-    //            //Debug.Log("删除id" + netID);
-    //            //Destroy(list_player[i].gameObject);
-    //            Destroy(content_Player.t_parent.GetChild(i).gameObject);
-    //            list_player.RemoveAt(i);
-    //            return;
-    //        }
-    //    }
-    //    Debug.LogError("没找到对应id来删除玩家！！");
-    //}
-    public void PassTurn()
+
+    public void PassTurn(int index)
     {
         //HandCardManager.list_Scroll_MyHandCard[index_CurrentPlayer - 1].SetActive(false);
-        list_player[index_CurrentPlayer - 1].GetComponent<Player>().image_MyTurn.SetActive(false);
+        list_player[index].GetComponent<Player>().image_MyTurn.SetActive(false);
     }
-    public void MyTurn()
+    public void Sync_MyTurn(int index)
     {
-        //HandCardManager.list_Scroll_MyHandCard[index_CurrentPlayer - 1].SetActive(true);
-        list_player[index_CurrentPlayer - 1].GetComponent<Player>().image_MyTurn.SetActive(true);
-        GameManager.state_ = GameManager.STATE.STATE_DRAW_CARDS;
-        list_player[index_CurrentPlayer - 1].GetComponent<Player>().DrawHandCards(2, index_CurrentPlayer - 1);
-        GameManager.state_ = GameManager.STATE.STATE_YIELD_CARDS;
-        list_player[index_CurrentPlayer - 1].GetComponent<Player>().turnMove.Add(0);
+        list_player[index].GetComponent<Player>().image_MyTurn.SetActive(true);
+    }
+    public void MyTurn(int index)
+    {
+        list_player[index].GetComponent<Player>().image_MyTurn.SetActive(true);
+        ////////GameManager.state = GameManager.Temp_STATE.STATE_DRAW_CARDS;
+        Empty.instance.ClientDrawHandCards((int)Empty.instance.netId,2);
+        ////////GameManager.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
     }
 }

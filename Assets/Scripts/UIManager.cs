@@ -8,8 +8,6 @@ public class UIManager : MonoBehaviour
     public GameObject canvas;
 
     public float delay = 0.2f;
-    public static int index_SelectedHandCard;
-    public static int index_Card_In_Hand;
     public GameObject panel_DiscardedCards;
     public Text text_NoticeThrowCard;
     public Text text_CircleNum;
@@ -34,7 +32,7 @@ public class UIManager : MonoBehaviour
             switch (GameManager.state_)
             {
 
-                case GameManager.STATE.STATE_YIELD_CARDS:
+                case GameManager.Temp_STATE.STATE_YIELD_CARDS:
                     {
                         //button_YieldCard.gameObject.SetActive(true);
                         button_FinishYieldCard.gameObject.SetActive(true);
@@ -42,7 +40,7 @@ public class UIManager : MonoBehaviour
                         text_NoticeThrowCard.gameObject.SetActive(false);
                         break;
                     }
-                case GameManager.STATE.STATE_THROW_CARDS:
+                case GameManager.Temp_STATE.STATE_THROW_CARDS:
                     {
                         //button_YieldCard.gameObject.SetActive(false);
                         button_FinishYieldCard.gameObject.SetActive(false);
@@ -67,7 +65,7 @@ public class UIManager : MonoBehaviour
     public void UIStartGame()
     {
         Empty.instance.ClientStartGame();
-        button_Start_Game.gameObject.SetActive(false);
+        //button_Start_Game.gameObject.SetActive(false);
     }
     public void UIYieldCard()
     {
@@ -75,28 +73,31 @@ public class UIManager : MonoBehaviour
     }
     public void UIFinishYieldCard()
     {
-        GameManager.state_ = GameManager.STATE.STATE_THROW_CARDS;
+        GameManager.state_ = GameManager.Temp_STATE.STATE_THROW_CARDS;
         UIPlayerManager.list_player[UIPlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().ThrowCard_Judge(UIPlayerManager.index_CurrentPlayer - 1);
     }
     public void UIThrowCard()
     {
         UIPlayerManager.list_player[UIPlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().ThrowCard(UIPlayerManager.index_CurrentPlayer - 1);
     }
-    public void CallClient_UIDiscardCard(GameObject card)
+    public void DiscardScorecard(int index,Vector2 v, Quaternion q)//将牌放在弃牌区
     {
-        Empty.instance.ClientDiscardCard(card);
-    }
-    public void DiscardCard(GameObject card,Vector2 v, Quaternion q)//将牌放在弃牌区
-    {
-        Empty.instance.ClientDiscardCard(card);
-        card = Instantiate(card, panel_DiscardedCards.transform);
-        card.GetComponent<Button>().interactable = false;
-        card.transform.localPosition = v;
-        card.transform.localRotation = q;
+        GameObject temp = ScoreCardManager.instance.GetScoreCardByIndex(index);
+        temp = Instantiate(temp, panel_DiscardedCards.transform);
+        temp.GetComponent<Button>().interactable = false;
+        temp.transform.localPosition = v;
+        temp.transform.localRotation = q;
+        temp.SetActive(true);
     }
     public void Delay_ShowStartGame()
     {
-        if(Empty.list_netId.Count == 0)
+        if(!Empty.instance)
+        {
+            Debug.Log("Delay_ShowStartGame()");
+            Invoke(nameof(Delay_ShowStartGame), delay);
+            return;
+        }
+        if (Empty.list_netId.Count == 0)
         {
             Debug.Log("Delay_ShowStartGame()");
             Invoke(nameof(Delay_ShowStartGame), delay);

@@ -8,8 +8,8 @@ public class HandCardManager : MonoBehaviour
     public static HandCardManager instance;
     public int count_HandCard;//手牌总数（算重复）
     public List<HandCard> handCards_info;//种类+数量列表（不重复）
-    public List<HandCard> handCardsPrefab = new List<HandCard>();//预制体列表（不重复）
-    public static List<HandCard> handCardsStock = new List<HandCard>();//卡组仓库（重复）
+    public List<GameObject> handCardsPrefab = new();//预制体列表（不重复）
+    public static List<GameObject> handCardsStock = new();//卡组仓库（重复）
 
     public static List<int> list_index = new();
 
@@ -46,11 +46,11 @@ public class HandCardManager : MonoBehaviour
     {
         for (int i = 0; i < handCards_info.Count; i++)////手牌新增属性
         {
-            handCardsPrefab[i].index_Card = handCards_info[i].index_Card;
-            handCardsPrefab[i].grossCount = handCards_info[i].grossCount;
-            handCardsPrefab[i].isAttackCard = handCards_info[i].isAttackCard;
-            handCardsPrefab[i].isExchangeCard = handCards_info[i].isExchangeCard;
-            handCardsPrefab[i].isTimingCard = handCards_info[i].isTimingCard;
+            handCardsPrefab[i].GetComponent<HandCard>().index_Card = handCards_info[i].index_Card;
+            handCardsPrefab[i].GetComponent<HandCard>().grossCount = handCards_info[i].grossCount;
+            handCardsPrefab[i].GetComponent<HandCard>().isAttackCard = handCards_info[i].isAttackCard;
+            handCardsPrefab[i].GetComponent<HandCard>().isExchangeCard = handCards_info[i].isExchangeCard;
+            handCardsPrefab[i].GetComponent<HandCard>().isTimingCard = handCards_info[i].isTimingCard;
         }
     }
 
@@ -69,7 +69,7 @@ public class HandCardManager : MonoBehaviour
                     break;
                 }
             }
-            handCardsStock.Add(handCards_info[index]);
+            handCardsStock.Add(handCardsPrefab[index]);
         }
         text_CardNum.text = count_HandCard.ToString();
     }
@@ -108,7 +108,7 @@ public class HandCardManager : MonoBehaviour
         list_index.Clear();
         for (int i = 0; i < handCardsStock.Count; i++)
         {
-            list_index.Add(handCardsStock[i].index_Card);
+            list_index.Add(handCardsStock[i].GetComponent<HandCard>().index_Card);
         }
     }
 
@@ -131,13 +131,25 @@ public class HandCardManager : MonoBehaviour
         return inList;
     }
 
-    public void DrawOneCard(int index)
+    public void Sync_DrawOneCard()
     {
-        text_CardNum.text = (int.Parse(text_CardNum.text)-1).ToString();
-        HandCard p = Instantiate(handCardsStock[0],/*list_Scroll_MyHandCard[index]*/content_MyHandCard.transform);
-        p.gameObject.SetActive(true);
+        count_HandCard -= 1;
+        text_CardNum.text = count_HandCard.ToString();
+        //
+        //
+        //
+        handCardsStock.RemoveAt(0);
+    }
+    public void DrawOneCard()
+    {
+        count_HandCard -= 1;
+        text_CardNum.text = count_HandCard.ToString();
+
+        GameObject temp = Instantiate(handCardsStock[0].gameObject, content_MyHandCard.transform);
+        temp.SetActive(true);
+
         handCardsStock.RemoveAt(0);/////判断空
-        //GameObject content_MyHandCard = /*list_Scroll_MyHandCard[index]*/scroll_GameCard.gameObject.transform.GetChild(0).GetChild(0).gameObject;
+
         int count = content_MyHandCard.transform.childCount;
         for (int i = 3;i<content_MyHandCard.transform.childCount;i++)
         {

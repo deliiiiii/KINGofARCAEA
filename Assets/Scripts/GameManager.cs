@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public bool isSwitchHolder;//换主持人
     public int init_draw_num;//初始手牌数
 
-    public enum STATE
+    public enum Temp_STATE
     {
         STATE_GAME_IDLING,
         STATE_GAME_STARTED,
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
         STATE_YIELD_CARDS,
         STATE_THROW_CARDS
     }
-    public static STATE state_ = STATE.STATE_GAME_IDLING;
+    public static Temp_STATE state_ = Temp_STATE.STATE_GAME_IDLING;
     void Awake()
     {
         instance = this;
@@ -36,19 +36,19 @@ public class GameManager : MonoBehaviour
     {
         switch (state_)
         {
-            case STATE.STATE_GAME_IDLING:
+            case Temp_STATE.STATE_GAME_IDLING:
                 break;
-            case STATE.STATE_GAME_STARTED:
+            case Temp_STATE.STATE_GAME_STARTED:
                 break;
-            case STATE.STATE_GAME_SUMMARY:
+            case Temp_STATE.STATE_GAME_SUMMARY:
                 break;
-            case STATE.STATE_DRAW_CARDS:
+            case Temp_STATE.STATE_DRAW_CARDS:
                 break;
-            case STATE.STATE_JUDGE_CARDS:
+            case Temp_STATE.STATE_JUDGE_CARDS:
                 break;
-            case STATE.STATE_YIELD_CARDS:
+            case Temp_STATE.STATE_YIELD_CARDS:
                 break;
-            case STATE.STATE_THROW_CARDS:
+            case Temp_STATE.STATE_THROW_CARDS:
                 break;
             default:
                 break;
@@ -67,83 +67,83 @@ public class GameManager : MonoBehaviour
         //GameCardManager.list_instance.RefillHandCards();
     }
 
-    public void StartGame()
-    {
-        Initialize();
-        state_ = STATE.STATE_GAME_STARTED;
-        NewRound();//0代表第一局之前
-    }
-    public void NewRound()
-    {
-        instance.index_Round++;
-        instance.index_Circle = 1;
-        instance.isSwitchHolder = true;
-        UIManager.instance.text_CircleNum.text = instance.index_Circle.ToString();
-        if (instance.index_Round == 1)//第一局之前
-        {
-            UIPlayerManager.index_CurrentHolder = 1;
-            UIPlayerManager.list_player[UIPlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(true);
-            for (int i = 0; i < instance.count_Player; i++)
-            {
-                UIPlayerManager.list_player[i].GetComponent<Player>().DrawHandCards(4,i);
-                UIPlayerManager.list_player[i].GetComponent<Player>().DrawScoreCards(1,i);
-            }
+    //public void StartGame()
+    //{
+    //    Initialize();
+    //    state_ = Temp_STATE.STATE_GAME_STARTED;
+    //    NewRound();
+    //}
+    //public void NewRound()
+    //{
+    //    instance.index_Round++;
+    //    instance.index_Circle = 1;
+    //    instance.isSwitchHolder = true;
+    //    UIManager.instance.text_CircleNum.text = instance.index_Circle.ToString();
+    //    if (instance.index_Round == 1)//第一局之前
+    //    {
+    //        UIPlayerManager.index_CurrentHolder = 1;
+    //        UIPlayerManager.list_player[UIPlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(true);
+    //        for (int i = 0; i < instance.count_Player; i++)
+    //        {
+    //            UIPlayerManager.list_player[i].GetComponent<Player>().DrawHandCards(4,i);
+    //            UIPlayerManager.list_player[i].GetComponent<Player>().DrawScoreCards(1,i);
+    //        }
             
-        }
-        else
-        {
-            UIPlayerManager.list_player[UIPlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(false);
-            UIPlayerManager.index_CurrentHolder++;
-            if (UIPlayerManager.index_CurrentHolder > instance.count_Player)
-            {
-                SummaryGame();
-                return;
-            }
-            UIPlayerManager.list_player[UIPlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(true);
-        }
+    //    }
+    //    else
+    //    {
+    //        UIPlayerManager.list_player[UIPlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(false);
+    //        UIPlayerManager.index_CurrentHolder++;
+    //        if (UIPlayerManager.index_CurrentHolder > instance.count_Player)
+    //        {
+    //            SummaryGame();
+    //            return;
+    //        }
+    //        UIPlayerManager.list_player[UIPlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(true);
+    //    }
         
-        NewTurn();
-        instance.isSwitchHolder = false;
-    }
-    public void NewTurn()
-    {
-        if(instance.isSwitchHolder)
-        {
-            if (instance.index_Round == 1)//第一局
-            {
-                UIPlayerManager.index_CurrentPlayer = 1;
-            }
-            else if (instance.index_Round != 1)//非第一局
-            {
-                UIPlayerManager.instance.PassTurn();
-                UIPlayerManager.index_CurrentPlayer = UIPlayerManager.index_CurrentHolder;
-            }
-        }
-        else
-        {
-            UIPlayerManager.instance.PassTurn();
-            UIPlayerManager.index_CurrentPlayer++;
-            if (UIPlayerManager.index_CurrentPlayer > instance.count_Player)
-            {
-                UIPlayerManager.index_CurrentPlayer = 1;
-            }
-            if (UIPlayerManager.index_CurrentPlayer == UIPlayerManager.index_CurrentHolder)
-            {
-                instance.index_Circle++;
-                UIManager.instance.text_CircleNum.text = instance.index_Circle.ToString();
-            }
-            if (instance.index_Circle == 3)
-            {
-                NewRound();
-                return;
-            }
-        }
-        UIPlayerManager.instance.MyTurn();
-    }
+    //    NewTurn();
+    //    instance.isSwitchHolder = false;
+    //}
+    //public void NewTurn()
+    //{
+    //    if(instance.isSwitchHolder)
+    //    {
+    //        if (instance.index_Round == 1)//第一局
+    //        {
+    //            UIPlayerManager.index_CurrentPlayer = 1;
+    //        }
+    //        else if (instance.index_Round != 1)//非第一局
+    //        {
+    //            UIPlayerManager.instance.PassTurn();
+    //            UIPlayerManager.index_CurrentPlayer = UIPlayerManager.index_CurrentHolder;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        UIPlayerManager.instance.PassTurn();
+    //        UIPlayerManager.index_CurrentPlayer++;
+    //        if (UIPlayerManager.index_CurrentPlayer > instance.count_Player)
+    //        {
+    //            UIPlayerManager.index_CurrentPlayer = 1;
+    //        }
+    //        if (UIPlayerManager.index_CurrentPlayer == UIPlayerManager.index_CurrentHolder)
+    //        {
+    //            instance.index_Circle++;
+    //            UIManager.instance.text_CircleNum.text = instance.index_Circle.ToString();
+    //        }
+    //        if (instance.index_Circle == 3)
+    //        {
+    //            NewRound();
+    //            return;
+    //        }
+    //    }
+    //    UIPlayerManager.instance.MyTurn();
+    //}
     
     public void SummaryGame()
     {
-        state_ = STATE.STATE_GAME_SUMMARY;
+        state_ = Temp_STATE.STATE_GAME_SUMMARY;
         Debug.Log("GAME OVER !!!");
     }
 }

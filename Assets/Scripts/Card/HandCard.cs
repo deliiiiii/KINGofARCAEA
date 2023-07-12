@@ -23,11 +23,12 @@ public class HandCard : GrandCard
 
     public void ShowDetail()
     {
-        UIPlayerManager.list_player[UIPlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().selectedCard = gameObject;
+        Empty.instance.selectedCard = gameObject;
+        //UIPlayerManager.list_player[UIPlayerManager.index_CurrentPlayer - 1].GetComponent<Player>().selectedCard = gameObject;
         panel_HandCardDetail.SetActive(true);
         image_HandCard.sprite = gameObject.GetComponent<Image>().sprite;
-        UIManager.index_SelectedHandCard = gameObject.GetComponent<HandCard>().index_Card;
-        UIManager.index_Card_In_Hand = gameObject.transform.GetSiblingIndex();
+        //UIManager.index_SelectedHandCard = gameObject.GetComponent<HandCard>().index_Card;
+        //UIManager.index_Card_In_Hand = gameObject.transform.GetSiblingIndex();
     }
     public void CloseDetail()
     {

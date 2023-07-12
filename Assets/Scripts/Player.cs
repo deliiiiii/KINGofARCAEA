@@ -46,7 +46,7 @@ public class Player : NetworkBehaviour
         Debug.Log("index " + index + " draw " + num + "hand cards");
         for(int i=0;i<num;i++)
         {
-            HandCardManager.instance.DrawOneCard(index);
+            ///////HandCardManager.instance.DrawOneCard(index);
             UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text =  (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text)+1).ToString();
         }
     }
@@ -131,7 +131,7 @@ public class Player : NetworkBehaviour
             UIManager.instance.UIFinishYieldCard();
         }
 
-        UIManager.instance.CallClient_UIDiscardCard(selectedCard);
+        ///////UIManager.instance.CallClient_UIDiscardCard(selectedCard);
         Destroy(selectedCard);
     }
     
@@ -139,7 +139,7 @@ public class Player : NetworkBehaviour
     {
         if(int.Parse(Text_CardNum.text) <= 4)
         {
-            GameManager.instance.NewTurn();
+            Empty.instance.ClientNewTurn();
         }
     }
     public void ThrowCard(int index)
@@ -147,7 +147,7 @@ public class Player : NetworkBehaviour
         selectedCard.GetComponent<HandCard>().CloseDetail();
         Debug.Log("¶ªÆúÐòºÅ" + selectedCard.GetComponent<HandCard>().index_Card);
         UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) - 1).ToString();
-        UIManager.instance.CallClient_UIDiscardCard(selectedCard);
+        ///////UIManager.instance.CallClient_UIDiscardCard(selectedCard);
         Destroy(selectedCard);
         ThrowCard_Judge(index);
     }

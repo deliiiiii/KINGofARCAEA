@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Mirror;
+using System.Collections.Generic;
 using Telepathy;
-using Unity.Collections.LowLevel.Unsafe;
-using System.Linq;
-using System.Data.Common;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Empty : NetworkBehaviour
@@ -16,35 +12,46 @@ public class Empty : NetworkBehaviour
     public static List<string> list_playerName = new();//玩家姓名列表
 
 
-    public static int index_Round;//局数，1局 = 2轮
-    public static int index_Circle;//轮数
+    /// <summary>
+    /// Empty <- GameManager
+    /// </summary>
+    public enum Temp_STATE
+    {
+        STATE_GAME_IDLING,
+        STATE_GAME_STARTED,
+        STATE_GAME_SUMMARY,
+        STATE_DRAW_CARDS,
+        STATE_JUDGE_CARDS,
+        STATE_YIELD_CARDS,
+        STATE_THROW_CARDS
+    }
+    public static Temp_STATE state_ = Temp_STATE.STATE_GAME_IDLING;
+    public static int index_Round;//局数，1局 = 2圈
+    public static int index_Circle;//圈数
     public static bool isSwitchHolder;//换主持人
     public static int init_draw_num;//初始手牌数
 
-
+    /// <summary>
+    /// Empty <- UIPlayerManager
+    /// </summary>
     public static int index_CurrentPlayer = 0;//从1开始数
     public static int index_CurrentHolder = 0;//从1开始数
 
-    public int my_netID;
-    public int listID;
+
+    /// <summary>
+    /// Empty <- Player
+    /// </summary>
     public int totalScore;
     public List<int> roundScore = new();////待添加
     public int totalMove;
     public List<int> turnMove = new();////待添加
-
     public int count_HandCard;
     public int count_RoundUsedCard;
     public int count_TotalUsedCard;
-    public int index_Player;
-    public Text text_Index_Player;
-    public string name_Player;
-    public Text text_Name_Player;
-    public Text Text_CardNum;
-    public GameObject image_Holder;
-    public GameObject image_MyTurn;
+
     public GameObject selectedCard;
     public GameObject scoreCard;
-
+    public List<GameObject> handCards = new();
 
 
     public float delay = 0.2f;
@@ -60,7 +67,7 @@ public class Empty : NetworkBehaviour
         STATE_YIELD_CARDS,
         STATE_THROW_CARDS
     }
-    public static STATE state_ = STATE.STATE_GAME_IDLING;
+    public static STATE state = STATE.STATE_GAME_IDLING;
 
     private void Awake()
     {
@@ -92,9 +99,19 @@ public class Empty : NetworkBehaviour
         ServerStartGame();
     }
     [Command]
-    public void CmdDiscardCard(GameObject card)
+    public void CmdDiscardScoreCard(int index)
     {
-        RpcDiscardCard(card);
+        RpcDiscardScoreCard(index);
+    }
+    [Command]
+    public void CmdDrawHandCards(int onlineID, int times)
+    {
+        RpcDrawHandCards(onlineID, times);
+    }
+    [Command]
+    public void CmdNewTurn()
+    {
+        ServerNewTurn();
     }
     [Server]
     public void ServerAddPlayer(int added_netId, string added_name)
@@ -160,17 +177,88 @@ public class Empty : NetworkBehaviour
     [Server]
     public void ServerStartGame()
     {
+        state = STATE.STATE_GAME_STARTED;
         index_Round = 0;
         init_draw_num = 4;
         isSwitchHolder = false;
         index_CurrentHolder = index_CurrentPlayer = 0;
+
         ScoreCardManager.instance.RefillScoreCards();
         HandCardManager.instance.RefillHandCards();
         RpcInitialize(ScoreCardManager.list_index,HandCardManager.list_index);
-        for (int i = 0; i < list_netId.Count; i++)
+
+        ServerNewRound();
+        
+    }
+    [Server]
+    public void ServerNewRound()
+    {
+        index_Round++;
+        index_Circle = 1;
+        isSwitchHolder = true;
+        UIManager.instance.text_CircleNum.text = index_Circle.ToString();
+        if (index_Round == 1)//第一局之前
         {
-             RpcDrawScoreCards(list_netId[i]);////判空
+            index_CurrentHolder = 1;
+            RpcSetHolder(index_CurrentHolder-1,true);
+
+            for (int i = 0; i < list_netId.Count; i++)
+            {
+                RpcDrawScoreCard(list_netId[i]);////判空
+                RpcDrawHandCards(list_netId[i], init_draw_num);////判空
+            }
+
         }
+        else
+        {
+            RpcSetHolder(index_CurrentHolder - 1, false);
+            index_CurrentHolder++;
+            if (index_CurrentHolder > list_netId.Count)
+            {
+                ///////SummaryGame();
+                return;
+            }
+            RpcSetHolder(index_CurrentHolder - 1, true);
+        }
+
+        ServerNewTurn();
+        isSwitchHolder = false;
+    }
+    [Server]
+    public void ServerNewTurn()
+    {
+        if (isSwitchHolder)
+        {
+            if (index_Round == 1)//第一局
+            {
+                index_CurrentPlayer = 1;
+            }
+            else if (index_Round != 1)//非第一局
+            {
+                RpcPassTurn(index_CurrentPlayer - 1);
+                index_CurrentPlayer = index_CurrentHolder;
+            }
+        }
+        else
+        {
+            RpcPassTurn(index_CurrentPlayer - 1);
+            index_CurrentPlayer++;
+            if (index_CurrentPlayer > list_netId.Count)
+            {
+                index_CurrentPlayer = 1;
+            }
+            if (index_CurrentPlayer == index_CurrentHolder)
+            {
+                index_Circle++;
+                RpcSetCircleNum(index_Circle);
+            }
+            if (index_Circle == 3)
+            {
+                ServerNewRound();
+                return;
+            }
+        }
+        RpcMyTurn(index_CurrentPlayer - 1);
     }
     [ClientRpc]
     public void RpcClearPlayer()
@@ -194,10 +282,10 @@ public class Empty : NetworkBehaviour
     [ClientRpc]
     public void RpcInitialize(List<int> list_index_ScoreCards,List<int> list_index_HandCards)
     {
-        roundScore.Clear();
+        instance.roundScore.Clear();
         for (int j = 0; j < list_netId.Count; j++)
         {
-            roundScore.Add(0);
+            instance.roundScore.Add(0);
         }
         ScoreCardManager.instance.RefreshScoreCards(list_index_ScoreCards);
         HandCardManager.instance.RefreshHandCards(list_index_HandCards);
@@ -208,9 +296,9 @@ public class Empty : NetworkBehaviour
 
     }
     [ClientRpc]
-    public void RpcDrawScoreCards(int ID)
+    public void RpcDrawScoreCard(int onlineID)
     {
-        if(netId !=ID)
+        if (instance.netId !=onlineID)
         {
             ScoreCardManager.instance.Sync_DrawOneCard();
         }
@@ -220,9 +308,56 @@ public class Empty : NetworkBehaviour
         }
     }
     [ClientRpc]
-    public void RpcDiscardCard(GameObject card)
+    public void RpcDrawHandCards(int onlineID,int times)
     {
-        UIManager.instance.DiscardCard(card, new Vector2(Random.Range(-500f, 500f), Random.Range(-200f, 300f)), Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
+        if (instance.netId != onlineID)
+        {
+            for(int j = 0; j < times;j++)
+            {
+                HandCardManager.instance.Sync_DrawOneCard();
+            }
+            
+        }
+        else
+        {
+            for (int j = 0; j < times; j++)
+            {
+                HandCardManager.instance.DrawOneCard();
+            }
+            
+        }
+    }
+    [ClientRpc]
+    public void RpcDiscardScoreCard(int index)
+    {
+        UIManager.instance.DiscardScorecard(index,new Vector2(Random.Range(-500f, 500f), Random.Range(-200f, 300f)), Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
+    }
+    [ClientRpc]
+    public void RpcSetHolder(int index, bool state)
+    {
+        UIPlayerManager.list_player[index].GetComponent<Player>().image_Holder.SetActive(state);
+    }
+    [ClientRpc]
+    public void RpcPassTurn(int index)
+    {
+        UIPlayerManager.instance.PassTurn(index);
+    }
+    [ClientRpc]
+    public void RpcMyTurn(int index)
+    {
+        if (list_netId[index] == instance.netId)
+        {
+            UIPlayerManager.instance.MyTurn(index);
+        }
+        else
+        {
+            UIPlayerManager.instance.Sync_MyTurn(index);
+        }
+    }
+    [ClientRpc]
+    public void RpcSetCircleNum(int num_circle)
+    {
+        UIManager.instance.text_CircleNum.text = num_circle.ToString();
     }
     [Client]
     public void ClientAddPlayer(int added_netId,string added_name)
@@ -237,9 +372,19 @@ public class Empty : NetworkBehaviour
         CmdStartGame();
     }
     [Client]
-    public void ClientDiscardCard(GameObject card)
+    public void ClientDiscardScoreCard(int index)
     {
-        CmdDiscardCard(card);
+        CmdDiscardScoreCard(index);
+    }
+    [Client]
+    public void ClientDrawHandCards(int onlineID, int times)
+    {
+        CmdDrawHandCards(onlineID, times);
+    }
+    [Client]
+    public void ClientNewTurn()
+    {
+        CmdNewTurn();
     }
     public bool CheckRepeatedNetId(int checked_netId)
     {

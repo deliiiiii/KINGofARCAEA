@@ -21,9 +21,9 @@ public class ScoreCardManager : MonoBehaviour
         instance = this;
         scoreCards_info = new List<ScoreCard>()
         {
-            new ScoreCard(1,3,6),//完美收割
-            new ScoreCard(2,1,5),//轻松全连
-            new ScoreCard(3,0,5),//遗憾离场
+            new ScoreCard(101,3,6),//完美收割
+            new ScoreCard(102,1,5),//轻松全连
+            new ScoreCard(103,0,5),//遗憾离场
         };
     }
     void Start()
@@ -101,6 +101,20 @@ public class ScoreCardManager : MonoBehaviour
         return inList;
     }
 
+    public GameObject GetScoreCardByIndex(int index)
+    {
+        for(int i=0;i<scoreCardsPrefab.Count;i++)
+        {
+            if (scoreCardsPrefab[i].GetComponent<ScoreCard>().index_Card == index)
+            {
+                return scoreCardsPrefab[i];
+            }
+        }
+        Debug.LogError("未找到对应分数牌");
+        return null;
+    }
+
+
     public void Sync_DrawOneCard()
     {
         count_ScoreCard -= 1;
@@ -113,18 +127,19 @@ public class ScoreCardManager : MonoBehaviour
     public void DrawOneCard()
     {
         count_ScoreCard -= 1;
-        text_CardNum.text = (int.Parse(text_CardNum.text) - 1).ToString();
-        //if (Empty.instance.scoreCard)
-        //{
-        //    UIManager.instance.CallClient_UIDiscardCard(Empty.instance.scoreCard.gameObject);
-        //    //Destroy(UIPlayerManager.list_player[index].GetComponent<Player>().scoreCard);
-        //}
-        Debug.Log(scoreCardsStock[0].GetComponent<ScoreCard>().index_Card);
-        //Debug.Log(scoreCardsStock[0].gameObject.name);
+        text_CardNum.text = count_ScoreCard.ToString();
+        if (Empty.instance.scoreCard)
+        {
+            Debug.Log(Empty.instance.scoreCard.gameObject.name);
+            Empty.instance.ClientDiscardScoreCard(Empty.instance.scoreCard.GetComponent<ScoreCard>().index_Card);
+            Destroy(Empty.instance.scoreCard);
+            //Destroy(UIPlayerManager.list_player[index].GetComponent<Player>().scoreCard);
+        }
+
         
         Empty.instance.scoreCard = Instantiate(scoreCardsStock[0].gameObject, panel_MyScoreCard.transform);
         Empty.instance.scoreCard.SetActive(true);
-        //UIPlayerManager.list_player[index].GetComponent<Player>().scoreCard.gameObject.SetActive(true);
+
         scoreCardsStock.RemoveAt(0);/////判断空
     }
 }
