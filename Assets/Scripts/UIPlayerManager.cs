@@ -43,15 +43,8 @@ public class UIPlayerManager : MonoBehaviour
             //list_player[i] = Instantiate(list_player[i],content_Player.transform);
         //}
     //}
-    public void ClearChild(Transform t_parent)
-    {
-        Transform t_child;
-        for (int i = 0; i < t_parent.transform.childCount; i++)
-        {
-            t_child = t_parent.transform.GetChild(i);
-            Destroy(t_child.gameObject);
-        }
-    }
+
+    
 
     public void RefreshPlayer(List<int> list_netId,List<string> list_name)
     {

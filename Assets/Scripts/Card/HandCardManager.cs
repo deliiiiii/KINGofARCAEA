@@ -155,7 +155,7 @@ public class HandCardManager : MonoBehaviour
     {
         count_HandCard -= 1;
         text_CardNum.text = count_HandCard.ToString();
-
+        Empty.instance.count_MyHandCard++;
         GameObject temp = Instantiate(handCardsStock[0].gameObject, content_MyHandCard.transform);
         temp.SetActive(true);
 

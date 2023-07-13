@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public GameObject canvas;
 
     public float delay = 0.2f;
+    public GameObject content_MyHandCard;
     public GameObject panel_DiscardedCards;
     public Text text_NoticeThrowCard;
     public Text text_CircleNum;
@@ -15,6 +16,8 @@ public class UIManager : MonoBehaviour
     public Button button_YieldCard;//打出按钮
     public Button button_FinishYieldCard;//结束出牌按钮
     public Button button_ThrowCard;//结束出牌按钮
+
+    
     private void Awake()
     {
         instance = this;
@@ -29,24 +32,43 @@ public class UIManager : MonoBehaviour
     {
         if(canvas.activeSelf)
         {
-            Debug.Log("state_ " + GameManager.state_);
+
             switch (GameManager.state_)
             {
                 
                 case GameManager.Temp_STATE.STATE_YIELD_CARDS:
                     {
-                        //button_YieldCard.gameObject.SetActive(true);
-                        button_FinishYieldCard.gameObject.SetActive(true);
+                        if((Empty.index_CurrentPlayer - 1) == Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId))
+                        {
+                            button_YieldCard.gameObject.SetActive(true);
+                            button_FinishYieldCard.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            button_YieldCard.gameObject.SetActive(false);
+                            button_FinishYieldCard.gameObject.SetActive(false);
+                        }
+                        
+                        
                         button_ThrowCard.gameObject.SetActive(false);
                         text_NoticeThrowCard.gameObject.SetActive(false);
                         break;
                     }
                 case GameManager.Temp_STATE.STATE_THROW_CARDS:
                     {
-                        //button_YieldCard.gameObject.SetActive(false);
+                        if ((Empty.index_CurrentPlayer - 1) == Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId))
+                        {
+                            button_ThrowCard.gameObject.SetActive(true);
+                            text_NoticeThrowCard.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            button_ThrowCard.gameObject.SetActive(false);
+                            text_NoticeThrowCard.gameObject.SetActive(false);
+                        }
+                        button_YieldCard.gameObject.SetActive(false);
                         button_FinishYieldCard.gameObject.SetActive(false);
-                        button_ThrowCard.gameObject.SetActive(true);
-                        text_NoticeThrowCard.gameObject.SetActive(true);
+                        
                         //Debug.Log("THROW CARDS !!!");
                         break;
                     }
@@ -75,7 +97,7 @@ public class UIManager : MonoBehaviour
     public void UIFinishYieldCard()
     {
         GameManager.state_ = GameManager.Temp_STATE.STATE_THROW_CARDS;
-        Empty.instance.Client_ThrowCard_Judge();
+        Empty.instance.Client_ThrowCard_Judge((int)Empty.instance.netId);
     }
     public void UIThrowCard()
     {
@@ -99,6 +121,30 @@ public class UIManager : MonoBehaviour
         temp.transform.localRotation = q;
         temp.SetActive(true);
     }
+
+    public void ClearHandCards_and_ScoreCard()
+    {
+        ClearChild(content_MyHandCard.transform);
+        if (Empty.instance.scoreCard)
+        {
+            Destroy(Empty.instance.scoreCard);
+            Empty.instance.scoreCard = null;
+        }
+           
+    }
+    public void ClearChild(Transform t_parent)
+    {
+        Transform t_child;
+
+        for (int i = 0; i < t_parent.transform.childCount; i++)
+        {
+            t_child = t_parent.transform.GetChild(i);
+            //Destroy(t_child.gameObject);
+            t_child.gameObject.SetActive(false);
+        }
+
+    }
+
     public void Delay_ShowStartGame()
     {
         if(!Empty.instance)

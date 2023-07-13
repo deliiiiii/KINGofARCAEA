@@ -30,7 +30,7 @@ public class Player : NetworkBehaviour
     //public Player(int index_Player, string name_player)
     //{
     //    totalScore = totalMove = 0;
-    //    count_HandCard = 0;
+    //    count_MyHandCard = 0;
     //    count_RoundUsedCard = 0;
     //    count_TotalUsedCard = 0;
     //    this.index_Player = index_Player;
@@ -60,20 +60,20 @@ public class Player : NetworkBehaviour
     //}
     
     
-    public void ThrowCard_Judge(int index)
-    {
-        if(int.Parse(Text_CardNum.text) <= 4)
-        {
-            Empty.instance.ClientNewTurn();
-        }
-    }
-    public void ThrowCard(int index)
-    {
-        selectedCard.GetComponent<HandCard>().CloseDetail();
-        Debug.Log("¶ªÆúÐòºÅ" + selectedCard.GetComponent<HandCard>().index_Card);
-        UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) - 1).ToString();
-        ///////UIManager.instance.CallClient_UIDiscardCard(selectedCard);
-        Destroy(selectedCard);
-        ThrowCard_Judge(index);
-    }
+    //public void ThrowCard_Judge(int index)
+    //{
+    //    if(int.Parse(Text_CardNum.text) <= 4)
+    //    {
+    //        Empty.instance.ClientNewTurn();
+    //    }
+    //}
+    //public void ThrowCard(int index)
+    //{
+    //    selectedCard.GetComponent<HandCard>().CloseDetail();
+    //    Debug.Log("¶ªÆúÐòºÅ" + selectedCard.GetComponent<HandCard>().index_Card);
+    //    UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) - 1).ToString();
+    //    ///////UIManager.instance.CallClient_UIDiscardCard(selectedCard);
+    //    Destroy(selectedCard);
+    //    ThrowCard_Judge(index);
+    //}
 }

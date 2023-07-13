@@ -103,6 +103,7 @@ public class ScoreCardManager : MonoBehaviour
 
     public GameObject GetScoreCardByIndex(int index)
     {
+        Debug.Log("·ÖÊıÅÆid = " + index);
         for(int i=0;i<scoreCardsPrefab.Count;i++)
         {
             if (scoreCardsPrefab[i].GetComponent<ScoreCard>().index_Card == index)
