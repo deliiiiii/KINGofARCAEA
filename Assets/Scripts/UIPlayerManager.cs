@@ -67,11 +67,22 @@ public class UIPlayerManager : MonoBehaviour
             playerPrefab.GetComponent<Player>().text_Index_Player.text = (i+1).ToString();
             playerPrefab.GetComponent<Player>().name_Player = list_name[i];
             playerPrefab.GetComponent<Player>().text_Name_Player.text = list_name[i];
-            list_player.Add (Instantiate(playerPrefab, content_Player.transform));
+            
+            if (list_netId[i] == Empty.instance.netId)
+            {
+                playerPrefab.GetComponent<Player>().panel_You.SetActive(true);
+            }
+            else
+            {
+                playerPrefab.GetComponent<Player>().panel_You.SetActive(false);
+            }
+
+            list_player.Add(Instantiate(playerPrefab, content_Player.transform));
+
         }
     }
 
-
+    
     public void PassTurn(int index)
     {
         //HandCardManager.list_Scroll_MyHandCard[index_CurrentPlayer - 1].SetActive(false);
@@ -88,5 +99,29 @@ public class UIPlayerManager : MonoBehaviour
         Empty.instance.ClientDrawHandCards((int)Empty.instance.netId,2);
         ////////GameManager.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
         Empty.instance.turnMove.Add(0);
+    }
+
+    public void Show_Button_Select()
+    {
+        for(int i = 0; i < list_player.Count; i++)
+        {
+            list_player[i].GetComponent<Player>().panel_Select.SetActive(true);
+            list_player[i].GetComponent<Player>().panel_Selected.SetActive(false);
+            list_player[i].GetComponent<Player>().panel_UnSelected.SetActive(true);
+            list_player[i].GetComponent<Player>().panel_ToSelect.SetActive(true);
+            list_player[i].GetComponent<Player>().panel_ToUnSelect.SetActive(false);
+        }
+        UIManager.instance.button_Confirm_Selection.gameObject.SetActive(true);
+        GameManager.state_ = GameManager.Temp_STATE.STATE_SELECTING_TARGETPLAYER;
+        
+    }
+
+    public void Hide_Button_Select()
+    {
+        for (int i = 0; i < list_player.Count; i++)
+        {
+            list_player[i].GetComponent<Player>().panel_Select.SetActive(false);
+        }
+        UIManager.instance.button_Confirm_Selection.gameObject.SetActive(false);
     }
 }

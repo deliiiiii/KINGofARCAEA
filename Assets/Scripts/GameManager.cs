@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
         STATE_GAME_STARTED,
         STATE_GAME_SUMMARY,
         STATE_DRAW_CARDS,
+        STATE_SELECTING_TARGETPLAYER,
         STATE_JUDGE_CARDS,
         STATE_YIELD_CARDS,
         STATE_THROW_CARDS

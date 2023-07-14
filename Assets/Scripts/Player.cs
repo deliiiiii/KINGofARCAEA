@@ -9,7 +9,6 @@ public class Player : NetworkBehaviour
 {
     public static Player instance;
     public int my_netID;
-    public int listID;
     public int totalScore;
     public List<int> roundScore = new List<int>();////´ýÌí¼Ó
     public int totalMove;
@@ -23,6 +22,12 @@ public class Player : NetworkBehaviour
     public string name_Player;
     public Text text_Name_Player;
     public Text Text_CardNum;
+    public GameObject panel_You;
+    public GameObject panel_Select;
+    public GameObject panel_Selected;
+    public GameObject panel_UnSelected;
+    public GameObject panel_ToSelect;
+    public GameObject panel_ToUnSelect;
     public GameObject image_Holder;
     public GameObject image_MyTurn;
     public GameObject selectedCard;

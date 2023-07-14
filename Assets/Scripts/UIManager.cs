@@ -16,8 +16,8 @@ public class UIManager : MonoBehaviour
     public Button button_YieldCard;//打出按钮
     public Button button_FinishYieldCard;//结束出牌按钮
     public Button button_ThrowCard;//结束出牌按钮
+    public Button button_Confirm_Selection;//确认选定玩家
 
-    
     private void Awake()
     {
         instance = this;
@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
         button_YieldCard.onClick.AddListener(UIYieldCard);
         button_FinishYieldCard.onClick.AddListener(UIFinishYieldCard);
         button_ThrowCard.onClick.AddListener(UIThrowCard);
+        button_Confirm_Selection.onClick.AddListener(UIConfirmSelection);
     }
 
     // Update is called once per frame
@@ -72,6 +73,14 @@ public class UIManager : MonoBehaviour
                         //Debug.Log("THROW CARDS !!!");
                         break;
                     }
+                case GameManager.Temp_STATE.STATE_SELECTING_TARGETPLAYER:
+                    {
+                        button_ThrowCard.gameObject.SetActive(false);
+                        text_NoticeThrowCard.gameObject.SetActive(false);
+                        button_YieldCard.gameObject.SetActive(false);
+                        button_FinishYieldCard.gameObject.SetActive(false);
+                        break;
+                    }
                 default:
                     {
                         //button_YieldCard.gameObject.SetActive(false);
@@ -102,6 +111,15 @@ public class UIManager : MonoBehaviour
     public void UIThrowCard()
     {
         Empty.instance.ClientThrowCard();
+    }
+
+    public void UIConfirmSelection()
+    {
+        ///////////CHECK 
+        button_Confirm_Selection.gameObject.SetActive(false);
+        Debug.Log("确认选择 手牌序号" + Empty.instance.last_index_yieldedCard);
+        GameManager.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
+        UIPlayerManager.instance.Hide_Button_Select();
     }
     public void DiscardScorecard(int index,Vector2 v, Quaternion q)//将牌放在弃牌区
     {
