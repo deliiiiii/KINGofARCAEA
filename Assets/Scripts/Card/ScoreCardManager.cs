@@ -39,6 +39,7 @@ public class ScoreCardManager : MonoBehaviour
 
     public void RefreshScoreCards(List<int>list)
     {
+        list_index = list;
         count_ScoreCard = list.Count;
         scoreCardsStock.Clear();
         for(int i=0;i<list.Count;i++)

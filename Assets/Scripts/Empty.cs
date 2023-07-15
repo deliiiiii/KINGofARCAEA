@@ -42,7 +42,6 @@ public class Empty : NetworkBehaviour
     /// <summary>
     /// Empty <- Player
     /// </summary>
-    public int index_in_listId;
     //public int totalScore;
     public List<int> roundScore = new();////待添加
     public int totalMove;
@@ -117,6 +116,28 @@ public class Empty : NetworkBehaviour
     {
         ServerNewTurn();
     }
+    [Command]
+    public void CmdGetHisAllHandCards(int id_attacker/*,List<int> list_index_offender*/)//1001 代打
+    {
+        Debug.Log("CmdGetHisAllHandCards");
+        RpcGetHisAllHandCards(id_attacker/*, list_index_offender*/);
+    }
+    [Command]
+    public void CmdGiveMyAllHandCards(int id_attacker/*, List<int> list_index_handCard*/)//1001 代打
+    {
+        Debug.Log("CmdGiveMyAllHandCards");
+        RpcReceiveHisAllHandCards(id_attacker/*, list_index_handCard*/);
+    }
+    [Command]
+    public void CmdClearAllHandCards(int onlineID)//1001 代打
+    {
+        RpcClearAllHandCards(onlineID);
+    }
+    [Command]
+    public void CmdDrawHandCards_Specific(int onlineID, List<int> list_index_handCard)//1001 代打
+    {
+        RpcDrawHandCards_Specific(onlineID, list_index_handCard);
+    }
     //[Command]
     //public void CmdYieldCard()
     //{
@@ -137,7 +158,6 @@ public class Empty : NetworkBehaviour
         }
         //Debug.Log("ServerAddPlayer  netId = " + netId + " || instance.netId = " + instance.netId);
         if (added_netId == 1) return;
-        instance.index_in_listId = list_netId.Count;
         list_netId.Add(added_netId);
         
         list_playerName.Add(added_name);
@@ -357,6 +377,33 @@ public class Empty : NetworkBehaviour
         }
     }
     [ClientRpc]
+    public void RpcDrawHandCards_Specific(int onlineID, List<int> list_index_handCard)
+    {
+        int index = GetIndex_in_list_netId(onlineID);
+        //for (int i = 0; i < list_netId.Count; i++)
+        //{
+        //    if (list_netId[i] == onlineID)
+        //    {
+        //        onlineID = i;
+        //        break;
+        //    }
+        //}
+        for (int j = 0; j < list_index_handCard.Count; j++)
+        {
+            if (instance.netId != onlineID)
+            {
+                //HandCardManager.instance.Sync_DrawOneCard_Specific(); //并没有实现
+            }
+            else
+            {
+                HandCardManager.instance.DrawOneCard_Specific(list_index_handCard[j]);
+
+            }
+
+            UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) + 1).ToString();
+        }
+    }
+    [ClientRpc]
     public void RpcDiscardScoreCard(int onlineID)
     {
         UIManager.instance.DiscardScorecard(onlineID,new Vector2(Random.Range(-500f, 500f), Random.Range(-200f, 300f)), Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
@@ -367,7 +414,6 @@ public class Empty : NetworkBehaviour
         int index_player = GetIndex_in_list_netId(onlineID);
         UIPlayerManager.list_player[index_player].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index_player].GetComponent<Player>().Text_CardNum.text) - 1).ToString();
         UIManager.instance.DiscardHandcard(index_Card, new Vector2(Random.Range(-500f, 500f), Random.Range(-200f, 300f)), Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
-        
     }
     [ClientRpc]
     public void RpcSetHolder(int index, bool state)
@@ -400,6 +446,38 @@ public class Empty : NetworkBehaviour
         index_CurrentHolder = index_currentHolder;
         index_Round = index_round;
     }
+
+    [ClientRpc]
+    public void RpcGetHisAllHandCards(int id_attacker/*, List<int> list_index_offender*/)
+    {
+        if(instance.netId == 3)
+        //if (list_index_offender.Contains((int)instance.netId))
+        {
+            //int count_myHandCards = HandCardManager.instance.GetCountOfMyHandCards();
+            Debug.Log("我的手牌数 = " + count_MyHandCard);
+            ClientGiveMyAllHandCards(id_attacker/*,HandCardManager.instance.GetIndexesOfMyHandCards()*/);
+            //Debug.Log("我的手牌0" + HandCardManager.instance.GetIndexesOfMyHandCards()[0]);
+
+            //ClientClearAllHandCards((int)instance.netId);
+            //ClientDrawHandCards((int)instance.netId, count_myHandCards);
+        }
+    }
+    [ClientRpc]
+    public void RpcReceiveHisAllHandCards(int id_attacker/*, List<int> list_index_handCard*/)
+    {
+        if(instance.netId == id_attacker)
+        {
+            Debug.Log("RpcReceiveHisAllHandCards"/* + " 手牌列表0 = " + list_index_handCard[0]*/);
+            //ClientDrawHandCards_Specific((int)instance.netId, list_index_handCard);
+        }
+    }
+    [ClientRpc]
+    public void RpcClearAllHandCards(int onlineID)
+    {
+        int index_player = GetIndex_in_list_netId(onlineID);
+        UIPlayerManager.list_player[index_player].GetComponent<Player>().Text_CardNum.text = "0";
+    }
+    
     //[ClientRpc]
     //public void RpcYieldCard()
     //{
@@ -523,7 +601,7 @@ public class Empty : NetworkBehaviour
     {
         CmdDrawScoreCard(onlineID);
     }
-    
+    [Client]
     public void ClientNewTurn()
     {
         CmdNewTurn();
@@ -538,7 +616,8 @@ public class Empty : NetworkBehaviour
         }
         else
         {
-            ClientRealizeHandCard();
+            Debug.Log("Null选择");
+            ClientRealizeHandCard(null);
         }
 
 
@@ -551,8 +630,6 @@ public class Empty : NetworkBehaviour
     [Client]
     public void ClientThrowCard()
     {
-        //CmdThrowCard();
-        int index = GetIndex_in_list_netId((int)instance.netId);
         instance.selectedCard.GetComponent<HandCard>().CloseDetail();
         Debug.Log("丢弃序号" + instance.selectedCard.GetComponent<HandCard>().index_Card);
         instance.count_MyHandCard--;
@@ -571,13 +648,13 @@ public class Empty : NetworkBehaviour
         }
     }
     [Client]
-    public void ClientRealizeHandCard()
+    public void ClientRealizeHandCard(List<int> list_index_offender)//1001 代打
     {
-        
         switch (instance.selectedCard.GetComponent<HandCard>().index_Card)////手牌新增
         {
             case 1001://代打
                 Debug.Log("代打");
+                CmdGetHisAllHandCards((int)instance.netId/*,list_index_offender*/);
                 break;
             case 1002://天下第一音游祭
                 Debug.Log("天下第一音游祭");
@@ -626,12 +703,10 @@ public class Empty : NetworkBehaviour
             case 3003://底力提升
                 Debug.Log("底力提升");
                 ClientDrawHandCards((int)instance.netId, 2);
-                //DrawHandCards(2, UIPlayerManager.index_CurrentPlayer - 1);
                 break;
             case 3004://从头开始
                 Debug.Log("从头开始");
                 ClientDrawScoreCards((int)instance.netId);
-                //DrawScoreCards(1, UIPlayerManager.index_CurrentPlayer - 1);
                 break;
         }
 
@@ -644,6 +719,26 @@ public class Empty : NetworkBehaviour
         }
         Destroy(instance.selectedCard);
     }
+    [Client]
+    public void ClientGiveMyAllHandCards(int id_attacker/*, List<int> list_index_handCard*/)//1001 代打
+    {
+        Debug.Log("ClientGiveMyAllHandCards 应接受ID = " + id_attacker);
+        CmdGiveMyAllHandCards(id_attacker);
+        //CmdGiveMyAllHandCards(id_attacker, list_index_handCard);
+    }
+    [Client]
+    public void ClientClearAllHandCards(int onlineID)
+    {
+        instance.count_MyHandCard = 0;
+        UIManager.instance.ClearAllHandCards();
+        CmdClearAllHandCards(onlineID);
+    }
+    [Client]
+    public void ClientDrawHandCards_Specific(int onlineID, List<int> list_index_handCard)
+    {
+        CmdDrawHandCards_Specific(onlineID, list_index_handCard);
+    }
+
     public bool CheckRepeatedNetId(int checked_netId)
     {
         for(int i=0;i<list_netId.Count;i++)

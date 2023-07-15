@@ -11,6 +11,7 @@ public class HandCard : GrandCard
     public int count_offender;//受击者应该有的数量
     public GameObject panel_HandCardDetail;
     public GameObject panel_HandCardDetail_ReadOnly;
+    public GameObject panel_New;
     public Image image_HandCard;
     public Image image_HandCard_ReadOnly;
     public List<int> index_attacker = new List<int>();////待添加 攻击者序号列表
@@ -27,7 +28,8 @@ public class HandCard : GrandCard
 
     public void ShowDetail()
     {
-        if( GameManager.state_ != GameManager.Temp_STATE.STATE_SELECTING_TARGETPLAYER)
+        panel_New.SetActive(false);
+        if ( GameManager.state_ != GameManager.Temp_STATE.STATE_SELECTING_TARGETPLAYER)
         {
             Empty.instance.selectedCard = gameObject;
         }

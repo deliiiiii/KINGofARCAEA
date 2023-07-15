@@ -57,6 +57,7 @@ public class HandCardManager : MonoBehaviour
 
     public void RefreshHandCards(List<int> list)
     {
+        list_index = list;
         count_HandCard = list.Count;
         handCardsStock.Clear();
         for (int i = 0; i < list.Count; i++)
@@ -150,7 +151,8 @@ public class HandCardManager : MonoBehaviour
         //
         //
         //
-        handCardsStock.RemoveAt(0);
+        handCardsStock.RemoveAt(0);/////еп╤о©у
+        list_index.RemoveAt(0);
     }
     public void DrawOneCard()
     {
@@ -158,9 +160,11 @@ public class HandCardManager : MonoBehaviour
         text_CardNum.text = count_HandCard.ToString();
         Empty.instance.count_MyHandCard++;
         GameObject temp = Instantiate(handCardsStock[0].gameObject, content_MyHandCard.transform);
+        temp.GetComponent<HandCard>().panel_New.SetActive(true);
         temp.SetActive(true);
 
         handCardsStock.RemoveAt(0);/////еп╤о©у
+        list_index.RemoveAt(0);
 
         int count = content_MyHandCard.transform.childCount;
         for (int i = 3;i<content_MyHandCard.transform.childCount;i++)
@@ -171,5 +175,38 @@ public class HandCardManager : MonoBehaviour
                 content_MyHandCard.transform.GetChild(count - 2).SetSiblingIndex(i);
             }
         }
+    }
+    public void DrawOneCard_Specific(int index_Card)
+    {
+        Empty.instance.count_MyHandCard++;
+        GameObject temp = Instantiate(GetHandCardByIndex(index_Card), content_MyHandCard.transform);
+        temp.GetComponent<HandCard>().panel_New.SetActive(true);
+        temp.SetActive(true);
+
+        int count = content_MyHandCard.transform.childCount;
+        for (int i = 3; i < content_MyHandCard.transform.childCount; i++)
+        {
+            if (content_MyHandCard.transform.GetChild(i).gameObject.GetComponent<HandCard>().index_Card > content_MyHandCard.transform.GetChild(count - 1).gameObject.GetComponent<HandCard>().index_Card)
+            {
+                content_MyHandCard.transform.GetChild(i).SetSiblingIndex(count - 1);
+                content_MyHandCard.transform.GetChild(count - 2).SetSiblingIndex(i);
+            }
+        }
+    }
+    public List<int> GetIndexesOfMyHandCards()
+    {
+        List<int> list = new();
+        for(int i=0;i<content_MyHandCard.transform.childCount;i++)
+        {
+            if(content_MyHandCard.transform.GetChild(i).gameObject.activeSelf)
+            {
+                list.Add(content_MyHandCard.transform.GetChild(i).gameObject.GetComponent<HandCard>().index_Card);
+            }
+        }
+        return list;
+    }
+    public int GetCountOfMyHandCards()
+    {
+        return content_MyHandCard.transform.childCount;
     }
 }

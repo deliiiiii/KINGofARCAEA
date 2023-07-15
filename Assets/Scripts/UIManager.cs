@@ -119,22 +119,22 @@ public class UIManager : MonoBehaviour
 
     public void UIConfirmSelection()
     {
-        List<int> temp_index_offender= new();//临时受击者列表
+        List<int> temp_list_index_offender= new();//临时受击者列表
         for(int i=0;i<Empty.list_netId.Count;i++)
         {
             if (UIPlayerManager.list_player[i].GetComponent<Player>().panel_Selected.activeSelf)
             {
-                temp_index_offender.Add(i);
+                temp_list_index_offender.Add(Empty.list_netId[i]);
             }
         }
-        if(Empty.instance.selectedCard.GetComponent<HandCard>().count_offender != temp_index_offender.Count)
+        if(Empty.instance.selectedCard.GetComponent<HandCard>().count_offender != temp_list_index_offender.Count)
         {
             text_Notice.text = "选择数量不正确! 请重新选择";
             panel_Notice_Back.SetActive(true);
             return;
         }
 
-        Empty.instance.ClientRealizeHandCard();
+        Empty.instance.ClientRealizeHandCard(temp_list_index_offender);
         UIPlayerManager.instance.Hide_Button_Select();
     }
 
@@ -155,6 +155,7 @@ public class UIManager : MonoBehaviour
     {
         GameObject temp = HandCardManager.instance.GetHandCardByIndex(index);
         temp.GetComponent<GrandCard>().used = true;
+        temp.GetComponent<HandCard>().panel_New.SetActive(false);
         temp = Instantiate(temp, panel_DiscardedCards.transform);
         //temp.GetComponent<Button>().interactable = false;
         temp.GetComponent<Button>().interactable = true;
@@ -172,6 +173,11 @@ public class UIManager : MonoBehaviour
             Empty.instance.scoreCard = null;
         }
            
+    }
+
+    public void ClearAllHandCards()
+    {
+        ClearChild(content_MyHandCard.transform);
     }
     public void ClearChild(Transform t_parent)
     {
