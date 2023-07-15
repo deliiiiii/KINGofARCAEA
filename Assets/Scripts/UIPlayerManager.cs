@@ -112,6 +112,7 @@ public class UIPlayerManager : MonoBehaviour
             list_player[i].GetComponent<Player>().panel_ToUnSelect.SetActive(false);
         }
         UIManager.instance.button_Confirm_Selection.gameObject.SetActive(true);
+        UIManager.instance.button_GiveUp_Selection.gameObject.SetActive(true);
         GameManager.state_ = GameManager.Temp_STATE.STATE_SELECTING_TARGETPLAYER;
         
     }
@@ -123,5 +124,7 @@ public class UIPlayerManager : MonoBehaviour
             list_player[i].GetComponent<Player>().panel_Select.SetActive(false);
         }
         UIManager.instance.button_Confirm_Selection.gameObject.SetActive(false);
+        UIManager.instance.button_GiveUp_Selection.gameObject.SetActive(false);
+        GameManager.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
     }
 }

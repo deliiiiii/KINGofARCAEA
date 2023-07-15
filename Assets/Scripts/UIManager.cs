@@ -10,13 +10,16 @@ public class UIManager : MonoBehaviour
     public float delay = 0.2f;
     public GameObject content_MyHandCard;
     public GameObject panel_DiscardedCards;
+    public GameObject panel_Notice_Back;
     public Text text_NoticeThrowCard;
     public Text text_CircleNum;
+    public Text text_Notice;
     public Button button_Start_Game;//开始游戏
     public Button button_YieldCard;//打出按钮
     public Button button_FinishYieldCard;//结束出牌按钮
     public Button button_ThrowCard;//结束出牌按钮
     public Button button_Confirm_Selection;//确认选定玩家
+    public Button button_GiveUp_Selection;//放弃选定玩家
 
     private void Awake()
     {
@@ -26,6 +29,7 @@ public class UIManager : MonoBehaviour
         button_FinishYieldCard.onClick.AddListener(UIFinishYieldCard);
         button_ThrowCard.onClick.AddListener(UIThrowCard);
         button_Confirm_Selection.onClick.AddListener(UIConfirmSelection);
+        button_GiveUp_Selection.onClick.AddListener(UIGiveUpSelection);
     }
 
     // Update is called once per frame
@@ -115,10 +119,27 @@ public class UIManager : MonoBehaviour
 
     public void UIConfirmSelection()
     {
-        ///////////CHECK 
-        button_Confirm_Selection.gameObject.SetActive(false);
-        Debug.Log("确认选择 手牌序号" + Empty.instance.last_index_yieldedCard);
-        GameManager.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
+        List<int> temp_index_offender= new();//临时受击者列表
+        for(int i=0;i<Empty.list_netId.Count;i++)
+        {
+            if (UIPlayerManager.list_player[i].GetComponent<Player>().panel_Selected.activeSelf)
+            {
+                temp_index_offender.Add(i);
+            }
+        }
+        if(Empty.instance.selectedCard.GetComponent<HandCard>().count_offender != temp_index_offender.Count)
+        {
+            text_Notice.text = "选择数量不正确! 请重新选择";
+            panel_Notice_Back.SetActive(true);
+            return;
+        }
+
+        Empty.instance.ClientRealizeHandCard();
+        UIPlayerManager.instance.Hide_Button_Select();
+    }
+
+    public void UIGiveUpSelection()
+    {
         UIPlayerManager.instance.Hide_Button_Select();
     }
     public void DiscardScorecard(int index,Vector2 v, Quaternion q)//将牌放在弃牌区
@@ -133,8 +154,10 @@ public class UIManager : MonoBehaviour
     public void DiscardHandcard(int index, Vector2 v, Quaternion q)//将牌放在弃牌区
     {
         GameObject temp = HandCardManager.instance.GetHandCardByIndex(index);
+        temp.GetComponent<GrandCard>().used = true;
         temp = Instantiate(temp, panel_DiscardedCards.transform);
-        temp.GetComponent<Button>().interactable = false;
+        //temp.GetComponent<Button>().interactable = false;
+        temp.GetComponent<Button>().interactable = true;
         temp.transform.localPosition = v;
         temp.transform.localRotation = q;
         temp.SetActive(true);

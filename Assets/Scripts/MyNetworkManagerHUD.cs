@@ -230,6 +230,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
         ClearAll();
         canvas.SetActive(true);
         UIManager.instance.Delay_ShowStartGame();
-        stop_Client.gameObject.SetActive(true);
+        stop_Client.gameObject.SetActive(false);
+        //stop_Client.gameObject.SetActive(true);
     }
 }

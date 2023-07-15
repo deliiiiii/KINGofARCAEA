@@ -33,7 +33,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7bf15cbae6c62294fbac527ed2eb3588, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -149,10 +149,14 @@ MonoBehaviour:
   index_Card: 0
   grossCount: 0
   usedRound: 0
+  used: 0
   isAttackCard: 0
   isExchangeCard: 0
   isTimingCard: 0
+  count_offender: 0
   panel_HandCardDetail: {fileID: 0}
+  panel_HandCardDetail_ReadOnly: {fileID: 0}
   image_HandCard: {fileID: 0}
+  image_HandCard_ReadOnly: {fileID: 0}
   index_attacker: 
   index_offender: 

@@ -51,6 +51,7 @@ public class Empty : NetworkBehaviour
     //public int count_RoundUsedCard;
     //public int count_TotalUsedCard;
     public int last_index_yieldedCard;
+    public GameObject last_selectedCard;
     public GameObject selectedCard;
     public GameObject scoreCard;
     //public List<GameObject> handCards = new();
@@ -530,16 +531,53 @@ public class Empty : NetworkBehaviour
     [Client]
     public void ClientYieldCard()
     {
-        //CmdYieldCard();
-        //int index = GetIndex_in_list_netId((int)instance.netId);
         instance.selectedCard.GetComponent<HandCard>().CloseDetail();
-        Debug.Log("打出序号" + instance.selectedCard.GetComponent<HandCard>().index_Card);
-        instance.last_index_yieldedCard = instance.selectedCard.GetComponent<HandCard>().index_Card;
+        if(instance.selectedCard.GetComponent<HandCard>().count_offender != 0)
+        {
+            UIPlayerManager.instance.Show_Button_Select();
+        }
+        else
+        {
+            ClientRealizeHandCard();
+        }
+
+
+        instance.count_MyHandCard--;
+        ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
+        instance.selectedCard.SetActive(false);
+
+        
+    }
+    [Client]
+    public void ClientThrowCard()
+    {
+        //CmdThrowCard();
+        int index = GetIndex_in_list_netId((int)instance.netId);
+        instance.selectedCard.GetComponent<HandCard>().CloseDetail();
+        Debug.Log("丢弃序号" + instance.selectedCard.GetComponent<HandCard>().index_Card);
+        instance.count_MyHandCard--;
+        ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
+        Destroy(instance.selectedCard);
+        Client_ThrowCard_Judge((int)instance.netId);
+    }
+    [Client]
+    public void Client_ThrowCard_Judge(int onlineID)
+    {
+        //if(onlineID != (int)instance.netId) { return; }
+        Debug.Log("剩余手牌数 = " + instance.count_MyHandCard);
+        if (instance.count_MyHandCard <= 4)
+        {
+            ClientNewTurn();
+        }
+    }
+    [Client]
+    public void ClientRealizeHandCard()
+    {
+        
         switch (instance.selectedCard.GetComponent<HandCard>().index_Card)////手牌新增
         {
             case 1001://代打
                 Debug.Log("代打");
-                UIPlayerManager.instance.Show_Button_Select();
                 break;
             case 1002://天下第一音游祭
                 Debug.Log("天下第一音游祭");
@@ -604,32 +642,7 @@ public class Empty : NetworkBehaviour
         {
             UIManager.instance.UIFinishYieldCard();
         }
-        
-        instance.count_MyHandCard--;
-        ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
         Destroy(instance.selectedCard);
-    }
-    [Client]
-    public void ClientThrowCard()
-    {
-        //CmdThrowCard();
-        int index = GetIndex_in_list_netId((int)instance.netId);
-        instance.selectedCard.GetComponent<HandCard>().CloseDetail();
-        Debug.Log("丢弃序号" + instance.selectedCard.GetComponent<HandCard>().index_Card);
-        instance.count_MyHandCard--;
-        ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
-        Destroy(instance.selectedCard);
-        Client_ThrowCard_Judge((int)instance.netId);
-    }
-    [Client]
-    public void Client_ThrowCard_Judge(int onlineID)
-    {
-        //if(onlineID != (int)instance.netId) { return; }
-        Debug.Log("剩余手牌数 = " + instance.count_MyHandCard);
-        if (instance.count_MyHandCard <= 4)
-        {
-            ClientNewTurn();
-        }
     }
     public bool CheckRepeatedNetId(int checked_netId)
     {

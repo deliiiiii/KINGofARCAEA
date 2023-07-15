@@ -20,25 +20,25 @@ public class HandCardManager : MonoBehaviour
         instance = this;
         handCards_info = new List<HandCard>()
         {
-            new HandCard(1001,2,true,false,false),//代打
-            new HandCard(1002,2,false,true,false),//天下第一音游祭
-            new HandCard(1003,4,true,false,false),//指点江山
-            new HandCard(1004,4,true,false,false),//观看手元
-            new HandCard(1005,4,false,true,false),//神之左手
-            new HandCard(1006,4,false,true,false),//鬼之右手
-            new HandCard(1007,4,true,false,false),//音游窝
-            new HandCard(1008,4,true,false,true),//音游王
-            new HandCard(1009,4,true,true,false),//联机
-            new HandCard(1010,4,true,false,false),//自来熟
+            new HandCard(1001,2,true,1,false,false),//代打
+            new HandCard(1002,2,false,0,true,false),//天下第一音游祭
+            new HandCard(1003,4,true,1,false,false),//指点江山
+            new HandCard(1004,4,true,1,false,false),//观看手元
+            new HandCard(1005,4,false,0,true,false),//神之左手
+            new HandCard(1006,4,false,0,true,false),//鬼之右手
+            new HandCard(1007,4,true,0,false,false),//音游窝
+            new HandCard(1008,4,true,1,false,true),//音游王
+            new HandCard(1009,4,true,2,true,false),//联机
+            new HandCard(1010,4,true,1,false,false),//自来熟
 
-            new HandCard(2001,6,false,false,false),//手癖
-            new HandCard(2002,6,false,false,false),//降噪耳机
-            new HandCard(2003,4,false,false,false),//网络延迟
+            new HandCard(2001,6,false,0,false,false),//手癖
+            new HandCard(2002,6,false,0,false,false),//降噪耳机
+            new HandCard(2003,4,false,0,false,false),//网络延迟
 
-            new HandCard(3001,4,false,false,false),//看铺
-            new HandCard(3002,4,false,false,true),//私人订制手台
-            new HandCard(3003,4,false,false,false),//底力提升
-            new HandCard(3004,4,false,false,false),//从头开始
+            new HandCard(3001,4,false,0,false,false),//看铺
+            new HandCard(3002,4,false,0,false,true),//私人订制手台
+            new HandCard(3003,4,false,0,false,false),//底力提升
+            new HandCard(3004,4,false,0,false,false),//从头开始
         };
 
     }
@@ -49,6 +49,7 @@ public class HandCardManager : MonoBehaviour
             handCardsPrefab[i].GetComponent<HandCard>().index_Card = handCards_info[i].index_Card;
             handCardsPrefab[i].GetComponent<HandCard>().grossCount = handCards_info[i].grossCount;
             handCardsPrefab[i].GetComponent<HandCard>().isAttackCard = handCards_info[i].isAttackCard;
+            handCardsPrefab[i].GetComponent<HandCard>().count_offender = handCards_info[i].count_offender;
             handCardsPrefab[i].GetComponent<HandCard>().isExchangeCard = handCards_info[i].isExchangeCard;
             handCardsPrefab[i].GetComponent<HandCard>().isTimingCard = handCards_info[i].isTimingCard;
         }
