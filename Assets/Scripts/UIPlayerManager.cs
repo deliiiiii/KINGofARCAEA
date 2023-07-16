@@ -125,6 +125,5 @@ public class UIPlayerManager : MonoBehaviour
         }
         UIManager.instance.button_Confirm_Selection.gameObject.SetActive(false);
         UIManager.instance.button_GiveUp_Selection.gameObject.SetActive(false);
-        GameManager.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
     }
 }

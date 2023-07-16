@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
     {
         if(canvas.activeSelf)
         {
-
+            Debug.Log(GameManager.state_);
             switch (GameManager.state_)
             {
                 
@@ -110,7 +110,7 @@ public class UIManager : MonoBehaviour
     public void UIFinishYieldCard()
     {
         GameManager.state_ = GameManager.Temp_STATE.STATE_THROW_CARDS;
-        Empty.instance.Client_ThrowCard_Judge((int)Empty.instance.netId);
+        Empty.instance.Client_ThrowCard_EndJudge((int)Empty.instance.netId);
     }
     public void UIThrowCard()
     {
@@ -140,6 +140,7 @@ public class UIManager : MonoBehaviour
 
     public void UIGiveUpSelection()
     {
+        Empty.instance.ClientRealizeHandCard(new List<int> {-1});
         UIPlayerManager.instance.Hide_Button_Select();
     }
     public void DiscardScorecard(int index,Vector2 v, Quaternion q)//将牌放在弃牌区

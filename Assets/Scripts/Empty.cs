@@ -567,7 +567,7 @@ public class Empty : NetworkBehaviour
     //    UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) - 1).ToString();
     //    ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
     //    Destroy(instance.selectedCard);
-    //    Client_ThrowCard_Judge((int)instance.netId);
+    //    Client_ThrowCard_EndJudge((int)instance.netId);
     //}
     [Client]
     public void ClientAddPlayer(int added_netId,string added_name)
@@ -617,7 +617,7 @@ public class Empty : NetworkBehaviour
         else
         {
             Debug.Log("Null选择");
-            instance.ClientRealizeHandCard(null);
+            instance.ClientRealizeHandCard(new List<int> { (int)instance.netId});
         }
 
 
@@ -635,10 +635,10 @@ public class Empty : NetworkBehaviour
         instance.count_MyHandCard--;
         instance.ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
         Destroy(instance.selectedCard);
-        instance.Client_ThrowCard_Judge((int)instance.netId);
+        instance.Client_ThrowCard_EndJudge((int)instance.netId);
     }
     [Client]
-    public void Client_ThrowCard_Judge(int onlineID)
+    public void Client_ThrowCard_EndJudge(int onlineID)
     {
         //if(onlineID != (int)instance.netId) { return; }
         Debug.Log("剩余手牌数 = " + instance.count_MyHandCard);
@@ -650,71 +650,79 @@ public class Empty : NetworkBehaviour
     [Client]
     public void ClientRealizeHandCard(List<int> list_index_offender)//1001 代打
     {
-        switch (instance.selectedCard.GetComponent<HandCard>().index_Card)////手牌新增
+        if (list_index_offender[0]!= -1)//不是放弃选择
         {
-            case 1001://代打
-                Debug.Log("代打");
-                instance.CmdGetHisAllHandCards((int)instance.netId,list_index_offender);
-                break;
-            case 1002://天下第一音游祭
-                Debug.Log("天下第一音游祭");
-                break;
-            case 1003://指点江山
-                Debug.Log("指点江山");
-                break;
-            case 1004://观看手元
-                Debug.Log("观看手元");
-                break;
-            case 1005://神之左手
-                Debug.Log("神之左手");
-                break;
-            case 1006://鬼之右手
-                Debug.Log("鬼之右手");
-                break;
-            case 1007://音游窝
-                Debug.Log("音游窝");
-                break;
-            case 1008://音游王
-                Debug.Log("音游王");
-                break;
-            case 1009://联机
-                Debug.Log("联机");
-                break;
-            case 1010://自来熟
-                Debug.Log("自来熟");
-                break;
+            switch (instance.selectedCard.GetComponent<HandCard>().index_Card)////手牌新增
+            {
+                case 1001://代打
+                    Debug.Log("代打");
+                    instance.CmdGetHisAllHandCards((int)instance.netId, list_index_offender);
+                    break;
+                case 1002://天下第一音游祭
+                    Debug.Log("天下第一音游祭");
+                    break;
+                case 1003://指点江山
+                    Debug.Log("指点江山");
+                    break;
+                case 1004://观看手元
+                    Debug.Log("观看手元");
+                    break;
+                case 1005://神之左手
+                    Debug.Log("神之左手");
+                    break;
+                case 1006://鬼之右手
+                    Debug.Log("鬼之右手");
+                    break;
+                case 1007://音游窝
+                    Debug.Log("音游窝");
+                    break;
+                case 1008://音游王
+                    Debug.Log("音游王");
+                    break;
+                case 1009://联机
+                    Debug.Log("联机");
+                    break;
+                case 1010://自来熟
+                    Debug.Log("自来熟");
+                    break;
 
-            case 2001://手癖
-                Debug.Log("手癖");
-                break;
-            case 2002://降噪耳机
-                Debug.Log("降噪耳机");
-                break;
-            case 2003://网络延迟
-                Debug.Log("网络延迟");
-                break;
+                case 2001://手癖
+                    Debug.Log("手癖");
+                    break;
+                case 2002://降噪耳机
+                    Debug.Log("降噪耳机");
+                    break;
+                case 2003://网络延迟
+                    Debug.Log("网络延迟");
+                    break;
 
-            case 3001://看铺
-                Debug.Log("看铺");
-                break;
-            case 3002://私人订制手台
-                Debug.Log("私人订制手台");
-                break;
-            case 3003://底力提升
-                Debug.Log("底力提升");
-                instance.ClientDrawHandCards((int)instance.netId, 2);
-                break;
-            case 3004://从头开始
-                Debug.Log("从头开始");
-                instance.ClientDrawScoreCards((int)instance.netId);
-                break;
+                case 3001://看铺
+                    Debug.Log("看铺");
+                    break;
+                case 3002://私人订制手台
+                    Debug.Log("私人订制手台");
+                    break;
+                case 3003://底力提升
+                    Debug.Log("底力提升");
+                    instance.ClientDrawHandCards((int)instance.netId, 2);
+                    break;
+                case 3004://从头开始
+                    Debug.Log("从头开始");
+                    instance.ClientDrawScoreCards((int)instance.netId);
+                    break;
+            }
         }
+        
+
+        GameManager.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
 
         int count_turn = instance.turnMove.Count;
         instance.turnMove[count_turn - 1]++;
+        Debug.Log("instance.turnMove[count_turn - 1] =" + instance.turnMove[count_turn - 1]);
         instance.totalMove++;
         if (instance.turnMove[count_turn - 1] >= 3)
         {
+            Debug.Log("准备弃牌");
             UIManager.instance.UIFinishYieldCard();
         }
         Destroy(instance.selectedCard);

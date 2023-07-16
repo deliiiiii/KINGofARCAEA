@@ -20,8 +20,8 @@ public class HandCardManager : MonoBehaviour
         instance = this;
         handCards_info = new List<HandCard>()
         {
-            new HandCard(1001,2,true,1,false,false),//代打
-            new HandCard(1002,2,false,0,true,false),//天下第一音游祭
+            new HandCard(1001,10/*2*/,true,1,false,false),//代打
+            new HandCard(1002,2/*2*/,false,0,true,false),//天下第一音游祭
             new HandCard(1003,4,true,1,false,false),//指点江山
             new HandCard(1004,4,true,1,false,false),//观看手元
             new HandCard(1005,4,false,0,true,false),//神之左手
@@ -33,7 +33,7 @@ public class HandCardManager : MonoBehaviour
 
             new HandCard(2001,6,false,0,false,false),//手癖
             new HandCard(2002,6,false,0,false,false),//降噪耳机
-            new HandCard(2003,4,false,0,false,false),//网络延迟
+            new HandCard(2003,6,false,0,false,false),//网络延迟
 
             new HandCard(3001,4,false,0,false,false),//看铺
             new HandCard(3002,4,false,0,false,true),//私人订制手台
