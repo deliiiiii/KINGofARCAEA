@@ -406,7 +406,6 @@
 "Assets/Scripts/MyNetworkManager.cs"
 "Assets/Scripts/MyNetworkManagerHUD.cs"
 "Assets/Scripts/Player.cs"
-"Assets/Scripts/TestButton.cs"
 "Assets/Scripts/UIManager.cs"
 "Assets/Scripts/UIPlayerManager.cs"
 -langversion:9.0

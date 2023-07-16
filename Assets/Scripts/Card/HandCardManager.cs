@@ -181,6 +181,7 @@ public class HandCardManager : MonoBehaviour
     {
         Empty.instance.count_MyHandCard++;
         GameObject temp = Instantiate(GetHandCardByIndex(index_Card), content_MyHandCard.transform);
+        temp.GetComponent<GrandCard>().used = false;
         temp.GetComponent<HandCard>().panel_New.SetActive(true);
         temp.SetActive(true);
 
