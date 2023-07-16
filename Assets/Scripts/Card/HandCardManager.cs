@@ -160,6 +160,7 @@ public class HandCardManager : MonoBehaviour
         text_CardNum.text = count_HandCard.ToString();
         Empty.instance.count_MyHandCard++;
         GameObject temp = Instantiate(handCardsStock[0].gameObject, content_MyHandCard.transform);
+        temp.GetComponent<GrandCard>().used = false;
         temp.GetComponent<HandCard>().panel_New.SetActive(true);
         temp.SetActive(true);
 
@@ -207,6 +208,14 @@ public class HandCardManager : MonoBehaviour
     }
     public int GetCountOfMyHandCards()
     {
-        return content_MyHandCard.transform.childCount;
+        int count = 0;
+        for(int i=0;i< content_MyHandCard.transform.childCount;i++)
+        {
+            if(content_MyHandCard.transform.GetChild(i).gameObject.activeSelf)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 }

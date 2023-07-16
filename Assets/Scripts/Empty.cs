@@ -117,16 +117,16 @@ public class Empty : NetworkBehaviour
         ServerNewTurn();
     }
     [Command]
-    public void CmdGetHisAllHandCards(int id_attacker/*,List<int> list_index_offender*/)//1001 代打
+    public void CmdGetHisAllHandCards(int id_attacker,List<int> list_index_offender)//1001 代打
     {
         Debug.Log("CmdGetHisAllHandCards");
-        RpcGetHisAllHandCards(id_attacker/*, list_index_offender*/);
+        RpcGetHisAllHandCards(id_attacker, list_index_offender);
     }
     [Command]
-    public void CmdGiveMyAllHandCards(int id_attacker/*, List<int> list_index_handCard*/)//1001 代打
+    public void CmdGiveMyAllHandCards(int id_attacker, List<int> list_index_handCard)//1001 代打
     {
         Debug.Log("CmdGiveMyAllHandCards");
-        RpcReceiveHisAllHandCards(id_attacker/*, list_index_handCard*/);
+        RpcReceiveHisAllHandCards(id_attacker, list_index_handCard);
     }
     [Command]
     public void CmdClearAllHandCards(int onlineID)//1001 代打
@@ -138,6 +138,7 @@ public class Empty : NetworkBehaviour
     {
         RpcDrawHandCards_Specific(onlineID, list_index_handCard);
     }
+
     //[Command]
     //public void CmdYieldCard()
     //{
@@ -448,27 +449,26 @@ public class Empty : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcGetHisAllHandCards(int id_attacker/*, List<int> list_index_offender*/)
+    public void RpcGetHisAllHandCards(int id_attacker, List<int> list_index_offender)
     {
-        if(instance.netId == 3)
-        //if (list_index_offender.Contains((int)instance.netId))
+        if (list_index_offender.Contains((int)instance.netId))
         {
-            //int count_myHandCards = HandCardManager.instance.GetCountOfMyHandCards();
-            Debug.Log("我的手牌数 = " + count_MyHandCard);
-            ClientGiveMyAllHandCards(id_attacker/*,HandCardManager.instance.GetIndexesOfMyHandCards()*/);
-            //Debug.Log("我的手牌0" + HandCardManager.instance.GetIndexesOfMyHandCards()[0]);
+            int count_myHandCards = HandCardManager.instance.GetCountOfMyHandCards();
+            Debug.Log("我的手牌数 = " + instance.count_MyHandCard);
+            instance.ClientGiveMyAllHandCards(id_attacker,HandCardManager.instance.GetIndexesOfMyHandCards());
+            
 
-            //ClientClearAllHandCards((int)instance.netId);
-            //ClientDrawHandCards((int)instance.netId, count_myHandCards);
+            instance.ClientClearAllHandCards((int)instance.netId);
+            instance.ClientDrawHandCards((int)instance.netId, count_myHandCards);
         }
     }
     [ClientRpc]
-    public void RpcReceiveHisAllHandCards(int id_attacker/*, List<int> list_index_handCard*/)
+    public void RpcReceiveHisAllHandCards(int id_attacker, List<int> list_index_handCard)
     {
         if(instance.netId == id_attacker)
         {
-            Debug.Log("RpcReceiveHisAllHandCards"/* + " 手牌列表0 = " + list_index_handCard[0]*/);
-            //ClientDrawHandCards_Specific((int)instance.netId, list_index_handCard);
+            Debug.Log("RpcReceiveHisAllHandCards" + " 手牌列表0 = " + list_index_handCard[0]);
+            instance.ClientDrawHandCards_Specific((int)instance.netId, list_index_handCard);
         }
     }
     [ClientRpc]
@@ -574,37 +574,37 @@ public class Empty : NetworkBehaviour
     {
         //Debug.Log("ClientAddPlayer  netId = " + netId + " || instance.netId = " + instance.netId);
         Debug.Log("[Client] 加入 :" + added_netId + " " + added_name);
-        CmdAddPlayer(added_netId, added_name);
+        instance.CmdAddPlayer(added_netId, added_name);
     }
     [Client]
     public void ClientStartGame()
     {
-        CmdStartGame();
+        instance.CmdStartGame();
     }
     [Client]
     public void ClientDiscardScoreCard(int index_ScoreCard)
     {
-        CmdDiscardScoreCard(index_ScoreCard);
+        instance.CmdDiscardScoreCard(index_ScoreCard);
     }
     [Client]
     public void ClientDiscardHandCard(int onlineID,int index)
     {
-        CmdDiscardHandCard(onlineID,index);
+        instance.CmdDiscardHandCard(onlineID,index);
     }
     [Client]
     public void ClientDrawHandCards(int onlineID, int times)
     {
-        CmdDrawHandCards(onlineID, times);
+        instance.CmdDrawHandCards(onlineID, times);
     }
     [Client]
     public void ClientDrawScoreCards(int onlineID)
     {
-        CmdDrawScoreCard(onlineID);
+        instance.CmdDrawScoreCard(onlineID);
     }
     [Client]
     public void ClientNewTurn()
     {
-        CmdNewTurn();
+        instance.CmdNewTurn();
     }
     [Client]
     public void ClientYieldCard()
@@ -617,12 +617,12 @@ public class Empty : NetworkBehaviour
         else
         {
             Debug.Log("Null选择");
-            ClientRealizeHandCard(null);
+            instance.ClientRealizeHandCard(null);
         }
 
 
         instance.count_MyHandCard--;
-        ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
+        instance.ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
         instance.selectedCard.SetActive(false);
 
         
@@ -633,9 +633,9 @@ public class Empty : NetworkBehaviour
         instance.selectedCard.GetComponent<HandCard>().CloseDetail();
         Debug.Log("丢弃序号" + instance.selectedCard.GetComponent<HandCard>().index_Card);
         instance.count_MyHandCard--;
-        ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
+        instance.ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
         Destroy(instance.selectedCard);
-        Client_ThrowCard_Judge((int)instance.netId);
+        instance.Client_ThrowCard_Judge((int)instance.netId);
     }
     [Client]
     public void Client_ThrowCard_Judge(int onlineID)
@@ -644,7 +644,7 @@ public class Empty : NetworkBehaviour
         Debug.Log("剩余手牌数 = " + instance.count_MyHandCard);
         if (instance.count_MyHandCard <= 4)
         {
-            ClientNewTurn();
+            instance.ClientNewTurn();
         }
     }
     [Client]
@@ -654,7 +654,7 @@ public class Empty : NetworkBehaviour
         {
             case 1001://代打
                 Debug.Log("代打");
-                CmdGetHisAllHandCards((int)instance.netId/*,list_index_offender*/);
+                instance.CmdGetHisAllHandCards((int)instance.netId,list_index_offender);
                 break;
             case 1002://天下第一音游祭
                 Debug.Log("天下第一音游祭");
@@ -702,11 +702,11 @@ public class Empty : NetworkBehaviour
                 break;
             case 3003://底力提升
                 Debug.Log("底力提升");
-                ClientDrawHandCards((int)instance.netId, 2);
+                instance.ClientDrawHandCards((int)instance.netId, 2);
                 break;
             case 3004://从头开始
                 Debug.Log("从头开始");
-                ClientDrawScoreCards((int)instance.netId);
+                instance.ClientDrawScoreCards((int)instance.netId);
                 break;
         }
 
@@ -720,23 +720,22 @@ public class Empty : NetworkBehaviour
         Destroy(instance.selectedCard);
     }
     [Client]
-    public void ClientGiveMyAllHandCards(int id_attacker/*, List<int> list_index_handCard*/)//1001 代打
+    public void ClientGiveMyAllHandCards(int id_attacker, List<int> list_index_handCard)//1001 代打
     {
         Debug.Log("ClientGiveMyAllHandCards 应接受ID = " + id_attacker);
-        CmdGiveMyAllHandCards(id_attacker);
-        //CmdGiveMyAllHandCards(id_attacker, list_index_handCard);
+        CmdGiveMyAllHandCards(id_attacker, list_index_handCard);
     }
     [Client]
     public void ClientClearAllHandCards(int onlineID)
     {
         instance.count_MyHandCard = 0;
         UIManager.instance.ClearAllHandCards();
-        CmdClearAllHandCards(onlineID);
+        instance.CmdClearAllHandCards(onlineID);
     }
     [Client]
     public void ClientDrawHandCards_Specific(int onlineID, List<int> list_index_handCard)
     {
-        CmdDrawHandCards_Specific(onlineID, list_index_handCard);
+        instance.CmdDrawHandCards_Specific(onlineID, list_index_handCard);
     }
 
     public bool CheckRepeatedNetId(int checked_netId)

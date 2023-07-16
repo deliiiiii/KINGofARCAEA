@@ -1703,7 +1703,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Round
+  m_Text: TEST
 --- !u!222 &269386941
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7044,10 +7044,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 927389941}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: NewRound
-        m_Mode: 1
+      - m_Target: {fileID: 2916131764998825982, guid: 58c12bdb3fc0368408f0b0e1ced5c02f, type: 3}
+        m_TargetAssemblyTypeName: Empty, Assembly-CSharp
+        m_MethodName: CmdGiveMyAllHandCards
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
