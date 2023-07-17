@@ -136,12 +136,13 @@ public class ScoreCardManager : MonoBehaviour
         //
         scoreCardsStock.RemoveAt(0);
     }
-    public void DrawOneCard()
+    public void DrawOneCard(bool canDiscard)
     {
         count_ScoreCard -= 1;
         text_CardNum.text = count_ScoreCard.ToString();
-        if (Empty.instance.scoreCard)
+        if (Empty.instance.scoreCard && canDiscard)
         {
+            Debug.Log("Remake#1");
             Debug.Log(Empty.instance.scoreCard.gameObject.name);
             Empty.instance.ClientDiscardScoreCard(Empty.instance.scoreCard.GetComponent<ScoreCard>().index_Card);
             Destroy(Empty.instance.scoreCard);
@@ -153,6 +154,20 @@ public class ScoreCardManager : MonoBehaviour
         Empty.instance.scoreCard.SetActive(true);
 
         scoreCardsStock.RemoveAt(0);/////еп╤о©у
+    }
+
+    public void DrawOneCard_Specific(int score)
+    {
+        if (Empty.instance.scoreCard)
+        {
+            Debug.Log("Remake#2");
+            Debug.Log(Empty.instance.scoreCard.gameObject.name);
+            Empty.instance.ClientDiscardScoreCard(Empty.instance.scoreCard.GetComponent<ScoreCard>().index_Card);
+            Destroy(Empty.instance.scoreCard);
+            //Destroy(UIPlayerManager.list_player[index].GetComponent<Player>().scoreCard);
+        }
+        Empty.instance.scoreCard = Instantiate(GetScoreCardByScore(score), panel_MyScoreCard.transform);
+        Empty.instance.scoreCard.SetActive(true);
     }
     public void Card_1002_ReGetScoreCard(GameObject scoreCard)
     {
