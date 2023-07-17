@@ -7,10 +7,16 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     public GameObject canvas;
 
+    public bool card_1002_shouldCheckButtonInteractive = false;
+
     public float delay = 0.2f;
     public GameObject content_MyHandCard;
     public GameObject panel_DiscardedCards;
     public GameObject panel_Notice_Back;
+    public GameObject panel_Card_1002;
+    public GameObject content_Card_1002;
+    public GameObject panel_ScoreCard_Hidden;
+    public GameObject panel_Wait;
     public Text text_NoticeThrowCard;
     public Text text_CircleNum;
     public Text text_Notice;
@@ -31,13 +37,18 @@ public class UIManager : MonoBehaviour
         button_Confirm_Selection.onClick.AddListener(UIConfirmSelection);
         button_GiveUp_Selection.onClick.AddListener(UIGiveUpSelection);
     }
-
-    // Update is called once per frame
     void Update()
     {
-        if(canvas.activeSelf)
+        if(card_1002_shouldCheckButtonInteractive)
         {
-            Debug.Log(GameManager.state_);
+            if(!UICard_1002_CheckButtonInteractive())
+            {
+                UICard_1002_ClosePanel();
+            }
+        }
+        if (canvas.activeSelf)
+        {
+            //Debug.Log(GameManager.state_);
             switch (GameManager.state_)
             {
                 
@@ -95,8 +106,8 @@ public class UIManager : MonoBehaviour
                     }
             }
         }
-        
-        
+
+
     }
     public void UIStartGame()
     {
@@ -180,6 +191,67 @@ public class UIManager : MonoBehaviour
     {
         ClearChild(content_MyHandCard.transform);
     }
+
+
+    public void UICard_1002_ShowPanel(int id_turn, List<int> list_scoreCard)
+    {
+        if (panel_Card_1002.activeSelf)
+        {
+            //Debug.LogError("重复调用!");
+            return;//防止重复调用
+        }
+        if((int)Empty.instance.netId == id_turn)
+        {
+            panel_Wait.SetActive(false);
+        }
+        else
+        {
+            panel_Wait.SetActive(true);
+        }
+        ClearChild(content_Card_1002.transform);
+        panel_Card_1002.SetActive(true);
+        for(int i=0;i<Empty.list_netId.Count;i++)
+        {
+            GameObject temp = Instantiate(panel_ScoreCard_Hidden,content_Card_1002.transform);
+            temp.SetActive(true);
+            temp.AddComponent<ScoreCard>().score = list_scoreCard[i];
+        }
+    }
+    public void UICard_1002_NextTurn(int last_id_turn,int this_id_turn, int index_last_Selected)
+    {
+        if(!UICard_1002_CheckButtonInteractive())
+        {
+            UICard_1002_ClosePanel();
+            return;
+        }
+        card_1002_shouldCheckButtonInteractive = true;
+        if ((int)Empty.instance.netId == this_id_turn)
+        {
+            panel_Wait.SetActive(false);
+        }
+        else
+        {
+            panel_Wait.SetActive(true);
+        }
+        content_Card_1002.transform.GetChild(index_last_Selected).gameObject.GetComponent<Button>().interactable = false;
+        content_Card_1002.transform.GetChild(index_last_Selected).GetChild(0).GetComponent<Text>().text = Empty.list_playerName[Empty.instance.GetIndex_in_list_netId(last_id_turn)];
+    }
+    public bool UICard_1002_CheckButtonInteractive()
+    {
+        for(int i=0;i< content_Card_1002.transform.childCount;i++)
+        {
+            if (!content_Card_1002.transform.GetChild(i).gameObject.activeSelf) continue;
+            if (content_Card_1002.transform.GetChild(i).gameObject.GetComponent<Button>().interactable) return true;
+        }
+        return false;
+    }
+
+    public void UICard_1002_ClosePanel()
+    {
+        card_1002_shouldCheckButtonInteractive = false;
+        panel_Wait.SetActive(false);
+        panel_Card_1002.SetActive(false);
+    }
     public void ClearChild(Transform t_parent)
     {
         Transform t_child;
@@ -187,12 +259,40 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < t_parent.transform.childCount; i++)
         {
             t_child = t_parent.transform.GetChild(i);
-            //Destroy(t_child.gameObject);
-            t_child.gameObject.SetActive(false);
+            if(t_child.gameObject.name.Contains("lone)"))
+            Destroy(t_child.gameObject);
+            else t_child.gameObject.SetActive(false);
         }
 
     }
 
+    public string GetContent_int(List<int> list)
+    {
+        string a = "";
+        for (int i = 0; i < list.Count; i++)
+        {
+            a += list[i].ToString();
+            a += " ";
+        }
+        return a;
+    }
+    public string GetContent_string(List<string> list)
+    {
+        string a = "";
+        for (int i = 0; i < list.Count; i++)
+        {
+            a += list[i].ToString();
+            a += " ";
+        }
+        return a;
+    }
+
+
+    public void FlashText(GameObject g)
+    {
+        g.GetComponent<Animator>().SetTrigger("Trigger_Flash");
+    }
+    
     public void Delay_ShowStartGame()
     {
         if(!Empty.instance)
@@ -216,4 +316,6 @@ public class UIManager : MonoBehaviour
             button_Start_Game.gameObject.SetActive(false);
         }
     }
+
+
 }

@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 40, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6249850423693193184
 CanvasRenderer:
@@ -70,9 +70,9 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 40
     m_FontStyle: 1
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 49
+    m_BestFit: 1
+    m_MinSize: 17
+    m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 0
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 4038660368924196984}
   - component: {fileID: 371147207572206717}
   m_Layer: 5
-  m_Name: Panel_ScoreCard_Hide
+  m_Name: Panel_ScoreCard_Hidden
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 74.175, y: -0.000002387166}
+  m_AnchoredPosition: {x: 74.17499, y: 0}
   m_SizeDelta: {x: 50.79, y: 80.1}
   m_Pivot: {x: 0.5, y: 0.49999997}
 --- !u!222 &7356733099423590892
@@ -183,7 +183,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -201,4 +201,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4038660368924196984}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2916131764998825982, guid: 58c12bdb3fc0368408f0b0e1ced5c02f, type: 3}
+        m_TargetAssemblyTypeName: Empty, Assembly-CSharp
+        m_MethodName: Call_ClientCard_1002_NextTurn
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 6316616261668929311}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

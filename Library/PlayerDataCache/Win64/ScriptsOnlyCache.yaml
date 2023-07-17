@@ -16,7 +16,6 @@ ScriptsOnlyBuild:
     - Player
     - ScoreCard
     - ScoreCardManager
-    - TestButton
     - UIManager
     - UIPlayerManager
     Mirror:
@@ -46,6 +45,14 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.TilemapPrefabStageHelper
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -99,66 +106,24 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.SpriteState
     - UnityEngine.UI.Toggle/ToggleEvent
   methodsToPreserve:
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: ScoreCardManager
-    methodName: DrawOneCard
   - assembly: UnityEngine.CoreModule
     fullTypeName: UnityEngine.GameObject
     methodName: SetActive
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCardManager
-    methodName: DrawOneCard
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
   - assembly: UnityEngine.CoreModule
     fullTypeName: UnityEngine.GameObject
     methodName: SetActive
@@ -168,6 +133,129 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: HandCard
     methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: Empty
+    methodName: Call_ClientCard_1002_NextTurn
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: Assembly-CSharp
+    fullTypeName: UIManager
+    methodName: FlashText
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: Empty
+    methodName: Call_ClientCard_1002_NextTurn
   sceneClasses:
     Assets/Scenes/SampleScene.unity:
     - Class: 1
@@ -195,63 +283,61 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1546}
     - Class: 114
-      Script: {instanceID: 1628}
+      Script: {instanceID: 1548}
     - Class: 114
-      Script: {instanceID: 1780}
+      Script: {instanceID: 1630}
     - Class: 114
-      Script: {instanceID: 1834}
+      Script: {instanceID: 1782}
     - Class: 114
-      Script: {instanceID: 1890}
+      Script: {instanceID: 1836}
     - Class: 114
-      Script: {instanceID: 1924}
+      Script: {instanceID: 1892}
     - Class: 114
-      Script: {instanceID: 2028}
+      Script: {instanceID: 1926}
     - Class: 114
-      Script: {instanceID: 2032}
+      Script: {instanceID: 2030}
     - Class: 114
-      Script: {instanceID: 2328}
+      Script: {instanceID: 2034}
     - Class: 114
-      Script: {instanceID: 2342}
+      Script: {instanceID: 2330}
     - Class: 114
-      Script: {instanceID: 2494}
+      Script: {instanceID: 2344}
     - Class: 114
-      Script: {instanceID: 2546}
+      Script: {instanceID: 2496}
     - Class: 114
-      Script: {instanceID: 2678}
+      Script: {instanceID: 2548}
     - Class: 114
-      Script: {instanceID: 2922}
+      Script: {instanceID: 2680}
     - Class: 114
-      Script: {instanceID: 3058}
+      Script: {instanceID: 2924}
     - Class: 114
-      Script: {instanceID: 3260}
+      Script: {instanceID: 3060}
     - Class: 114
-      Script: {instanceID: 3560}
+      Script: {instanceID: 3264}
     - Class: 114
-      Script: {instanceID: 3638}
+      Script: {instanceID: 3562}
     - Class: 114
-      Script: {instanceID: 3866}
+      Script: {instanceID: 3640}
     - Class: 114
-      Script: {instanceID: 3872}
+      Script: {instanceID: 3868}
     - Class: 114
-      Script: {instanceID: 4158}
+      Script: {instanceID: 3874}
     - Class: 114
-      Script: {instanceID: 4298}
+      Script: {instanceID: 4160}
     - Class: 114
-      Script: {instanceID: 4510}
+      Script: {instanceID: 4300}
     - Class: 114
-      Script: {instanceID: 5026}
+      Script: {instanceID: 4512}
     - Class: 114
-      Script: {instanceID: 5300}
+      Script: {instanceID: 5028}
     - Class: 114
-      Script: {instanceID: 5558}
+      Script: {instanceID: 5302}
     - Class: 114
       Script: {instanceID: 5956}
     - Class: 114
       Script: {instanceID: 6128}
     - Class: 114
       Script: {instanceID: 6490}
-    - Class: 114
-      Script: {instanceID: 6960}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -275,6 +361,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.UI
     className: Button
+  - hash:
+      serializedVersion: 2
+      Hash: 1acffdc47de1ca014dae3d384c3d1086
+    assemblyName: UnityEngine.UI
+    namespaceName: UnityEngine.UI
+    className: ScrollRect
   - hash:
       serializedVersion: 2
       Hash: fd0b671878695ad150b80c1ab1f4a482
@@ -355,7 +447,7 @@ ScriptsOnlyBuild:
     className: CCDSolver2D
   - hash:
       serializedVersion: 2
-      Hash: 2605249ad6ee9bce3d937362cea1ca03
+      Hash: c3103200592a60e7c038e7abbe7bab9e
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Empty
@@ -385,13 +477,13 @@ ScriptsOnlyBuild:
     className: HorizontalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 2ee8787b4eb374975ad3021bdba120a3
+      Hash: 6a83cdd89b7390de3ca7b06af62295d7
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: GrandCard
   - hash:
       serializedVersion: 2
-      Hash: 0ad2e6587f7cb2a8ef845ad1723c030f
+      Hash: 4a5acf93d15ea90742f0e742adc890c3
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UIManager
@@ -487,7 +579,7 @@ ScriptsOnlyBuild:
     className: SpriteSkinUpdateHelper
   - hash:
       serializedVersion: 2
-      Hash: 94b7efe31bb77d107d9b2197240c05b3
+      Hash: 21b1b4ad8e6ade5ff5fc0389382b63e4
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Player
@@ -547,7 +639,7 @@ ScriptsOnlyBuild:
     className: SkeletonAsset
   - hash:
       serializedVersion: 2
-      Hash: 4a020b0c0decaefac94a87a82f9ab261
+      Hash: 32da56267a79a9089831983b2fea5dd9
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: ScoreCard
@@ -961,12 +1053,6 @@ ScriptsOnlyBuild:
     className: SignalReceiver
   - hash:
       serializedVersion: 2
-      Hash: 1acffdc47de1ca014dae3d384c3d1086
-    assemblyName: UnityEngine.UI
-    namespaceName: UnityEngine.UI
-    className: ScrollRect
-  - hash:
-      serializedVersion: 2
       Hash: 34096a327d779b7c96a3e390f3559143
     assemblyName: UnityEngine.UI
     namespaceName: UnityEngine.EventSystems
@@ -1009,7 +1095,7 @@ ScriptsOnlyBuild:
     className: SpriteLibraryAsset
   - hash:
       serializedVersion: 2
-      Hash: 4f6ee3966383bd4270665ebfb2b8da48
+      Hash: fc06a99f24028acd927b1e3cf0fa370a
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: HandCard
@@ -1157,12 +1243,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.AI.Navigation
     namespaceName: Unity.AI.Navigation
     className: NavMeshLink
-  - hash:
-      serializedVersion: 2
-      Hash: 751e5bae2a317288c2ab58d66687092b
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: TestButton
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

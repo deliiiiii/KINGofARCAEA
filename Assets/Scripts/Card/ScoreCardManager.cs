@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -104,7 +105,6 @@ public class ScoreCardManager : MonoBehaviour
 
     public GameObject GetScoreCardByIndex(int index)
     {
-        Debug.Log("分数牌id = " + index);
         for(int i=0;i<scoreCardsPrefab.Count;i++)
         {
             if (scoreCardsPrefab[i].GetComponent<ScoreCard>().index_Card == index)
@@ -115,8 +115,18 @@ public class ScoreCardManager : MonoBehaviour
         Debug.LogError("未找到对应分数牌");
         return null;
     }
-
-
+    public GameObject GetScoreCardByScore(int score)
+    {
+        for (int i = 0; i < scoreCardsPrefab.Count; i++)
+        {
+            if (scoreCardsPrefab[i].GetComponent<ScoreCard>().score == score)
+            {
+                return scoreCardsPrefab[i];
+            }
+        }
+        Debug.LogError("未找到对应分数牌");
+        return null;
+    }
     public void Sync_DrawOneCard()
     {
         count_ScoreCard -= 1;
@@ -143,5 +153,10 @@ public class ScoreCardManager : MonoBehaviour
         Empty.instance.scoreCard.SetActive(true);
 
         scoreCardsStock.RemoveAt(0);/////判断空
+    }
+    public void Card_1002_ReGetScoreCard(GameObject scoreCard)
+    {
+        Empty.instance.scoreCard = Instantiate(GetScoreCardByScore(scoreCard.GetComponent<ScoreCard>().score), panel_MyScoreCard.transform);
+        Empty.instance.scoreCard.SetActive(true);
     }
 }
