@@ -3,6 +3,7 @@ using Mirror;
 using System.Collections.Generic;
 using Telepathy;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Empty : NetworkBehaviour
 {
@@ -179,7 +180,16 @@ public class Empty : NetworkBehaviour
     {
         RpcCard_1003_ReceiveScoreCard(id_attacker,score);
     }
-
+    [Command]
+    public void CmdCard_1004_GetHisScoreCard( List<int> list_index_offender)
+    {
+        RpcCard_1004_GetHisScoreCard(list_index_offender);
+    }
+    [Command]
+    public void CmdCard_1004_Show_Panel(int id_offender,int score)
+    {
+        RpcCard_1004_Show_Panel(id_offender,score);
+    }
     //[Command]
     //public void CmdYieldCard()
     //{
@@ -593,8 +603,19 @@ public class Empty : NetworkBehaviour
             instance.ClientDrawScoreCard_Specific((int)instance.netId,score);
         }
     }
-
-
+    [ClientRpc]
+    public void RpcCard_1004_GetHisScoreCard( List<int> list_index_offender)
+    {
+        if (list_index_offender[0] == ((int)instance.netId))
+        {
+            instance.CmdCard_1004_Show_Panel(list_index_offender[0],instance.scoreCard.GetComponent<ScoreCard>().score);
+        }
+    }
+    [ClientRpc]
+    public void RpcCard_1004_Show_Panel(int id_offender, int score)
+    {
+        UIManager.instance.UICard_1004_ShowPanel(id_offender, score);
+    }
 
 
     [Client]
@@ -706,6 +727,7 @@ public class Empty : NetworkBehaviour
                     break;
                 case 1004://观看手元
                     Debug.Log("观看手元");
+                    instance.CmdCard_1004_GetHisScoreCard(list_index_offender);
                     break;
                 case 1005://神之左手
                     Debug.Log("神之左手");

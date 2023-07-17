@@ -14,12 +14,15 @@ public class UIManager : MonoBehaviour
     public GameObject panel_DiscardedCards;
     public GameObject panel_Notice_Back;
     public GameObject panel_Card_1002;
+    public GameObject panel_Card_1004;
+    public GameObject panel_CardDetail_1004;
     public GameObject content_Card_1002;
     public GameObject panel_ScoreCard_Hidden;
     public GameObject panel_Wait;
     public Text text_NoticeThrowCard;
     public Text text_CircleNum;
     public Text text_Notice;
+    public Text text_name_1004;
     public Button button_Start_Game;//开始游戏
     public Button button_YieldCard;//打出按钮
     public Button button_FinishYieldCard;//结束出牌按钮
@@ -245,12 +248,19 @@ public class UIManager : MonoBehaviour
         }
         return false;
     }
-
     public void UICard_1002_ClosePanel()
     {
         card_1002_shouldCheckButtonInteractive = false;
         panel_Wait.SetActive(false);
         panel_Card_1002.SetActive(false);
+    }
+    public void UICard_1004_ShowPanel(int id_offender, int score)
+    {
+        text_name_1004.text = Empty.list_playerName[Empty.instance.GetIndex_in_list_netId(id_offender)];
+        ClearChild(panel_CardDetail_1004.transform);
+        GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(score), panel_CardDetail_1004.transform);
+        temp.SetActive(true);
+        panel_Card_1004.SetActive(true);
     }
     public void ClearChild(Transform t_parent)
     {

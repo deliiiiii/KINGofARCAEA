@@ -22,8 +22,8 @@ public class HandCardManager : MonoBehaviour
         {
             new HandCard(1001,2,true,1,false,false),//代打
             new HandCard(1002,2,false,0,true,false),//天下第一音游祭
-            new HandCard(1003,16/*4*/,true,1,false,false),//指点江山
-            new HandCard(1004,4,true,1,false,false),//观看手元
+            new HandCard(1003,4/*4*/,true,1,false,false),//指点江山
+            new HandCard(1004,24/*4*/,true,1,false,false),//观看手元
             new HandCard(1005,4,false,0,true,false),//神之左手
             new HandCard(1006,4,false,0,true,false),//鬼之右手
             new HandCard(1007,4,true,0,false,false),//音游窝
@@ -38,7 +38,7 @@ public class HandCardManager : MonoBehaviour
             new HandCard(3001,4,false,0,false,false),//看铺
             new HandCard(3002,4,false,0,false,true),//私人订制手台
             new HandCard(3003,4,false,0,false,false),//底力提升
-            new HandCard(3004,4,false,0,false,false),//从头开始
+            new HandCard(3004,24/*4*/,false,0,false,false),//从头开始
         };
 
     }
