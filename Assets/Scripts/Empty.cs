@@ -62,8 +62,10 @@ public class Empty : NetworkBehaviour
     public List<int> list_Card_1002_ScoreCard = new();
     public List<int> list_Card_1005or1006_ScoreCard = new();
     public List<int> list_Card_1005or1006_netId_ScoreCard = new();
-    public int temp_card_1002_id_attacker;
+    public int temp_Card_1002_id_attacker;
     public List<int> temp_card_1005or1006_list_index_offender;
+    public int temp_Card_1007_checkCount;
+    public int temp_Card_1007_id_attacker;
     public float delay = 0.2f;
 
 
@@ -159,7 +161,7 @@ public class Empty : NetworkBehaviour
             RpcCard_1002_CollectAllScoreCards(id_attacker, list_netId[i]);
         }
         instance.ServerDelay_RpcCard_1002_Show_Panel_SelectScoreCard();
-        instance.temp_card_1002_id_attacker = id_attacker;
+        instance.temp_Card_1002_id_attacker = id_attacker;
     }
     [Command]
     public void CmdCard_1002_AddScoreCard(int id_attacker, int score/*, bool isover*/)
@@ -206,7 +208,7 @@ public class Empty : NetworkBehaviour
         for (int i = 0; i < list_netId.Count; i++)
         {
             //bool isOver = (i == list_netId.Count - 1);
-            RpcCard_1005_CollectAllScoreCards(list_index_offender, list_netId[i]);
+            RpcCard_1005or1006_CollectAllScoreCards(list_index_offender, list_netId[i]);
         }
         instance.temp_card_1005or1006_list_index_offender = list_index_offender;
         switch(index_card)
@@ -221,7 +223,7 @@ public class Empty : NetworkBehaviour
         }
     }
     [Command]
-    public void CmdCard_1005_AddScoreCard(int onlineId, int score/*, bool isover*/)
+    public void CmdCard_1005or1006_AddScoreCard(int onlineId, int score/*, bool isover*/)
     {
         instance.list_Card_1005or1006_netId_ScoreCard.Add(onlineId);
         instance.list_Card_1005or1006_ScoreCard.Add(score);
@@ -232,6 +234,42 @@ public class Empty : NetworkBehaviour
     {
         RpcCard_1006_GetRightSuspectedScore(list_index_offender);
     }
+    [Command]
+    public void CmdCard_1007_CollectScoreCards(int id_attacker)
+    {
+        instance.list_Card_1005or1006_ScoreCard.Clear();
+        instance.list_Card_1005or1006_netId_ScoreCard.Clear();
+        instance.temp_Card_1007_checkCount = 0;
+        //int temp_index_CurrentPlayer = index_CurrentPlayer;
+        int my_index = GetIndex_in_list_netId(id_attacker);
+        if(index_Circle < 2)
+        {
+            Debug.Log("第一圈 my_index = " + my_index);
+            for (int i = 0; i < list_netId.Count; i++)
+            {
+                if (i == my_index) continue;
+                instance.temp_Card_1007_checkCount++;
+                RpcCard_1007_CollectScoreCards(list_netId[i]);
+            }
+        }
+        else if(index_Circle == 2)
+        {
+            for(int i = my_index + 1; ;i++)
+            {
+                if (i == list_netId.Count) i = 0;
+                if (i == index_CurrentHolder - 1) break;
+                instance.temp_Card_1007_checkCount++;
+                RpcCard_1007_CollectScoreCards(list_netId[i]);
+            }
+        }
+        Debug.Log("checkcount " + instance.temp_Card_1007_checkCount);
+        instance.temp_Card_1007_id_attacker = id_attacker;
+        instance.ServerDelay_ClientCard_1007_ShowPanel();
+    }
+
+
+
+
     //[Command]
     //public void CmdYieldCard()
     //{
@@ -403,7 +441,7 @@ public class Empty : NetworkBehaviour
             return;
         }
         List<int> randomed_list_scoreCard = RandomList(instance.list_Card_1002_ScoreCard);
-        instance.RpcCard_1002_Show_Panel_SelectScoreCard(instance.temp_card_1002_id_attacker, randomed_list_scoreCard);
+        instance.RpcCard_1002_Show_Panel_SelectScoreCard(instance.temp_Card_1002_id_attacker, randomed_list_scoreCard);
     }
     [Server]
     public void ServerDelay_RpcCard_1005_GetLeftScoreCard()
@@ -417,6 +455,7 @@ public class Empty : NetworkBehaviour
         Debug.Log("分数牌列表 = " +  GetContent_int(list_Card_1005or1006_ScoreCard));
         instance.RpcCard_1005_GetLeftScoreCard(instance.temp_card_1005or1006_list_index_offender,instance.list_Card_1005or1006_ScoreCard,instance.list_Card_1005or1006_netId_ScoreCard);
     }
+    [Server]
     public void ServerDelay_RpcCard_1006_GetRightScoreCard()
     {
         if (instance.list_Card_1005or1006_ScoreCard.Count != list_netId.Count)
@@ -428,7 +467,17 @@ public class Empty : NetworkBehaviour
         Debug.Log("分数牌列表 = " + GetContent_int(list_Card_1005or1006_ScoreCard));
         instance.RpcCard_1006_GetRightScoreCard(instance.temp_card_1005or1006_list_index_offender, instance.list_Card_1005or1006_ScoreCard, instance.list_Card_1005or1006_netId_ScoreCard);
     }
-
+    [Server]
+    public void ServerDelay_ClientCard_1007_ShowPanel()
+    {
+        if (list_Card_1005or1006_ScoreCard.Count != instance.temp_Card_1007_checkCount)
+        {
+            Debug.Log("Delay 1007");
+            Invoke(nameof(ServerDelay_ClientCard_1007_ShowPanel), delay);
+            return;
+        }
+        instance.RpcCard_1007_ShowPanel(instance.temp_Card_1007_id_attacker, instance.list_Card_1005or1006_ScoreCard, instance.list_Card_1005or1006_netId_ScoreCard);
+    }
     [ClientRpc]
     public void RpcClearPlayer()
     {
@@ -690,10 +739,10 @@ public class Empty : NetworkBehaviour
         UIPlayerManager.instance.Card_1005_GetLeftSuspectedScore(list_index_offender);
     }
     [ClientRpc]
-    public void RpcCard_1005_CollectAllScoreCards(List<int> list_index_offender, int index_offender)
+    public void RpcCard_1005or1006_CollectAllScoreCards(List<int> list_index_offender, int index_offender)
     {
         if ((int)instance.netId != index_offender) return;
-        instance.CmdCard_1005_AddScoreCard((int)instance.netId,instance.scoreCard.GetComponent<ScoreCard>().score);
+        instance.CmdCard_1005or1006_AddScoreCard((int)instance.netId,instance.scoreCard.GetComponent<ScoreCard>().score);
         if (!list_index_offender.Contains((int)instance.netId)) return;
         instance.scoreCard.SetActive(false);
         Destroy(instance.scoreCard);
@@ -795,7 +844,18 @@ public class Empty : NetworkBehaviour
     {
         UIPlayerManager.instance.Card_1006_GetRightSuspectedScore(list_index_offender);
     }
-
+    [ClientRpc]
+    public void RpcCard_1007_CollectScoreCards(int index_offender)
+    {
+        if ((int)instance.netId != index_offender) return;
+        instance.CmdCard_1005or1006_AddScoreCard((int)instance.netId, instance.scoreCard.GetComponent<ScoreCard>().score);
+    }
+    [ClientRpc]
+    public void RpcCard_1007_ShowPanel(int id_attacker , List<int> list_score, List<int> list_id_of_score)
+    {
+        if ((int)instance.netId != id_attacker) return;
+        UIManager.instance.UICard_1007_ShowPanel(list_score, list_id_of_score);
+    }
     [Client]
     public void ClientAddPlayer(int added_netId,string added_name)
     {
@@ -927,6 +987,7 @@ public class Empty : NetworkBehaviour
                     break;
                 case 1007://音游窝
                     Debug.Log("音游窝");
+                    instance.CmdCard_1007_CollectScoreCards((int)instance.netId);
                     break;
                 case 1008://音游王
                     Debug.Log("音游王");
@@ -1011,7 +1072,7 @@ public class Empty : NetworkBehaviour
         ScoreCardManager.instance.Card_1002_ReGetScoreCard(scoreCard);
         CmdCard_1002_NextTurn((int)instance.netId, scoreCard.transform.GetSiblingIndex());
     }
-
+    
 
 
 

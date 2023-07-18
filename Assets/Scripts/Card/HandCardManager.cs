@@ -26,7 +26,7 @@ public class HandCardManager : MonoBehaviour
             new HandCard(1004,0/*4*/,true,1,false,false),//观看手元
             new HandCard(1005,24/*4*/,false,0,true,false),//神之左手
             new HandCard(1006,24/*4*/,false,0,true,false),//鬼之右手
-            new HandCard(1007,0/*4*/,true,0,false,false),//音游窝
+            new HandCard(1007,60/*4*/,true,0,false,false),//音游窝
             new HandCard(1008,0/*4*/,true,1,false,true),//音游王
             new HandCard(1009,0/*4*/,true,2,true,false),//联机
             new HandCard(1010,0/*4*/,true,1,false,false),//自来熟

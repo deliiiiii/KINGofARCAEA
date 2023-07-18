@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
@@ -8,6 +10,10 @@ public class UIManager : MonoBehaviour
     public GameObject canvas;
 
     public bool card_1002_shouldCheckButtonInteractive = false;
+
+    public List<int> card_1007_temp_list_score;
+    public List<int> card_1007_temp_list_id_of_score;
+    public int card_1007_temp_last_index_id;
 
     public float delay = 0.2f;
     public GameObject content_MyHandCard;
@@ -19,10 +25,13 @@ public class UIManager : MonoBehaviour
     public GameObject content_Card_1002;
     public GameObject panel_ScoreCard_Hidden;
     public GameObject panel_Wait;
+    public GameObject panel_Card_1007;
+    public GameObject panel_CardDetail_1007;
     public Text text_NoticeThrowCard;
     public Text text_CircleNum;
     public Text text_Notice;
     public Text text_name_1004;
+    public Text text_name_1007;
     public Button button_Start_Game;//开始游戏
     public Button button_YieldCard;//打出按钮
     public Button button_FinishYieldCard;//结束出牌按钮
@@ -266,6 +275,65 @@ public class UIManager : MonoBehaviour
         temp.SetActive(true);
         panel_Card_1004.SetActive(true);
     }
+    public void UICard_1007_ShowPanel(List<int>list_score,List<int>list_id_of_score)
+    {
+        Debug.Log("分数列表 = " + Empty.instance.GetContent_int(list_score) + " 分数id  = " + Empty.instance.GetContent_int(list_id_of_score));
+        Debug.Log("empty id列表 = " + Empty.instance.GetContent_int(Empty.list_netId));
+        card_1007_temp_list_score = list_score;
+        card_1007_temp_list_id_of_score = list_id_of_score;
+        if(list_id_of_score.Count == 0) 
+        {
+            panel_Notice_Back.SetActive(true);
+            text_Notice.text = "没有符合条件的玩家！";
+            return;
+        }
+        int index_id = -1;
+        for(int i=0;i< list_id_of_score.Count;i++)
+        {
+            int target_id = (int)Empty.instance.netId + 1;
+            while(!list_id_of_score.Contains(target_id))
+            {
+                target_id++;
+                if (target_id > 1000) target_id = 0;
+            }
+            //if (target_id == Empty.list_netId[Empty.index_CurrentHolder - 1]) return;
+            if (target_id == list_id_of_score[i])
+            {
+                index_id = i;
+                break;
+            }
+        }
+        Debug.Log("index_id = " + index_id);
+        card_1007_temp_last_index_id = index_id;
+        text_name_1007.text = Empty.list_playerName[Empty.instance.GetIndex_in_list_netId(list_id_of_score[index_id])];
+        ClearChild(panel_CardDetail_1007.transform);
+        GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(list_score[index_id]), panel_CardDetail_1007.transform);
+        temp.SetActive(true);
+        panel_Card_1007.SetActive(true);
+    }
+    public void UICard_1007_ShowNext()
+    {
+        //int index_id = -1;
+        //for (int i = 0; i < card_1007_temp_list_id_of_score.Count; i++)
+        //{
+        //    int target_index_id = card_1007_temp_last_index_id + 1;
+        //    if(target_index_id == Empty.index_CurrentHolder - 1)
+        //    {
+        //        panel_Card_1007.SetActive(false);
+        //        return;
+        //    }
+        //    if (target_index_id == card_1007_temp_list_id_of_score[i])
+        //    {
+        //        index_id = i;
+        //        break;
+        //    }
+        //}
+        //text_name_1007.text = Empty.list_playerName[Empty.instance.GetIndex_in_list_netId(card_1007_temp_list_id_of_score[index_id])];
+        //ClearChild(panel_CardDetail_1007.transform);
+        //GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(card_1007_temp_list_score[index_id]), panel_CardDetail_1007.transform);
+        //temp.SetActive(true);
+    }
+
     public void ClearChild(Transform t_parent)
     {
         Transform t_child;
