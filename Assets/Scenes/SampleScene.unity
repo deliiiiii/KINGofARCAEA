@@ -11392,6 +11392,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScoreCard_1
       objectReference: {fileID: 0}
+    - target: {fileID: 7153640617638206091, guid: 571e14372cd316b4a8c768b6b6f349c6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -652,9 +652,7 @@ public class Empty : NetworkBehaviour
     [Client]
     public void ClientDrawScoreCard(int onlineID, bool canDiscard)
     {
-        
         instance.CmdDrawScoreCard(onlineID,canDiscard);
-
     }
     [Client]
     public void ClientDrawScoreCard_Specific(int onlineID, int score)

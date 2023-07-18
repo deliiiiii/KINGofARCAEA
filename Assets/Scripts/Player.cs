@@ -23,6 +23,12 @@ public class Player : NetworkBehaviour
     public GameObject panel_ToUnSelect;
     public GameObject image_Holder;
     public GameObject image_MyTurn;
+
+    public Toggle toggle_score_3; 
+    public Toggle toggle_score_1; 
+    public Toggle toggle_score_0;
+    public Text text_RoundScore;
+    public List<Toggle> list_toggle_score; 
     //public Player(int index_Player, string name_player)
     //{
     //    totalScore = totalMove = 0;
@@ -35,8 +41,78 @@ public class Player : NetworkBehaviour
     private void Awake()
     {
         instance = this;
+
+        list_toggle_score = new()
+        {
+            toggle_score_3,
+            toggle_score_1,
+            toggle_score_0,
+        };
+        for (int i=0 ; i < list_toggle_score.Count; i++)
+        {
+            list_toggle_score[i].onValueChanged.AddListener((bool value) => RefreshText_RoundScore_by_toggle());
+        }
+
     }
 
+    public void RefreshText_RoundScore_by_toggle()
+    {
+        int count_isOn = 0, index_last_isOn = -1, i = 0;
+        for (; i<list_toggle_score.Count;i++)
+        {
+            if (list_toggle_score[i].isOn)
+            {
+                count_isOn++;
+                index_last_isOn = i;
+            }
+        }
+        if(count_isOn == 1)
+        {
+            switch (index_last_isOn)
+            {
+                case 0:
+                    text_RoundScore.text = "3";
+                    break;
+                case 1:
+                    text_RoundScore.text = "1";
+                    break;
+                case 2:
+                    text_RoundScore.text = "0";
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            text_RoundScore.text = "?";
+        }
+    }
+
+    public void RefreshText_RoundScore_by_scoreCArd(int score)
+    {
+        text_RoundScore.text = score.ToString();
+        switch (score)
+        {
+            case 3:case 4:
+                toggle_score_3.isOn = true;
+                toggle_score_1.isOn = false;
+                toggle_score_0.isOn = false;
+                break;
+            case 1:
+                toggle_score_3.isOn = false;
+                toggle_score_1.isOn = true;
+                toggle_score_0.isOn = false;
+                break;
+            case 0:
+                toggle_score_3.isOn = false;
+                toggle_score_1.isOn = false;
+                toggle_score_0.isOn = true;
+                break;
+            default:
+                break;
+        }
+    }
     //public void DrawHandCards(int num,int index)//0¿ªÊ¼
     //{
     //    Debug.Log("index " + index + " draw " + num + "hand cards");
@@ -54,8 +130,8 @@ public class Player : NetworkBehaviour
     //        //ScoreCardManager.instance.DrawOneCard(index);
     //    }
     //}
-    
-    
+
+
     //public void ThrowCard_Judge(int index)
     //{
     //    if(int.Parse(Text_CardNum.text) <= 4)

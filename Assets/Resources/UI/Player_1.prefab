@@ -2348,13 +2348,6 @@ MonoBehaviour:
   syncInterval: 0
   my_netID: 0
   totalScore: 0
-  roundScore: 0000000000000000
-  totalMove: 0
-  turnMove: 
-  count_HandCard: 0
-  count_RoundUsedCard: 0
-  count_TotalUsedCard: 0
-  index_Player: 0
   text_Index_Player: {fileID: 2664330329929696628}
   name_Player: 
   text_Name_Player: {fileID: 129745553881178546}
@@ -2367,8 +2360,11 @@ MonoBehaviour:
   panel_ToUnSelect: {fileID: 8465553118386937358}
   image_Holder: {fileID: 116571014166650326}
   image_MyTurn: {fileID: 114581740694801160}
-  selectedCard: {fileID: 0}
-  scoreCard: {fileID: 0}
+  toggle_score_3: {fileID: 1356539575514180770}
+  toggle_score_1: {fileID: 5926579036691627841}
+  toggle_score_0: {fileID: 3428867542011288274}
+  text_RoundScore: {fileID: 4750505449702126362}
+  list_toggle_score: []
 --- !u!114 &8707652590705695890
 MonoBehaviour:
   m_ObjectHideFlags: 0
