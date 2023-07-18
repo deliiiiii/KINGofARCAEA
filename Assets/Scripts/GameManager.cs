@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     public enum Temp_STATE
     {
+        STATE_BUSY,
         STATE_GAME_IDLING,
         STATE_GAME_STARTED,
         STATE_GAME_SUMMARY,

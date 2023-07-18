@@ -5200,7 +5200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd35b29ca1a3da4285739c4a9aac725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 6633587564225578464, guid: 3aeb5d6b6e6a82441b84e7ec347da511, type: 3}
+  playerPrefab: {fileID: 3993725638809004569, guid: 3aeb5d6b6e6a82441b84e7ec347da511, type: 3}
   content_Player: {fileID: 1198931209}
 --- !u!114 &927389939
 MonoBehaviour:
@@ -7177,7 +7177,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1323522803}
+  - {fileID: 1708182183}
   - {fileID: 1646821349}
   - {fileID: 679280324}
   - {fileID: 414896914}
@@ -7675,10 +7675,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1291318559}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 2020784599}
+        m_TargetAssemblyTypeName: HandCard, Assembly-CSharp
+        m_MethodName: CloseDetail
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -7979,6 +7979,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6637155370859554487, guid: 3aeb5d6b6e6a82441b84e7ec347da511, type: 3}
+      propertyPath: sceneId
+      value: 2494490576
+      objectReference: {fileID: 0}
     - target: {fileID: 6699610179327262595, guid: 3aeb5d6b6e6a82441b84e7ec347da511, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8076,11 +8080,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3aeb5d6b6e6a82441b84e7ec347da511, type: 3}
---- !u!224 &1323522803 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6699610179327262595, guid: 3aeb5d6b6e6a82441b84e7ec347da511, type: 3}
-  m_PrefabInstance: {fileID: 1323522802}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1370330705
 GameObject:
   m_ObjectHideFlags: 0
@@ -9932,10 +9931,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1590719438}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 2020784599}
+        m_TargetAssemblyTypeName: HandCard, Assembly-CSharp
+        m_MethodName: CloseDetail
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -10535,6 +10534,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &1708182183 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 9108109530941024510, guid: 3aeb5d6b6e6a82441b84e7ec347da511, type: 3}
+  m_PrefabInstance: {fileID: 1323522802}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1711886671
 GameObject:
   m_ObjectHideFlags: 0
@@ -11897,6 +11901,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 738915009688628370, guid: fb96b3602f8709b428687c397e528a94, type: 3}
   m_PrefabInstance: {fileID: 1825366299}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2020784599 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 738915009688628368, guid: fb96b3602f8709b428687c397e528a94, type: 3}
+  m_PrefabInstance: {fileID: 1825366299}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020784598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac815ffba733cf44da59631adeaa9fd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2024124289
 GameObject:
   m_ObjectHideFlags: 0

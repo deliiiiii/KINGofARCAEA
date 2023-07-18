@@ -48,10 +48,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -106,36 +104,6 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.SpriteState
     - UnityEngine.UI.Toggle/ToggleEvent
   methodsToPreserve:
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
   - assembly: Assembly-CSharp
     fullTypeName: HandCard
     methodName: ShowDetail
@@ -166,6 +134,36 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: Empty
     methodName: Call_ClientCard_1002_NextTurn
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
   - assembly: Assembly-CSharp
     fullTypeName: HandCard
     methodName: ShowDetail
@@ -220,9 +218,12 @@ ScriptsOnlyBuild:
   - assembly: UnityEngine.CoreModule
     fullTypeName: UnityEngine.GameObject
     methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: CloseDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: CloseDetail
   - assembly: UnityEngine.CoreModule
     fullTypeName: UnityEngine.GameObject
     methodName: SetActive
@@ -289,55 +290,55 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1782}
     - Class: 114
-      Script: {instanceID: 1836}
+      Script: {instanceID: 1890}
     - Class: 114
-      Script: {instanceID: 1892}
+      Script: {instanceID: 1924}
     - Class: 114
-      Script: {instanceID: 1926}
+      Script: {instanceID: 2028}
     - Class: 114
-      Script: {instanceID: 2030}
+      Script: {instanceID: 2032}
     - Class: 114
-      Script: {instanceID: 2034}
+      Script: {instanceID: 2328}
     - Class: 114
-      Script: {instanceID: 2330}
+      Script: {instanceID: 2342}
     - Class: 114
-      Script: {instanceID: 2344}
+      Script: {instanceID: 2494}
     - Class: 114
-      Script: {instanceID: 2496}
+      Script: {instanceID: 2546}
     - Class: 114
-      Script: {instanceID: 2548}
+      Script: {instanceID: 2678}
     - Class: 114
-      Script: {instanceID: 2680}
+      Script: {instanceID: 2922}
     - Class: 114
-      Script: {instanceID: 2924}
+      Script: {instanceID: 3058}
     - Class: 114
-      Script: {instanceID: 3060}
+      Script: {instanceID: 3262}
     - Class: 114
-      Script: {instanceID: 3264}
+      Script: {instanceID: 3560}
     - Class: 114
-      Script: {instanceID: 3562}
+      Script: {instanceID: 3638}
     - Class: 114
-      Script: {instanceID: 3640}
+      Script: {instanceID: 3866}
     - Class: 114
-      Script: {instanceID: 3868}
+      Script: {instanceID: 3872}
     - Class: 114
-      Script: {instanceID: 3874}
+      Script: {instanceID: 4158}
     - Class: 114
-      Script: {instanceID: 4160}
+      Script: {instanceID: 4298}
     - Class: 114
-      Script: {instanceID: 4300}
+      Script: {instanceID: 4510}
     - Class: 114
-      Script: {instanceID: 4512}
+      Script: {instanceID: 5026}
     - Class: 114
-      Script: {instanceID: 5028}
+      Script: {instanceID: 5300}
     - Class: 114
-      Script: {instanceID: 5302}
+      Script: {instanceID: 5954}
     - Class: 114
-      Script: {instanceID: 5956}
+      Script: {instanceID: 6126}
     - Class: 114
-      Script: {instanceID: 6128}
+      Script: {instanceID: 6488}
     - Class: 114
-      Script: {instanceID: 6490}
+      Script: {instanceID: 6958}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -447,12 +448,6 @@ ScriptsOnlyBuild:
     className: CCDSolver2D
   - hash:
       serializedVersion: 2
-      Hash: c3103200592a60e7c038e7abbe7bab9e
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: Empty
-  - hash:
-      serializedVersion: 2
       Hash: 608baadfc08f190ac5a45982f826f37b
     assemblyName: Mirror.Components
     namespaceName: Mirror
@@ -483,7 +478,7 @@ ScriptsOnlyBuild:
     className: GrandCard
   - hash:
       serializedVersion: 2
-      Hash: 4a5acf93d15ea90742f0e742adc890c3
+      Hash: 1d83ad1794bf0c5858a4ce56f54d21cf
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UIManager
@@ -579,7 +574,7 @@ ScriptsOnlyBuild:
     className: SpriteSkinUpdateHelper
   - hash:
       serializedVersion: 2
-      Hash: 21b1b4ad8e6ade5ff5fc0389382b63e4
+      Hash: 9b11c07fcd7e5417984c0782ff45f448
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Player
@@ -1243,6 +1238,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.AI.Navigation
     namespaceName: Unity.AI.Navigation
     className: NavMeshLink
+  - hash:
+      serializedVersion: 2
+      Hash: 46f92c923e33428cdf3191e6d9cb7ade
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: Empty
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

@@ -219,7 +219,11 @@ public class UIManager : MonoBehaviour
             temp.SetActive(true);
             temp.AddComponent<ScoreCard>().score = list_scoreCard[i];
         }
+
+        UIPlayerManager.instance.Card_1002_ClearAllSuspectedCard();
+        
     }
+
     public void UICard_1002_NextTurn(int last_id_turn,int this_id_turn, int index_last_Selected)
     {
         if(!UICard_1002_CheckButtonInteractive())

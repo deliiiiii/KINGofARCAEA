@@ -28,7 +28,11 @@ public class Player : NetworkBehaviour
     public Toggle toggle_score_1; 
     public Toggle toggle_score_0;
     public Text text_RoundScore;
-    public List<Toggle> list_toggle_score; 
+    public List<Toggle> list_toggle_score;
+
+    public GameObject card_1005_GetLeftHand;
+    public GameObject card_1005_GetRightHand;
+    public Text card_1005_GiveWhom;
     //public Player(int index_Player, string name_player)
     //{
     //    totalScore = totalMove = 0;
@@ -89,7 +93,7 @@ public class Player : NetworkBehaviour
         }
     }
 
-    public void RefreshText_RoundScore_by_scoreCArd(int score)
+    public void RefreshText_RoundScore_by_scoreCard(int score)
     {
         text_RoundScore.text = score.ToString();
         switch (score)
@@ -111,6 +115,23 @@ public class Player : NetworkBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    public void Refresh_list_toggle_score(bool[] list_toggle_isOn)
+    {
+        for(int i=0;i< list_toggle_score.Count;i++)
+        {
+            list_toggle_score[i].isOn = list_toggle_isOn[i];
+        }
+        //RefreshText_RoundScore_by_toggle();
+    }
+
+    public void Clear_toggle_isOns()
+    {
+        for (int i=0; i < list_toggle_score.Count; i++)
+        {
+            list_toggle_score[i].isOn = false;
         }
     }
     //public void DrawHandCards(int num,int index)//0¿ªÊ¼

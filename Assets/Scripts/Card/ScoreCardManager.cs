@@ -140,10 +140,13 @@ public class ScoreCardManager : MonoBehaviour
     {
         count_ScoreCard -= 1;
         text_CardNum.text = count_ScoreCard.ToString();
-        if (Empty.instance.scoreCard && canDiscard)
+        if (Empty.instance.scoreCard)
         {
             Debug.Log(Empty.instance.scoreCard.gameObject.name);
-            Empty.instance.ClientDiscardScoreCard(Empty.instance.scoreCard.GetComponent<ScoreCard>().index_Card);
+            if(canDiscard)
+            {
+                Empty.instance.ClientDiscardScoreCard(Empty.instance.scoreCard.GetComponent<ScoreCard>().index_Card);
+            }
             Destroy(Empty.instance.scoreCard);
         }
 
@@ -153,7 +156,7 @@ public class ScoreCardManager : MonoBehaviour
 
         scoreCardsStock.RemoveAt(0);/////еп╤о©у
 
-        UIPlayerManager.list_player[Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId)].GetComponent<Player>().RefreshText_RoundScore_by_scoreCArd(Empty.instance.scoreCard.GetComponent<ScoreCard>().score);
+        UIPlayerManager.list_player[Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId)].GetComponent<Player>().RefreshText_RoundScore_by_scoreCard(Empty.instance.scoreCard.GetComponent<ScoreCard>().score);
     }
 
     public void DrawOneCard_Specific(int score)
@@ -169,12 +172,16 @@ public class ScoreCardManager : MonoBehaviour
         Empty.instance.scoreCard = Instantiate(GetScoreCardByScore(score), panel_MyScoreCard.transform);
         Empty.instance.scoreCard.SetActive(true);
 
-        UIPlayerManager.list_player[Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId)].GetComponent<Player>().RefreshText_RoundScore_by_scoreCArd(Empty.instance.scoreCard.GetComponent<ScoreCard>().score);
+        UIPlayerManager.list_player[Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId)].GetComponent<Player>().RefreshText_RoundScore_by_scoreCard(Empty.instance.scoreCard.GetComponent<ScoreCard>().score);
 
     }
     public void Card_1002_ReGetScoreCard(GameObject scoreCard)
     {
+        Destroy(Empty.instance.scoreCard);
         Empty.instance.scoreCard = Instantiate(GetScoreCardByScore(scoreCard.GetComponent<ScoreCard>().score), panel_MyScoreCard.transform);
         Empty.instance.scoreCard.SetActive(true);
+
+        UIPlayerManager.list_player[Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId)].GetComponent<Player>().RefreshText_RoundScore_by_scoreCard(Empty.instance.scoreCard.GetComponent<ScoreCard>().score);
+
     }
 }

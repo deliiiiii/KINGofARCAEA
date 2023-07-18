@@ -34,6 +34,7 @@ public class HandCard : GrandCard
             Empty.instance.selectedCard = gameObject;
         }
 
+
         if(gameObject.GetComponent<GrandCard>().used == true)//ÒÑÓÃ¹ý
         {
             panel_HandCardDetail_ReadOnly.SetActive(true);
@@ -45,12 +46,16 @@ public class HandCard : GrandCard
             panel_HandCardDetail_ReadOnly.SetActive(false);
             panel_HandCardDetail.SetActive(true);
             image_HandCard.sprite = gameObject.GetComponent<Image>().sprite;
+            UIPlayerManager.instance.ShowOrHide_OtherItems(false, -1);
+            UIPlayerManager.instance.ShowOrHide_OtherItems(true,Empty.instance.selectedCard.GetComponent<HandCard>().index_Card);
+            
         }
 
     }
     public void CloseDetail()
     {
         panel_HandCardDetail.SetActive(false);
+        panel_HandCardDetail_ReadOnly.SetActive(false);
+        UIPlayerManager.instance.ShowOrHide_OtherItems(false,-1);
     }
-    
 }
