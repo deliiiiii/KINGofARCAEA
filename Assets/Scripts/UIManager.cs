@@ -13,7 +13,8 @@ public class UIManager : MonoBehaviour
 
     public List<int> card_1007_temp_list_score;
     public List<int> card_1007_temp_list_id_of_score;
-    public int card_1007_temp_last_index_id;
+    public int card_1007_temp_last_id;
+    public bool card_1007_temp_circled;
 
     public float delay = 0.2f;
     public GameObject content_MyHandCard;
@@ -165,6 +166,8 @@ public class UIManager : MonoBehaviour
     {
         Empty.instance.ClientRealizeHandCard(new List<int> {-1});
         UIPlayerManager.instance.Hide_Button_Select();
+
+        Empty.instance.ClientOnEndRealizeHandCard();
     }
     public void DiscardScorecard(int index,Vector2 v, Quaternion q)//将牌放在弃牌区
     {
@@ -288,50 +291,103 @@ public class UIManager : MonoBehaviour
             return;
         }
         int index_id = -1;
-        for(int i=0;i< list_id_of_score.Count;i++)
+        int target_id = (int)Empty.instance.netId + 1;
+        int max_id = -1;
+        for(int i = 0;i<Empty.list_netId.Count;i++)
         {
-            int target_id = (int)Empty.instance.netId + 1;
-            while(!list_id_of_score.Contains(target_id))
+            if (Empty.list_netId[i] > max_id)
             {
-                target_id++;
-                if (target_id > 1000) target_id = 0;
+                max_id = Empty.list_netId[i];
             }
-            //if (target_id == Empty.list_netId[Empty.index_CurrentHolder - 1]) return;
+        }
+        card_1007_temp_circled = false;
+        while (!list_id_of_score.Contains(target_id))
+        {
+            target_id++;
+            if (target_id > max_id)
+            {
+                card_1007_temp_circled = true;
+                target_id = 0;
+            }
+        }
+        if (card_1007_temp_circled && (target_id >= (int)Empty.instance.netId)) return;
+        for (int i=0;i< list_id_of_score.Count;i++)
+        {
+            
+            
             if (target_id == list_id_of_score[i])
             {
                 index_id = i;
                 break;
             }
         }
-        Debug.Log("index_id = " + index_id);
-        card_1007_temp_last_index_id = index_id;
+        Debug.Log("last_id = " + list_id_of_score[index_id]);
+        card_1007_temp_last_id = list_id_of_score[index_id];
         text_name_1007.text = Empty.list_playerName[Empty.instance.GetIndex_in_list_netId(list_id_of_score[index_id])];
         ClearChild(panel_CardDetail_1007.transform);
         GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(list_score[index_id]), panel_CardDetail_1007.transform);
         temp.SetActive(true);
         panel_Card_1007.SetActive(true);
+
+        //card_1007_temp_circled = false;
     }
     public void UICard_1007_ShowNext()
     {
-        //int index_id = -1;
-        //for (int i = 0; i < card_1007_temp_list_id_of_score.Count; i++)
-        //{
-        //    int target_index_id = card_1007_temp_last_index_id + 1;
-        //    if(target_index_id == Empty.index_CurrentHolder - 1)
-        //    {
-        //        panel_Card_1007.SetActive(false);
-        //        return;
-        //    }
-        //    if (target_index_id == card_1007_temp_list_id_of_score[i])
-        //    {
-        //        index_id = i;
-        //        break;
-        //    }
-        //}
-        //text_name_1007.text = Empty.list_playerName[Empty.instance.GetIndex_in_list_netId(card_1007_temp_list_id_of_score[index_id])];
-        //ClearChild(panel_CardDetail_1007.transform);
-        //GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(card_1007_temp_list_score[index_id]), panel_CardDetail_1007.transform);
-        //temp.SetActive(true);
+        int index_id = -1;
+        int target_id = card_1007_temp_last_id + 1;
+        int max_id = -1;
+        for (int i = 0; i < Empty.list_netId.Count; i++)
+        {
+            if (Empty.list_netId[i] > max_id)
+            {
+                max_id = Empty.list_netId[i];
+            }
+        }
+        while (!card_1007_temp_list_id_of_score.Contains(target_id))
+        {
+            target_id++;
+            if (target_id > max_id)
+            {
+                if(card_1007_temp_circled)
+                {
+                    panel_Card_1007.SetActive(false);
+                    return;
+                }
+                card_1007_temp_circled = true;
+                target_id = 0;
+            }
+        }
+        Debug.Log("Target ID = " + target_id);
+        card_1007_temp_last_id = target_id;
+        if (card_1007_temp_circled && (target_id >= (int)Empty.instance.netId))
+        {
+            panel_Card_1007.SetActive(false);
+            return;
+        }
+        for (int i = 0; i < card_1007_temp_list_id_of_score.Count; i++)
+        {
+            
+            //if (target_id == Empty.index_CurrentHolder - 1)
+            //{
+            //    panel_Card_1007.SetActive(false);
+            //    return;
+            //}
+            if (target_id == card_1007_temp_list_id_of_score[i])
+            {
+                index_id = i;
+                break;
+            }
+        }
+        if(index_id == -1)
+        {
+            panel_Card_1007.SetActive(false);
+            return;
+        }
+        Debug.Log("last_id = " + card_1007_temp_list_id_of_score[index_id]);
+        text_name_1007.text = Empty.list_playerName[Empty.instance.GetIndex_in_list_netId(card_1007_temp_list_id_of_score[index_id])];
+        ClearChild(panel_CardDetail_1007.transform);
+        GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(card_1007_temp_list_score[index_id]), panel_CardDetail_1007.transform);
+        temp.SetActive(true);
     }
 
     public void ClearChild(Transform t_parent)
