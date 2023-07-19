@@ -28,11 +28,14 @@ public class UIManager : MonoBehaviour
     public GameObject panel_Wait;
     public GameObject panel_Card_1007;
     public GameObject panel_CardDetail_1007;
+    public GameObject panel_DiscloseScore;
+    public GameObject panel_DiscloseScoreDetail;
     public Text text_NoticeThrowCard;
     public Text text_CircleNum;
     public Text text_Notice;
     public Text text_name_1004;
     public Text text_name_1007;
+    public Text text_name_DisclosedPlayer;
     public Button button_Start_Game;//开始游戏
     public Button button_YieldCard;//打出按钮
     public Button button_FinishYieldCard;//结束出牌按钮
@@ -167,7 +170,10 @@ public class UIManager : MonoBehaviour
         Empty.instance.ClientRealizeHandCard(new List<int> {-1});
         UIPlayerManager.instance.Hide_Button_Select();
 
-        Empty.instance.ClientOnEndRealizeHandCard();
+        if(Empty.instance.selectedCard.GetComponent<HandCard>().index_Card == 1001)
+        {
+            Empty.instance.ClientOnEndRealizeHandCard();
+        }
     }
     public void DiscardScorecard(int index,Vector2 v, Quaternion q)//将牌放在弃牌区
     {
@@ -331,7 +337,7 @@ public class UIManager : MonoBehaviour
 
         //card_1007_temp_circled = false;
     }
-    public void UICard_1007_ShowNext()
+    public void UICard_1007_ShowNext()//编辑器已添加监听
     {
         int index_id = -1;
         int target_id = card_1007_temp_last_id + 1;
@@ -390,6 +396,33 @@ public class UIManager : MonoBehaviour
         temp.SetActive(true);
     }
 
+    public void DiscloseScoreCard(int index_Shown, List<int> list_score, List<int> list_id_of_score)
+    {
+
+        int id_shown = Empty.list_netId[index_Shown];
+        int index_in_two_list = -1;
+        for(int i=0;i< list_score.Count;i++)
+        {
+            if(list_id_of_score[i] == id_shown)
+            {
+                index_in_two_list = i;
+            }
+        }
+        Debug.Log("展示！" + Empty.list_playerName[index_Shown] + "的分数是：" + list_score[index_in_two_list]);
+        text_name_DisclosedPlayer.text = Empty.list_playerName[index_Shown];
+        GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(list_score[index_in_two_list]), panel_DiscloseScoreDetail.transform);
+        temp.SetActive(true);
+        panel_DiscloseScore.SetActive(true);
+        int totalScore = int.Parse(UIPlayerManager.list_player[index_Shown].GetComponent<Player>().text_totalScore.text);
+        totalScore += list_score[index_in_two_list];
+        UIPlayerManager.list_player[index_Shown].GetComponent<Player>().text_totalScore.text = totalScore.ToString();
+    }
+
+    public void EndDiscloseScoreCard()
+    {
+        panel_DiscloseScore.SetActive(false);
+        
+    }
     public void ClearChild(Transform t_parent)
     {
         Transform t_child;

@@ -23,10 +23,13 @@ public class Player : NetworkBehaviour
     public GameObject panel_ToUnSelect;
     public GameObject image_Holder;
     public GameObject image_MyTurn;
-
+    public GameObject content_State;
+    public GameObject panel_Notice_StateCard;
+    public Text Text_notice_State;
     public Toggle toggle_score_3; 
     public Toggle toggle_score_1; 
     public Toggle toggle_score_0;
+    public Text text_totalScore;
     public Text text_RoundScore;
     public List<Toggle> list_toggle_score;
 
@@ -133,6 +136,16 @@ public class Player : NetworkBehaviour
         {
             list_toggle_score[i].isOn = false;
         }
+    }
+
+    public void AddStateCard(int id_attacker,List<int> list_index_offender, int index_Card)
+    {
+        GameObject temp =  Instantiate(StateCardManager.instance.GetStateCardByIndex(index_Card), content_State.transform);
+        temp.GetComponent<StateCard>().list_index_offender= list_index_offender;
+        temp.GetComponent<StateCard>().notice_State = temp.GetComponent<StateCard>().notice_State.Replace("%", temp.GetComponent<StateCard>().ChangeIndexToString());
+        temp.GetComponent<StateCard>().id_attacker = id_attacker;
+        temp.SetActive(true);
+        
     }
     //public void DrawHandCards(int num,int index)//0¿ªÊ¼
     //{

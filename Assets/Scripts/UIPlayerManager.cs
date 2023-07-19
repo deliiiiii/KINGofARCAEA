@@ -163,6 +163,17 @@ public class UIPlayerManager : MonoBehaviour
         }
     }
 
+    public void AddStateCard(int id_attacker, List<int> list_index_offender, int index_Card)
+    {
+        int my_index = Empty.instance.GetIndex_in_list_netId(id_attacker);
+        list_player[my_index].GetComponent<Player>().AddStateCard(id_attacker,list_index_offender, index_Card);
+    }
+    public void Show_Notice_State(GameObject temp)
+    {
+        int my_index = Empty.instance.GetIndex_in_list_netId(temp.GetComponent<StateCard>().id_attacker);
+        list_player[my_index].GetComponent<Player>().Text_notice_State.text = temp.GetComponent<StateCard>().name_Card + "\n" + temp.GetComponent<StateCard>().notice_State;
+        list_player[my_index].GetComponent<Player>().panel_Notice_StateCard.SetActive(true);
+    }
     public void Card_1002_ClearAllSuspectedCard()
     {
         for (int i = 0; i < Empty.list_netId.Count; i++)
@@ -260,5 +271,6 @@ public class UIPlayerManager : MonoBehaviour
 
         }
     }
+
 
 }
