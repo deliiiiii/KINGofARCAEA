@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour
         if (canvas.activeSelf)
         {
             //Debug.Log(GameManager.state_);
-            switch (GameManager.state_)
+            switch (GameManager.instance.state_)
             {
                 
                 case GameManager.Temp_STATE.STATE_YIELD_CARDS:
@@ -136,7 +136,7 @@ public class UIManager : MonoBehaviour
     }
     public void UIFinishYieldCard()
     {
-        GameManager.state_ = GameManager.Temp_STATE.STATE_THROW_CARDS;
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_THROW_CARDS);
         Empty.instance.Client_ThrowCard_EndJudge((int)Empty.instance.netId);
     }
     public void UIThrowCard()
@@ -160,20 +160,22 @@ public class UIManager : MonoBehaviour
             panel_Notice_Back.SetActive(true);
             return;
         }
-
+        GameManager.instance.state_ = GameManager.Temp_STATE.STATE_BUSYCONNECTING;
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_BUSYCONNECTING);
         Empty.instance.ClientRealizeHandCard(temp_list_index_offender);
         UIPlayerManager.instance.Hide_Button_Select();
     }
 
     public void UIGiveUpSelection()
     {
-        Empty.instance.ClientRealizeHandCard(new List<int> {-1});
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        //Empty.instance.ClientRealizeHandCard(new List<int> {-1});
         UIPlayerManager.instance.Hide_Button_Select();
 
-        if(Empty.instance.selectedCard.GetComponent<HandCard>().index_Card == 1001)
-        {
+        //if(Empty.instance.selectedCard.GetComponent<HandCard>().index_Card == 1001)
+        //{
             Empty.instance.ClientOnEndRealizeHandCard();
-        }
+        //}
     }
     public void DiscardScorecard(int index,Vector2 v, Quaternion q)//将牌放在弃牌区
     {
@@ -275,6 +277,8 @@ public class UIManager : MonoBehaviour
         card_1002_shouldCheckButtonInteractive = false;
         panel_Wait.SetActive(false);
         panel_Card_1002.SetActive(false);
+        //Debug.Log("?");
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
     }
     public void UICard_1004_ShowPanel(int id_offender, int score)
     {
@@ -283,6 +287,7 @@ public class UIManager : MonoBehaviour
         GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(score), panel_CardDetail_1004.transform);
         temp.SetActive(true);
         panel_Card_1004.SetActive(true);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
     }
     public void UICard_1007_ShowPanel(List<int>list_score,List<int>list_id_of_score)
     {
@@ -294,6 +299,7 @@ public class UIManager : MonoBehaviour
         {
             panel_Notice_Back.SetActive(true);
             text_Notice.text = "没有符合条件的玩家！";
+            Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
             return;
         }
         int index_id = -1;
@@ -357,6 +363,7 @@ public class UIManager : MonoBehaviour
                 if(card_1007_temp_circled)
                 {
                     panel_Card_1007.SetActive(false);
+                    Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
                     return;
                 }
                 card_1007_temp_circled = true;
@@ -367,6 +374,7 @@ public class UIManager : MonoBehaviour
         card_1007_temp_last_id = target_id;
         if (card_1007_temp_circled && (target_id >= (int)Empty.instance.netId))
         {
+            Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
             panel_Card_1007.SetActive(false);
             return;
         }
@@ -387,6 +395,7 @@ public class UIManager : MonoBehaviour
         if(index_id == -1)
         {
             panel_Card_1007.SetActive(false);
+            Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
             return;
         }
         Debug.Log("last_id = " + card_1007_temp_list_id_of_score[index_id]);
@@ -395,7 +404,10 @@ public class UIManager : MonoBehaviour
         GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(card_1007_temp_list_score[index_id]), panel_CardDetail_1007.transform);
         temp.SetActive(true);
     }
-
+    public void UICard_1008_ShowPanel(int id_attacker,int id_offender,int score)
+    {
+        Debug.Log(id_attacker + "获得 " + id_offender+ " 的" + score+ "分");
+    }
     public void DiscloseScoreCard(int index_Shown, List<int> list_score, List<int> list_id_of_score)
     {
 

@@ -10,8 +10,6 @@ public class UIPlayerManager : MonoBehaviour
     //public static List<Player> list_player_info = new List<Player>();
     public static List<GameObject> list_player = new();
     public GameObject playerPrefab;
-    public static int index_CurrentPlayer = 0;//从1开始数
-    public static int index_CurrentHolder = 0;//从1开始数
 
     public GameObject content_Player;
     void Awake()
@@ -104,6 +102,7 @@ public class UIPlayerManager : MonoBehaviour
 
     public void Show_Button_Select()
     {
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_SELECTING_TARGETPLAYER);
         for(int i = 0; i < list_player.Count; i++)
         {
             list_player[i].GetComponent<Player>().panel_Select.SetActive(true);
@@ -114,7 +113,6 @@ public class UIPlayerManager : MonoBehaviour
         }
         UIManager.instance.button_Confirm_Selection.gameObject.SetActive(true);
         UIManager.instance.button_GiveUp_Selection.gameObject.SetActive(true);
-        GameManager.state_ = GameManager.Temp_STATE.STATE_SELECTING_TARGETPLAYER;
         
     }
 
@@ -272,5 +270,33 @@ public class UIPlayerManager : MonoBehaviour
         }
     }
 
-
+    public void Card_1008_Collect(int index_holder)
+    {
+       GameObject state = list_player[index_holder].GetComponent<Player>().content_State;
+        for(int i=0;i<state.transform.childCount;i++)
+        {
+            if(state.transform.GetChild(i).gameObject.activeSelf)
+            {
+                if (state.transform.GetChild(i).gameObject.GetComponent<StateCard>().index_Card == 1008)
+                {
+                    StateCard added_Statecard = state.transform.GetChild(i).gameObject.GetComponent<StateCard>();
+                    Empty.instance.CmdCard_1008_AddBeforeRealize(added_Statecard.index_Card,  added_Statecard.id_attacker, added_Statecard.list_index_offender);
+                    //Empty.instance.list_stateCards.Add(added_Statecard);
+                }
+            }
+        }
+        index_holder++;
+        if(index_holder == Empty.list_netId.Count)
+        {
+            index_holder = 0;
+        }
+        if(index_holder == Empty.index_CurrentHolder - 1)
+        {
+            Empty.instance.CmdCard_1008_Realize(index_holder);
+            return;
+        }
+        Card_1008_Collect(index_holder);
+    }
+    
+        
 }

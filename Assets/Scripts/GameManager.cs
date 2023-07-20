@@ -13,20 +13,23 @@ public class GameManager : MonoBehaviour
 
     public enum Temp_STATE
     {
-        STATE_BUSY,
-        STATE_ADDING_SCORES,
+        STATE_BUSYCONNECTING,
+        
         STATE_GAME_IDLING,
         STATE_GAME_STARTED,
-        STATE_GAME_SUMMARY,
+        
         STATE_DRAW_CARDS,
-        STATE_SELECTING_TARGETPLAYER,
-        STATE_JUDGE_CARDS,
         STATE_YIELD_CARDS,
-        STATE_THROW_CARDS
+        STATE_SELECTING_TARGETPLAYER,
+        STATE_THROW_CARDS,
+        STATE_JUDGE_CARDS,
+        STATE_ADDING_SCORES,
+        STATE_GAME_SUMMARY,
     }
-    public static Temp_STATE state_ = Temp_STATE.STATE_GAME_IDLING;
+    public Temp_STATE state_;
     void Awake()
     {
+        state_ = Temp_STATE.STATE_GAME_IDLING;
         instance = this;
     }
     void Start()
@@ -37,25 +40,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (state_)
-        {
-            case Temp_STATE.STATE_GAME_IDLING:
-                break;
-            case Temp_STATE.STATE_GAME_STARTED:
-                break;
-            case Temp_STATE.STATE_GAME_SUMMARY:
-                break;
-            case Temp_STATE.STATE_DRAW_CARDS:
-                break;
-            case Temp_STATE.STATE_JUDGE_CARDS:
-                break;
-            case Temp_STATE.STATE_YIELD_CARDS:
-                break;
-            case Temp_STATE.STATE_THROW_CARDS:
-                break;
-            default:
-                break;
-        }
+ 
     }
 
     public void Initialize()
@@ -146,7 +131,7 @@ public class GameManager : MonoBehaviour
     
     public void SummaryGame()
     {
-        state_ = Temp_STATE.STATE_GAME_SUMMARY;
+        //state_ = Temp_STATE.STATE_GAME_SUMMARY;
         Debug.Log("GAME OVER !!!");
     }
 }
