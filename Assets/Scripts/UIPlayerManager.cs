@@ -297,6 +297,24 @@ public class UIPlayerManager : MonoBehaviour
         }
         Card_1008_Collect(index_holder);
     }
-    
-        
+    public void ClearStatesOnNewRound()
+    {
+        for(int i=0;i<list_player.Count;i++)
+        {
+            ClearChild(list_player[i].GetComponent<Player>().content_State.transform);
+        }
+    }
+    public void ClearChild(Transform t_parent)
+    {
+        Transform t_child;
+
+        for (int i = 0; i < t_parent.transform.childCount; i++)
+        {
+            t_child = t_parent.transform.GetChild(i);
+            if (t_child.gameObject.name.Contains("lone)"))
+                Destroy(t_child.gameObject);
+            else t_child.gameObject.SetActive(false);
+        }
+
+    }
 }

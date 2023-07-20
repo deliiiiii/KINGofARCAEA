@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
         STATE_SELECTING_TARGETPLAYER,
         STATE_THROW_CARDS,
         STATE_JUDGE_CARDS,
+        STATE_TURNING_ROUND,
+        STATE_TURNING_TURN,
         STATE_ADDING_SCORES,
         STATE_GAME_SUMMARY,
     }

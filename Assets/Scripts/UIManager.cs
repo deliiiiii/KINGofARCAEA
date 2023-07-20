@@ -28,6 +28,10 @@ public class UIManager : MonoBehaviour
     public GameObject panel_Wait;
     public GameObject panel_Card_1007;
     public GameObject panel_CardDetail_1007;
+    public GameObject panel_Card_1008;
+    public GameObject panel_CardDetail_1008;
+
+
     public GameObject panel_DiscloseScore;
     public GameObject panel_DiscloseScoreDetail;
     public Text text_NoticeThrowCard;
@@ -35,6 +39,8 @@ public class UIManager : MonoBehaviour
     public Text text_Notice;
     public Text text_name_1004;
     public Text text_name_1007;
+    public Text text_name_1008_1;
+    public Text text_name_1008_2;
     public Text text_name_DisclosedPlayer;
     public Button button_Start_Game;//开始游戏
     public Button button_YieldCard;//打出按钮
@@ -406,7 +412,17 @@ public class UIManager : MonoBehaviour
     }
     public void UICard_1008_ShowPanel(int id_attacker,int id_offender,int score)
     {
-        Debug.Log(id_attacker + "获得 " + id_offender+ " 的" + score+ "分");
+        text_name_1008_1.text = Empty.list_playerName[Empty.instance.GetIndex_in_list_netId(id_attacker)];
+        text_name_1008_2.text = Empty.list_playerName[Empty.instance.GetIndex_in_list_netId(id_offender)];
+        ClearChild(panel_CardDetail_1008.transform);
+        GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(score), panel_CardDetail_1008.transform);
+        temp.SetActive(true);
+        panel_Card_1008.SetActive(true);
+        //Debug.Log(id_attacker + "获得 " + id_offender+ " 的" + score+ "分");
+    }
+    public void UICard_1008_ClosePanel()
+    {
+        panel_Card_1008.SetActive(false);
     }
     public void DiscloseScoreCard(int index_Shown, List<int> list_score, List<int> list_id_of_score)
     {
