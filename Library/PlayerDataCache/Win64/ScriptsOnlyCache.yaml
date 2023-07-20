@@ -5,6 +5,7 @@ ScriptsOnlyBuild:
     - HandCard
     - Player
     - ScoreCard
+    - StateCard
     Assembly-CSharp.dll:
     - Empty
     - GameManager
@@ -16,6 +17,8 @@ ScriptsOnlyBuild:
     - Player
     - ScoreCard
     - ScoreCardManager
+    - StateCard
+    - StateCardManager
     - UIManager
     - UIPlayerManager
     Mirror:
@@ -33,12 +36,15 @@ ScriptsOnlyBuild:
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
     Unity.2D.Tilemap.Editor.dll:
+    - UnityEditor.Tilemaps.GridBrush
+    - UnityEditor.Tilemaps.GridBrushEditor
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
     - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.SceneViewOpenTilePaletteHelper
     - UnityEditor.Tilemaps.TileDragAndDropManager
+    - UnityEditor.Tilemaps.TilemapEditorToolPreferences
     - UnityEditor.Tilemaps.TilemapPrefabStageHelper
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -108,6 +114,45 @@ ScriptsOnlyBuild:
     fullTypeName: HandCard
     methodName: ShowDetail
   - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
+    fullTypeName: HandCard
+    methodName: ShowDetail
+  - assembly: Assembly-CSharp
     fullTypeName: Empty
     methodName: Call_ClientCard_1002_NextTurn
   - assembly: Assembly-CSharp
@@ -143,42 +188,9 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: HandCard
     methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
   - assembly: UnityEngine.CoreModule
     fullTypeName: UnityEngine.GameObject
     methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: UnityEngine.CoreModule
-    fullTypeName: UnityEngine.GameObject
-    methodName: SetActive
-  - assembly: Assembly-CSharp
-    fullTypeName: HandCard
-    methodName: ShowDetail
   - assembly: UnityEngine.CoreModule
     fullTypeName: UnityEngine.GameObject
     methodName: SetActive
@@ -210,6 +222,9 @@ ScriptsOnlyBuild:
     fullTypeName: UnityEngine.GameObject
     methodName: SetActive
   - assembly: Assembly-CSharp
+    fullTypeName: UIPlayerManager
+    methodName: Show_Notice_State
+  - assembly: Assembly-CSharp
     fullTypeName: UIManager
     methodName: UICard_1007_ShowNext
   - assembly: UnityEngine.CoreModule
@@ -224,6 +239,9 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: HandCard
     methodName: CloseDetail
+  - assembly: UnityEngine.CoreModule
+    fullTypeName: UnityEngine.GameObject
+    methodName: SetActive
   - assembly: UnityEngine.CoreModule
     fullTypeName: UnityEngine.GameObject
     methodName: SetActive
@@ -320,25 +338,29 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3640}
     - Class: 114
-      Script: {instanceID: 3868}
+      Script: {instanceID: 3802}
     - Class: 114
-      Script: {instanceID: 3874}
+      Script: {instanceID: 3870}
     - Class: 114
-      Script: {instanceID: 4160}
+      Script: {instanceID: 3876}
     - Class: 114
-      Script: {instanceID: 4300}
+      Script: {instanceID: 4162}
     - Class: 114
-      Script: {instanceID: 4512}
+      Script: {instanceID: 4210}
     - Class: 114
-      Script: {instanceID: 5028}
+      Script: {instanceID: 4304}
     - Class: 114
-      Script: {instanceID: 5302}
+      Script: {instanceID: 4516}
     - Class: 114
-      Script: {instanceID: 5956}
+      Script: {instanceID: 5032}
     - Class: 114
-      Script: {instanceID: 6128}
+      Script: {instanceID: 5306}
     - Class: 114
-      Script: {instanceID: 6490}
+      Script: {instanceID: 5960}
+    - Class: 114
+      Script: {instanceID: 6132}
+    - Class: 114
+      Script: {instanceID: 6494}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -448,7 +470,7 @@ ScriptsOnlyBuild:
     className: CCDSolver2D
   - hash:
       serializedVersion: 2
-      Hash: f2de0d8693631e4db8b26600f97876c9
+      Hash: c104239a523131d5dfcc8b00be5b28a8
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Empty
@@ -484,7 +506,7 @@ ScriptsOnlyBuild:
     className: GrandCard
   - hash:
       serializedVersion: 2
-      Hash: abad020464bc8db8e2f06f203c493635
+      Hash: 41ff42e0d683ca93e5a99e6f69a8dc9b
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: UIManager
@@ -508,7 +530,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: ca9667191bed330e9cdb4c3b1d73bbca
+      Hash: 15603e2c942ba3105211d1a4683bacca
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: GameManager
@@ -580,7 +602,7 @@ ScriptsOnlyBuild:
     className: SpriteSkinUpdateHelper
   - hash:
       serializedVersion: 2
-      Hash: 9b11c07fcd7e5417984c0782ff45f448
+      Hash: 504845634b9721e08ba34ad7b0c6e019
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: Player
@@ -766,6 +788,12 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
+      Hash: b2d487f2a483e400aa8b6b7957f8090a
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: StateCard
+  - hash:
+      serializedVersion: 2
       Hash: 783c1c5ed36f81d82dd79d19bed9a079
     assemblyName: Mirror.Authenticators
     namespaceName: Mirror.Authenticators
@@ -866,6 +894,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: InputManager
+  - hash:
+      serializedVersion: 2
+      Hash: d02a9d091fb3c3fbef7a0daac1e06d51
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: StateCardManager
   - hash:
       serializedVersion: 2
       Hash: 0249933f35dcc970b31eaae0159aebf9

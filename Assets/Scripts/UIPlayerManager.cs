@@ -182,7 +182,11 @@ public class UIPlayerManager : MonoBehaviour
     public void Card_1005_GetLeftSuspectedScore(List <int> list_index_offender)
     {
         if (list_index_offender.Count == 0 || list_index_offender.Count == 1) return;
-
+        if (!list_index_offender.Contains(Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId)))
+        {
+            Debug.Log("#1005 不在列表内");
+            return;
+        }
         bool[] temp_end = new bool[3];
         bool[] last_isOn = new bool[3];
         int end_index = Empty.list_netId.Count - 1, temp_first_index = 0;
@@ -228,7 +232,11 @@ public class UIPlayerManager : MonoBehaviour
     public void Card_1006_GetRightSuspectedScore(List<int> list_index_offender)
     {
         if (list_index_offender.Count == 0 || list_index_offender.Count == 1) return;
-
+        if (!list_index_offender.Contains(Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId)))
+        {
+            Debug.Log("#1006 不在列表内");
+            return;
+        }
         bool[] temp_first = new bool[3];
         bool[] next_isOn = new bool[3];
         int first_index = 0, temp_last_index = Empty.list_netId.Count - 1;
@@ -297,6 +305,7 @@ public class UIPlayerManager : MonoBehaviour
         }
         Card_1008_Collect(index_holder);
     }
+    
     public void ClearStatesOnNewRound()
     {
         for(int i=0;i<list_player.Count;i++)

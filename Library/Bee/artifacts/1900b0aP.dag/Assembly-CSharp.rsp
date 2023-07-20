@@ -340,6 +340,8 @@
 "Assets/Scripts/Card/HandCardManager.cs"
 "Assets/Scripts/Card/ScoreCard.cs"
 "Assets/Scripts/Card/ScoreCardManager.cs"
+"Assets/Scripts/Card/StateCard.cs"
+"Assets/Scripts/Card/StateCardManager.cs"
 "Assets/Scripts/Empty.cs"
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/InputManager.cs"

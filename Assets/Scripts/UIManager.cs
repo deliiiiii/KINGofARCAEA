@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour
     public List<int> card_1007_temp_list_id_of_score;
     public int card_1007_temp_last_id;
     public bool card_1007_temp_circled;
-
+    public List<int> temp_list_index_offender;
     public float delay = 0.2f;
     public GameObject content_MyHandCard;
     public GameObject panel_DiscardedCards;
@@ -152,12 +152,12 @@ public class UIManager : MonoBehaviour
 
     public void UIConfirmSelection()
     {
-        List<int> temp_list_index_offender= new();//临时受击者列表
+        List<int> temp_list_index_offender= new();//临时受击者index列表
         for(int i=0;i<Empty.list_netId.Count;i++)
         {
             if (UIPlayerManager.list_player[i].GetComponent<Player>().panel_Selected.activeSelf)
             {
-                temp_list_index_offender.Add(Empty.list_netId[i]);
+                temp_list_index_offender.Add(i);
             }
         }
         if(Empty.instance.selectedCard.GetComponent<HandCard>().count_offender != temp_list_index_offender.Count)
@@ -168,8 +168,14 @@ public class UIManager : MonoBehaviour
         }
         GameManager.instance.state_ = GameManager.Temp_STATE.STATE_BUSYCONNECTING;
         Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_BUSYCONNECTING);
-        Empty.instance.ClientRealizeHandCard(temp_list_index_offender);
+        
         UIPlayerManager.instance.Hide_Button_Select();
+        Empty.instance.CmdCheckCard_2001and2002(Empty.instance.selectedCard.GetComponent<HandCard>().index_Card, (int)Empty.instance.netId, temp_list_index_offender);
+        //Empty.instance.ClientRealizeHandCard(temp_list_index_offender);
+        ;
+        ;
+        ;
+
     }
 
     public void UIGiveUpSelection()
@@ -222,12 +228,30 @@ public class UIManager : MonoBehaviour
     }
 
 
-    public void UICard_1002_ShowPanel(int id_turn, List<int> list_scoreCard)
+    public void UICard_1002_ShowPanel(int id_turn, List<int> list_index_offender, List<int> list_scoreCard)
     {
+        instance.temp_list_index_offender = list_index_offender;
+        if (list_index_offender.Count == 0)
+        {
+            UICard_1002_ClosePanel();
+            return;
+        }
         if (panel_Card_1002.activeSelf)
         {
             //Debug.LogError("重复调用!");
             return;//防止重复调用
+        }
+        int turn_index = Empty.instance.GetIndex_in_list_netId(id_turn);
+        
+        if (!list_index_offender.Contains(turn_index))
+        {
+            turn_index++;
+            if(turn_index == Empty.list_netId.Count)
+            {
+                turn_index = 0;
+            }
+            UICard_1002_ShowPanel(Empty.list_netId[turn_index], list_index_offender, list_scoreCard);
+            return;
         }
         if((int)Empty.instance.netId == id_turn)
         {
@@ -239,7 +263,7 @@ public class UIManager : MonoBehaviour
         }
         ClearChild(content_Card_1002.transform);
         panel_Card_1002.SetActive(true);
-        for(int i=0;i<Empty.list_netId.Count;i++)
+        for(int i=0;i< list_index_offender.Count;i++)
         {
             GameObject temp = Instantiate(panel_ScoreCard_Hidden,content_Card_1002.transform);
             temp.SetActive(true);
@@ -255,6 +279,24 @@ public class UIManager : MonoBehaviour
         if(!UICard_1002_CheckButtonInteractive())
         {
             UICard_1002_ClosePanel();
+            return;
+        }
+        if (instance.temp_list_index_offender.Count == 0)
+        {
+            UICard_1002_ClosePanel();
+            Debug.Log("G");
+            return;
+        }
+        int turn_index = Empty.instance.GetIndex_in_list_netId(this_id_turn);
+        
+        if (!instance.temp_list_index_offender.Contains(turn_index))
+        {
+            turn_index++;
+            if (turn_index == Empty.list_netId.Count)
+            {
+                turn_index = 0;
+            }
+            UICard_1002_NextTurn(last_id_turn, Empty.list_netId[turn_index], index_last_Selected);
             return;
         }
         card_1002_shouldCheckButtonInteractive = true;
@@ -286,9 +328,9 @@ public class UIManager : MonoBehaviour
         //Debug.Log("?");
         Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
     }
-    public void UICard_1004_ShowPanel(int id_offender, int score)
+    public void UICard_1004_ShowPanel(int index_offender, int score)
     {
-        text_name_1004.text = Empty.list_playerName[Empty.instance.GetIndex_in_list_netId(id_offender)];
+        text_name_1004.text = Empty.list_playerName[index_offender];
         ClearChild(panel_CardDetail_1004.transform);
         GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(score), panel_CardDetail_1004.transform);
         temp.SetActive(true);
@@ -418,11 +460,52 @@ public class UIManager : MonoBehaviour
         GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(score), panel_CardDetail_1008.transform);
         temp.SetActive(true);
         panel_Card_1008.SetActive(true);
-        //Debug.Log(id_attacker + "获得 " + id_offender+ " 的" + score+ "分");
+        //Debug.Log(id_attacker + "获得 " + index_offender+ " 的" + score+ "分");
     }
     public void UICard_1008_ClosePanel()
     {
         panel_Card_1008.SetActive(false);
+    }
+    public void UICard_2001and2002_ShowPanel(int index_Card, int id_attacker,int id_turn, List<int> list_index_offender)
+    {
+        UICard_2001and2002_CommonPart(index_Card, id_attacker, id_turn, list_index_offender);
+    }
+    public void UICard_2001and2002_NextTurn(int index_Card, int id_attacker, int id_turn, List<int> list_index_offender)
+    {
+        Debug.Log("#200？下一个 id_turn =" + id_turn);
+        if (id_attacker == id_turn) 
+        {
+            Debug.Log("#200? 更新index列表 " + Empty.instance.GetContent_int(list_index_offender));
+            Empty.instance.CmdCard_2001and2002_RefreshList(list_index_offender);
+            return;
+        }
+        UICard_2001and2002_CommonPart(index_Card, id_attacker, id_turn, list_index_offender);
+        
+    }
+    public void UICard_2001and2002_CommonPart(int index_Card, int id_attacker, int id_turn, List<int> list_index_offender)
+    {
+        if ((int)Empty.instance.netId != id_turn) return;
+        HandCard handCard = HandCardManager.instance.GetHandCardByIndex(index_Card).GetComponent<HandCard>();
+        bool isA = handCard.isAttackCard;
+        bool isE = handCard.isExchangeCard;
+        bool haveCard_2001 = HandCardManager.instance.HaveCard(2001);
+        bool haveCard_2002 = HandCardManager.instance.HaveCard(2002);
+        bool canDefend = CanDefend(isA, isE, haveCard_2001, haveCard_2002);
+        if (!canDefend)
+        {
+
+        }
+        else
+        {
+            Debug.Log("ID 防御！" + (int)Empty.instance.netId);
+            list_index_offender.Remove(Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId));
+        }
+        Debug.Log("#200？剩余index " + Empty.instance.GetContent_int(list_index_offender));
+        Empty.instance.CmdCard_2001and2002_NextTurn(index_Card, id_attacker, id_turn, list_index_offender);
+    }
+    public bool CanDefend(bool isA, bool isE, bool haveCard_2001, bool haveCard_2002)
+    {
+        return (isA && haveCard_2002) || (isE && haveCard_2001);
     }
     public void DiscloseScoreCard(int index_Shown, List<int> list_score, List<int> list_id_of_score)
     {
