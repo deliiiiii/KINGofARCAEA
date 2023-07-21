@@ -29,7 +29,7 @@ public class HandCard : GrandCard
     public void ShowDetail()
     {
         panel_New.SetActive(false);
-        if ( GameManager.instance.state_ != GameManager.Temp_STATE.STATE_SELECTING_TARGETPLAYER)
+        if ( GameManager.instance.state_ == GameManager.Temp_STATE.STATE_YIELD_CARDS || GameManager.instance.state_ == GameManager.Temp_STATE.STATE_THROW_CARDS)
         {
             Empty.instance.selectedCard = gameObject;
         }
@@ -47,8 +47,16 @@ public class HandCard : GrandCard
             panel_HandCardDetail.SetActive(true);
             image_HandCard.sprite = gameObject.GetComponent<Image>().sprite;
             UIPlayerManager.instance.ShowOrHide_OtherItems(false, -1);
-            UIPlayerManager.instance.ShowOrHide_OtherItems(true,Empty.instance.selectedCard.GetComponent<HandCard>().index_Card);
-            
+            int index_Card = Empty.instance.selectedCard.GetComponent<HandCard>().index_Card;
+            if ( (index_Card > 2000) && (index_Card < 3000))
+            {
+                UIManager.instance.panel_NoticeDefendCard.SetActive(true);
+            }
+            else
+            {
+                UIManager.instance.panel_NoticeDefendCard.SetActive(false);
+            }
+            UIPlayerManager.instance.ShowOrHide_OtherItems(true, index_Card);
         }
 
     }

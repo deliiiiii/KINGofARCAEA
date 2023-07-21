@@ -13,14 +13,14 @@ public class GameManager : MonoBehaviour
 
     public enum Temp_STATE
     {
-        STATE_BUSYCONNECTING,
-        
+
         STATE_GAME_IDLING,
-        STATE_GAME_STARTED,
+        //STATE_GAME_STARTED,
         
-        STATE_DRAW_CARDS,
+        //STATE_DRAW_CARDS,
         STATE_YIELD_CARDS,
         STATE_SELECTING_TARGETPLAYER,
+        STATE_REALIZING_CARDS,
         STATE_THROW_CARDS,
         STATE_JUDGE_CARDS,
         STATE_TURNING_ROUND,

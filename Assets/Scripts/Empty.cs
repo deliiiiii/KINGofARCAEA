@@ -104,6 +104,7 @@ public class Empty : NetworkBehaviour
     [Command]
     public void CmdSetState(GameManager.Temp_STATE state)
     {
+        if (GameManager.instance.state_ == state) return;
         //Debug.Log(GameManager.instance.state_ = state);
         GameManager.instance.state_ = state;
         instance.RpcSetState(state);
@@ -468,7 +469,7 @@ public class Empty : NetworkBehaviour
             {
                 instance.RpcCard_1002_CollectAllScoreCards(i);
             }
-            Empty.instance.RpcSetState(GameManager.Temp_STATE.STATE_BUSYCONNECTING);
+            //Empty.instance.RpcSetState(GameManager.Temp_STATE.STATE_BUSYCONNECTING);
             instance.ServerDelay_RpcStartGainScore();
             instance.ServerDelay_NextRound();
         }
@@ -936,7 +937,7 @@ public class Empty : NetworkBehaviour
     {
         if (list_index_offender.Count == 0 || list_index_offender.Count == 1)
         {
-            Debug.Log("人数过少");
+            UIManager.instance.UINotice_Card_1005_LackPeople();
             return;
         }
         if (!list_index_offender.Contains(GetIndex_in_list_netId((int)instance.netId)))
@@ -983,7 +984,7 @@ public class Empty : NetworkBehaviour
     {
         if (list_index_offender.Count == 0 || list_index_offender.Count == 1)
         {
-            Debug.Log("人数过少");
+            UIManager.instance.UINotice_Card_1005_LackPeople();
             return;
         }
         if (!list_index_offender.Contains(GetIndex_in_list_netId((int)instance.netId)))
@@ -1072,7 +1073,7 @@ public class Empty : NetworkBehaviour
     public void RpcCard_2001and2002_RefreshList(List<int> list_index_offender)
     {
         instance.temp_list_index_offender = list_index_offender;
-        instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        instance.CmdSetState(GameManager.Temp_STATE.STATE_REALIZING_CARDS);
     }
     [ClientRpc]
     public void RpcAddStateCard(int id_attacker, List<int> list_index_offender, int index_Card)
@@ -1091,6 +1092,7 @@ public class Empty : NetworkBehaviour
     [ClientRpc]
     public void RpcSetState(GameManager.Temp_STATE state)
     {
+        if (GameManager.instance.state_ == state) return;
         GameManager.instance.state_ = state;
         Debug.Log(GameManager.instance.state_ = state);
     }
@@ -1155,18 +1157,13 @@ public class Empty : NetworkBehaviour
     public void ClientYieldCard()
     {
         //GameManager.instance.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
-        GameManager.instance.state_ = GameManager.Temp_STATE.STATE_BUSYCONNECTING;
-        instance.CmdSetState(GameManager.Temp_STATE.STATE_BUSYCONNECTING);
-        ClientDelay_AfterYieldCard();
-    }
-    [Client]
-    public void ClientDelay_AfterYieldCard()
-    {
-        if(GameManager.instance.state_ != GameManager.Temp_STATE.STATE_BUSYCONNECTING)
-        {
-            Invoke(nameof(ClientDelay_AfterYieldCard), 0.3f);
-            return;
-        }
+        //GameManager.instance.state_ = GameManager.Temp_STATE.STATE_BUSYCONNECTING;
+        //instance.CmdSetState(GameManager.Temp_STATE.STATE_BUSYCONNECTING);
+
+
+        //ClientDelay_AfterYieldCard();
+
+
         instance.selectedCard.GetComponent<HandCard>().CloseDetail();
         if (instance.selectedCard.GetComponent<HandCard>().count_offender != 0)
         {
@@ -1174,22 +1171,27 @@ public class Empty : NetworkBehaviour
         }
         else
         {
-            GameManager.instance.state_ = GameManager.Temp_STATE.STATE_BUSYCONNECTING;
-            instance.CmdSetState(GameManager.Temp_STATE.STATE_BUSYCONNECTING);
             instance.temp_list_index_offender.Clear();
-            for (int i=0;i<list_netId.Count;i++)
+            for (int i = 0; i < list_netId.Count; i++)
             {
                 instance.temp_list_index_offender.Add(i);
             }
             instance.CmdCheckCard_2001and2002(instance.selectedCard.GetComponent<HandCard>().index_Card, (int)instance.netId, instance.temp_list_index_offender);
             instance.ClientRealizeHandCard();
         }
-
-
         instance.count_MyHandCard--;
         instance.ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
         instance.selectedCard.SetActive(false);
     }
+    //[Client]
+    //public void ClientDelay_AfterYieldCard()
+    //{
+        //if(GameManager.instance.state_ != GameManager.Temp_STATE.STATE_BUSYCONNECTING)
+        //{
+        //    Invoke(nameof(ClientDelay_AfterYieldCard), 0.3f);
+        //    return;
+        //}
+    //}
     [Client]
     public void ClientThrowCard()
     {
@@ -1204,7 +1206,7 @@ public class Empty : NetworkBehaviour
     public void Client_ThrowCard_EndJudge(int onlineID)
     {
         //if(onlineID != (int)instance.netId) { return; }
-        Debug.Log("剩余手牌数 = " + instance.count_MyHandCard);
+        Debug.Log("需要弃牌？剩余手牌数 = " + instance.count_MyHandCard);
         if (instance.count_MyHandCard <= 4)
         {
             instance.CmdSetState(GameManager.Temp_STATE.STATE_TURNING_TURN);
@@ -1214,10 +1216,15 @@ public class Empty : NetworkBehaviour
     [Client]
     public void ClientRealizeHandCard()
     {
-        if(GameManager.instance.state_ != GameManager.Temp_STATE.STATE_YIELD_CARDS)
+        if(GameManager.instance.state_ != GameManager.Temp_STATE.STATE_REALIZING_CARDS)
         {
-            Debug.Log("GGG");
             Invoke(nameof(ClientRealizeHandCard), 1f);
+            return;
+        }
+        if(instance.selectedCard.GetComponent<HandCard>().isAttackCard && instance.selectedCard.GetComponent<HandCard>().count_offender == 1 && instance.temp_list_index_offender.Count == 0)
+        {
+            UIManager.instance.UINotice_Defend();
+            instance.ClientOnEndRealizeHandCard();
             return;
         }
         //if (list_index_offender[0]!= -1)//不是放弃选择
@@ -1262,7 +1269,6 @@ public class Empty : NetworkBehaviour
                     break;
                 case 1007://音游窝
                     Debug.Log("音游窝");
-                    //list_index_offender = new List<int> { 2 };
                     instance.CmdCard_1007_CollectScoreCards((int)instance.netId, instance.temp_list_index_offender);
                     break;
                 case 1008://音游王
@@ -1273,7 +1279,7 @@ public class Empty : NetworkBehaviour
                     Debug.Log("联机");
                     instance.CmdCard_1005_GetLeftSuspectedScore(instance.temp_list_index_offender);
                     instance.CmdCard_1005or1006_CollectAllScoreCards(instance.temp_list_index_offender, 1005);
-                break;
+                    break;
                 case 1010://自来熟
                     Debug.Log("自来熟");
                     break;
@@ -1296,7 +1302,7 @@ public class Empty : NetworkBehaviour
                     break;
                 case 3003://底力提升
                     Debug.Log("底力提升");
-                    instance.ClientDrawHandCards((int)instance.netId, 2);
+                    instance.ClientDrawHandCards((int)instance.netId, 5);
                     Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
                     break;
                 case 3004://从头开始
@@ -1315,9 +1321,8 @@ public class Empty : NetworkBehaviour
     [Client]
     public void ClientOnEndRealizeHandCard()
     {
-        if(GameManager.instance.state_ == GameManager.Temp_STATE.STATE_BUSYCONNECTING)
+        if(GameManager.instance.state_ == GameManager.Temp_STATE.STATE_REALIZING_CARDS)
         {
-            Debug.Log("BUSY");
             Invoke(nameof(ClientOnEndRealizeHandCard), delay);
             return;
         }
@@ -1325,7 +1330,7 @@ public class Empty : NetworkBehaviour
 
         int count_turn = instance.turnMove.Count;
         instance.turnMove[count_turn - 1]++;
-        Debug.Log("instance.turnMove[count_turn - 1] =" + instance.turnMove[count_turn - 1]);
+        Debug.Log("已行动次数 =" + instance.turnMove[count_turn - 1]);
         //instance.totalMove++;
         if (instance.turnMove[count_turn - 1] >= 3)
         {
@@ -1337,7 +1342,7 @@ public class Empty : NetworkBehaviour
     [Client]
     public void ClientGiveMyAllHandCards(int id_attacker, List<int> list_index_handCard)//1001 代打
     {
-        Debug.Log("#1001 ClientGiveMyAllHandCards 应接受ID = " + id_attacker);
+        //Debug.Log("#1001 ClientGiveMyAllHandCards 应接受ID = " + id_attacker);
         CmdGiveMyAllHandCards(id_attacker, list_index_handCard);
     }
     [Client]
@@ -1421,6 +1426,7 @@ public class Empty : NetworkBehaviour
     }
     public List<T> RandomList<T>(List<T> inList)
     {
+        if (inList.Count == 0) return null;
         List<T> newList = new List<T>();
         int count = inList.Count;
         for (int i = 0; i < count; i++)

@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject panel_DiscloseScore;
     public GameObject panel_DiscloseScoreDetail;
+    public GameObject panel_NoticeDefendCard;
     public Text text_NoticeThrowCard;
     public Text text_CircleNum;
     public Text text_Notice;
@@ -166,15 +167,13 @@ public class UIManager : MonoBehaviour
             panel_Notice_Back.SetActive(true);
             return;
         }
-        GameManager.instance.state_ = GameManager.Temp_STATE.STATE_BUSYCONNECTING;
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_BUSYCONNECTING);
+        //GameManager.instance.state_ = GameManager.Temp_STATE.STATE_REALIZING_CARDS;
+        //Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_REALIZING_CARDS);
         
         UIPlayerManager.instance.Hide_Button_Select();
         Empty.instance.CmdCheckCard_2001and2002(Empty.instance.selectedCard.GetComponent<HandCard>().index_Card, (int)Empty.instance.netId, temp_list_index_offender);
-        //Empty.instance.ClientRealizeHandCard(temp_list_index_offender);
-        ;
-        ;
-        ;
+        Empty.instance.temp_list_index_offender = temp_list_index_offender;
+        Empty.instance.ClientRealizeHandCard();
 
     }
 
@@ -233,7 +232,7 @@ public class UIManager : MonoBehaviour
         instance.temp_list_index_offender = list_index_offender;
         if (list_index_offender.Count == 0)
         {
-            UICard_1002_ClosePanel();
+            UINotice_Card_1002_LackPeople();
             return;
         }
         if (panel_Card_1002.activeSelf)
@@ -502,6 +501,25 @@ public class UIManager : MonoBehaviour
         }
         Debug.Log("#200？剩余index " + Empty.instance.GetContent_int(list_index_offender));
         Empty.instance.CmdCard_2001and2002_NextTurn(index_Card, id_attacker, id_turn, list_index_offender);
+    }
+    public void UINotice_Defend()
+    {
+        
+        text_Notice.text = "选择对象有防御牌！";
+        panel_Notice_Back.SetActive(true);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+    }
+    public void UINotice_Card_1002_LackPeople()
+    {
+        text_Notice.text = "没有人参与音游祭！";
+        panel_Notice_Back.SetActive(true);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+    }
+    public void UINotice_Card_1005_LackPeople()
+    {
+        text_Notice.text = "交换人数过少！";
+        panel_Notice_Back.SetActive(true);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
     }
     public bool CanDefend(bool isA, bool isE, bool haveCard_2001, bool haveCard_2002)
     {
