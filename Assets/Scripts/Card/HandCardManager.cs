@@ -31,8 +31,8 @@ public class HandCardManager : MonoBehaviour
             new HandCard(1009,20/*4*/,true,2,true,false),//联机
             new HandCard(1010,0/*4*/,true,1,false,false),//自来熟
 
-            new HandCard(2001,20/*6*/,false,0,false,false),//手癖
-            new HandCard(2002,20/*6*/,false,0,false,false),//降噪耳机
+            new HandCard(2001,40/*6*/,false,0,false,false),//手癖
+            new HandCard(2002,40/*6*/,false,0,false,false),//降噪耳机
             new HandCard(2003,0/*6*/,false,0,false,false),//网络延迟
 
             new HandCard(3001,0/*4*/,false,0,false,false),//看铺
@@ -136,6 +136,7 @@ public class HandCardManager : MonoBehaviour
     {
         for (int i = 0; i < handCardsPrefab.Count; i++)
         {
+            Debug.Log("i = "+i); 
             if (handCardsPrefab[i].GetComponent<HandCard>().index_Card == index)
             {
                 return handCardsPrefab[i];

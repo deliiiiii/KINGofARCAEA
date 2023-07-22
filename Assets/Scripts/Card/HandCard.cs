@@ -29,7 +29,7 @@ public class HandCard : GrandCard
     public void ShowDetail()
     {
         panel_New.SetActive(false);
-        if ( GameManager.instance.state_ == GameManager.Temp_STATE.STATE_YIELD_CARDS || GameManager.instance.state_ == GameManager.Temp_STATE.STATE_THROW_CARDS)
+        if ( GameManager.instance.state_ == GameManager.Temp_STATE.STATE_YIELD_CARDS || GameManager.instance.state_ == GameManager.Temp_STATE.STATE_THROW_CARDS || GameManager.instance.state_ == GameManager.Temp_STATE.STATE_SELECTING_TARGETPLAYER)
         {
             Empty.instance.selectedCard = gameObject;
         }

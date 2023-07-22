@@ -15,6 +15,12 @@ public class UIManager : MonoBehaviour
     public List<int> card_1007_temp_list_id_of_score;
     public int card_1007_temp_last_id;
     public bool card_1007_temp_circled;
+    public int card_200X_index_Card;
+    public int card_200X_id_attacker;
+    public int card_200X_id_turn;
+    public List<int> card_200X_list_canDefend_index_Card;
+    public int card_200X_temp_index_Card;
+    
     public List<int> temp_list_index_offender;
     public float delay = 0.2f;
     public GameObject content_MyHandCard;
@@ -30,6 +36,7 @@ public class UIManager : MonoBehaviour
     public GameObject panel_CardDetail_1007;
     public GameObject panel_Card_1008;
     public GameObject panel_CardDetail_1008;
+    public GameObject panel_Card_200X_WhetherYield;
 
 
     public GameObject panel_DiscloseScore;
@@ -42,6 +49,7 @@ public class UIManager : MonoBehaviour
     public Text text_name_1007;
     public Text text_name_1008_1;
     public Text text_name_1008_2;
+    public Text Text_Card_200X_WhetherYield;
     public Text text_name_DisclosedPlayer;
     public Button button_Start_Game;//开始游戏
     public Button button_YieldCard;//打出按钮
@@ -209,7 +217,22 @@ public class UIManager : MonoBehaviour
         temp.transform.localRotation = q;
         temp.SetActive(true);
     }
-
+    public void DestroyHandcard_SpecificForCard_200X(int index)
+    {
+        for(int i=0;i<content_MyHandCard.transform.childCount;i++)
+        {
+            GameObject card = content_MyHandCard.transform.GetChild(i).gameObject;
+            if (card.activeSelf)
+            {
+                if(card.GetComponent<HandCard>().index_Card == index)
+                {
+                    Destroy(card);
+                    return;
+                }
+            }
+        }
+        Debug.LogError("未找到防御牌");
+    }
     public void ClearHandCards_and_ScoreCard()
     {
         ClearChild(content_MyHandCard.transform);
@@ -465,47 +488,83 @@ public class UIManager : MonoBehaviour
     {
         panel_Card_1008.SetActive(false);
     }
-    public void UICard_2001and2002_ShowPanel(int index_Card, int id_attacker,int id_turn, List<int> list_index_offender)
+    public void UICard_200X_ShowPanel(int index_Card, int id_attacker,int id_turn, List<int> list_index_offender)
     {
-        UICard_2001and2002_CommonPart(index_Card, id_attacker, id_turn, list_index_offender);
+        UICard_200X_CommonPart(index_Card, id_attacker, id_turn, list_index_offender);
     }
-    public void UICard_2001and2002_NextTurn(int index_Card, int id_attacker, int id_turn, List<int> list_index_offender)
+    public void UICard_200X_NextTurn(int index_Card, int id_attacker, int id_turn, List<int> list_index_offender)
     {
-        Debug.Log("#200？下一个 id_turn =" + id_turn);
+        Debug.Log("#200X 下一个 id_turn =" + id_turn);
         if (id_attacker == id_turn) 
         {
-            Debug.Log("#200? 更新index列表 " + Empty.instance.GetContent_int(list_index_offender));
+            Debug.Log("#200X 更新index列表 " + Empty.instance.GetContent_int(list_index_offender));
             Empty.instance.CmdCard_2001and2002_RefreshList(list_index_offender);
             return;
         }
-        UICard_2001and2002_CommonPart(index_Card, id_attacker, id_turn, list_index_offender);
+        UICard_200X_CommonPart(index_Card, id_attacker, id_turn, list_index_offender);
         
     }
-    public void UICard_2001and2002_CommonPart(int index_Card, int id_attacker, int id_turn, List<int> list_index_offender)
+    public void UICard_200X_CommonPart(int index_Card, int id_attacker, int id_turn, List<int> list_index_offender)
     {
         if ((int)Empty.instance.netId != id_turn) return;
+        
+        instance.card_200X_index_Card = index_Card;
+        instance.card_200X_id_attacker = id_attacker;
+        instance.card_200X_id_turn= id_turn;
+        instance.temp_list_index_offender = list_index_offender;
+        if (!list_index_offender.Contains(Empty.instance.GetIndex_in_list_netId(id_turn)))
+        {
+            Empty.instance.CmdCard_2001and2002_NextTurn(instance.card_200X_index_Card, instance.card_200X_id_attacker, instance.card_200X_id_turn, instance.temp_list_index_offender);
+            return;
+        }
         HandCard handCard = HandCardManager.instance.GetHandCardByIndex(index_Card).GetComponent<HandCard>();
         bool isA = handCard.isAttackCard;
         bool isE = handCard.isExchangeCard;
         bool haveCard_2001 = HandCardManager.instance.HaveCard(2001);
         bool haveCard_2002 = HandCardManager.instance.HaveCard(2002);
-        bool canDefend = CanDefend(isA, isE, haveCard_2001, haveCard_2002);
-        if (!canDefend)
-        {
+        instance.card_200X_list_canDefend_index_Card = MayDefendWhichIndex_Card(isA, isE, haveCard_2001, haveCard_2002);
 
-        }
-        else
+        UICard_200X_WhetherYield();
+        
+    }
+    public void UICard_200X_WhetherYield()
+    {
+        if (instance.card_200X_list_canDefend_index_Card.Count == 0)
         {
-            Debug.Log("ID 防御！" + (int)Empty.instance.netId);
-            list_index_offender.Remove(Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId));
+            panel_Card_200X_WhetherYield.SetActive(false);
+            Empty.instance.CmdCard_2001and2002_NextTurn(instance.card_200X_index_Card, instance.card_200X_id_attacker, instance.card_200X_id_turn, instance.temp_list_index_offender);
+            return;
         }
-        Debug.Log("#200？剩余index " + Empty.instance.GetContent_int(list_index_offender));
-        Empty.instance.CmdCard_2001and2002_NextTurn(index_Card, id_attacker, id_turn, list_index_offender);
+        Debug.Log("ID 可防御！ " + instance.card_200X_list_canDefend_index_Card[0]);
+        instance.card_200X_temp_index_Card = instance.card_200X_list_canDefend_index_Card[0];
+        switch (instance.card_200X_temp_index_Card)
+        {
+            case 2001:
+                Text_Card_200X_WhetherYield.text = "是否打出<手癖>抵消交换(E)";
+                break;
+            case 2002:
+                Text_Card_200X_WhetherYield.text = "是否打出<降噪耳机>抵消攻击(A)";
+                break;
+            default:break;
+        }
+        instance.card_200X_list_canDefend_index_Card.RemoveAt(0);
+        panel_Card_200X_WhetherYield.SetActive(true);
+    }
+    public void UIYieldCard_200X()
+    {
+        instance.temp_list_index_offender.Remove(Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId));
+        Debug.Log("#200X 剩余index " + Empty.instance.GetContent_int(instance.temp_list_index_offender));
+        DestroyHandcard_SpecificForCard_200X(instance.card_200X_temp_index_Card);//先自己销毁，再派出卡
+        Empty.instance.ClientDiscardHandCard((int)Empty.instance.netId, instance.card_200X_temp_index_Card);
+        UICard_200X_WhetherYield();
+    }
+    public void UIIgnoreYieldCard_200X()
+    {
+        UICard_200X_WhetherYield();
     }
     public void UINotice_Defend()
     {
-        
-        text_Notice.text = "选择对象有防御牌！";
+        text_Notice.text = "选择对象防出去了！";
         panel_Notice_Back.SetActive(true);
         Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
     }
@@ -521,9 +580,12 @@ public class UIManager : MonoBehaviour
         panel_Notice_Back.SetActive(true);
         Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
     }
-    public bool CanDefend(bool isA, bool isE, bool haveCard_2001, bool haveCard_2002)
+    public List<int> MayDefendWhichIndex_Card(bool isA, bool isE, bool haveCard_2001, bool haveCard_2002)
     {
-        return (isA && haveCard_2002) || (isE && haveCard_2001);
+        List<int> result = new List<int>();
+        if(isA && haveCard_2002) result.Add(2002);
+        if(isE && haveCard_2001) result.Add(2001);
+        return result;
     }
     public void DiscloseScoreCard(int index_Shown, List<int> list_score, List<int> list_id_of_score)
     {

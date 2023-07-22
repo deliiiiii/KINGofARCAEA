@@ -1056,7 +1056,7 @@ public class Empty : NetworkBehaviour
     [ClientRpc]
     public void RpcCard_2001and2002_ShowPanel(int index_Card, int id_turn, List<int> list_index_offender)
     {
-        UIManager.instance.UICard_2001and2002_ShowPanel(index_Card, id_turn,id_turn, list_index_offender);
+        UIManager.instance.UICard_200X_ShowPanel(index_Card, id_turn,id_turn, list_index_offender);
     }
     [ClientRpc]
     public void RpcCard_2001and2002_NextTurn(int index_Card, int id_attacker,int id_turn, List<int> list_index_offender)
@@ -1067,7 +1067,7 @@ public class Empty : NetworkBehaviour
         {
             index_id_turn = 0;
         }
-        UIManager.instance.UICard_2001and2002_NextTurn(index_Card, id_attacker, list_netId[index_id_turn], list_index_offender);
+        UIManager.instance.UICard_200X_NextTurn(index_Card, id_attacker, list_netId[index_id_turn], list_index_offender);
     }
     [ClientRpc]
     public void RpcCard_2001and2002_RefreshList(List<int> list_index_offender)
