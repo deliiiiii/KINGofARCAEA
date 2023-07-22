@@ -48,7 +48,7 @@ public class HandCard : GrandCard
             image_HandCard.sprite = gameObject.GetComponent<Image>().sprite;
             UIPlayerManager.instance.ShowOrHide_OtherItems(false, -1);
             int index_Card = Empty.instance.selectedCard.GetComponent<HandCard>().index_Card;
-            if ( (index_Card > 2000) && (index_Card < 3000))
+            if ( (index_Card > 2000) && (index_Card < 3000) && GameManager.instance.state_ == GameManager.Temp_STATE.STATE_YIELD_CARDS)
             {
                 UIManager.instance.panel_NoticeDefendCard.SetActive(true);
             }

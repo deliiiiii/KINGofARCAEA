@@ -1104,7 +1104,12 @@ public class Empty : NetworkBehaviour
     [ClientRpc]
     public void RpcClearAllSuspectedCardOnNewRound()
     {
-        UIPlayerManager.instance.Card_1002_ClearAllSuspectedCard();
+        List<int> temp_list_all_index = new();
+        for(int i=0;i<list_netId.Count;i++)
+        {
+            temp_list_all_index.Add(i);
+        }
+        UIPlayerManager.instance.Card_1002_ClearSuspectedCard(temp_list_all_index);
     }
 
     [Client]

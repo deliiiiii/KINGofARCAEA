@@ -172,11 +172,15 @@ public class UIPlayerManager : MonoBehaviour
         list_player[my_index].GetComponent<Player>().Text_notice_State.text = temp.GetComponent<StateCard>().name_Card + "\n" + temp.GetComponent<StateCard>().notice_State;
         list_player[my_index].GetComponent<Player>().panel_Notice_StateCard.SetActive(true);
     }
-    public void Card_1002_ClearAllSuspectedCard()
+    public void Card_1002_ClearSuspectedCard(List<int> list_index_offender)
     {
         for (int i = 0; i < Empty.list_netId.Count; i++)
         {
-            list_player[i].GetComponent<Player>().Clear_toggle_isOns();
+            if(list_index_offender.Contains(i))
+            {
+                list_player[i].GetComponent<Player>().Clear_toggle_isOns();
+            }
+            
         }
     }
     public void Card_1005_GetLeftSuspectedScore(List <int> list_index_offender)

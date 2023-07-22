@@ -269,7 +269,7 @@ public class UIManager : MonoBehaviour
             temp.AddComponent<ScoreCard>().score = list_scoreCard[i];
         }
 
-        UIPlayerManager.instance.Card_1002_ClearAllSuspectedCard();
+        UIPlayerManager.instance.Card_1002_ClearSuspectedCard(list_index_offender);
         
     }
 
