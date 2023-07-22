@@ -128,6 +128,7 @@ public class UIPlayerManager : MonoBehaviour
 
     public void ShowOrHide_OtherItems(bool state, int index_Card)
     {
+        
         if (state)
         {
             switch (index_Card)
@@ -310,12 +311,62 @@ public class UIPlayerManager : MonoBehaviour
         Card_1008_Collect(index_holder);
     }
     
-    public void ClearStatesOnNewRound()
+    public void ClearStates(int circumstance)
     {
         for(int i=0;i<list_player.Count;i++)
         {
-            ClearChild(list_player[i].GetComponent<Player>().content_State.transform);
+            if (circumstance == 2)
+            {
+                ClearChild(list_player[i].GetComponent<Player>().content_State.transform);
+                continue;
+            }
+            for (int j = 0; j < list_player[i].GetComponent<Player>().content_State.transform.childCount;j++)
+            {
+                GameObject stateCard = list_player[i].GetComponent<Player>().content_State.transform.GetChild(j).gameObject;
+                if(stateCard.activeSelf)
+                {
+                    if(circumstance == 1 && stateCard.GetComponent<StateCard>().category == 1)
+                    {
+                        Destroy(stateCard);
+                    }
+                }
+            }
         }
+    }
+    public void ClearStates(int circumstance, int index_id)
+    {
+        Debug.Log("ClearStates");
+        for (int j = 0; j < list_player[index_id].GetComponent<Player>().content_State.transform.childCount; j++)
+        {
+            GameObject stateCard = list_player[index_id].GetComponent<Player>().content_State.transform.GetChild(j).gameObject;
+            if (stateCard.activeSelf)
+            {
+                if (circumstance == 0 && stateCard.GetComponent<StateCard>().category == 2)
+                {
+                    Destroy(stateCard);
+                }
+            }
+        }
+    }
+    public List<int> CheckStates(List<int>list_index_offender , int index_Card)
+    {
+        for (int i = 0; i < list_player.Count; i++)
+        {
+            for(int j=0;j<list_player[i].GetComponent<Player>().content_State.transform.childCount;j++)
+            {
+                GameObject stateCard = list_player[i].GetComponent<Player>().content_State.transform.GetChild(j).gameObject;
+                if(stateCard.activeSelf)
+                {
+                    if (stateCard.GetComponent<StateCard>().index_Card == index_Card)
+                    {
+                        //Debug.Log("#3002 第" + i + "个玩家防出去了");
+                        list_index_offender.Remove(i);
+                        break;
+                    }
+                }
+            }
+        }
+        return list_index_offender;
     }
     public void ClearChild(Transform t_parent)
     {

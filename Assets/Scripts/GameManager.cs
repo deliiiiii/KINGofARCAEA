@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
         //STATE_DRAW_CARDS,
         STATE_YIELD_CARDS,
         STATE_SELECTING_TARGETPLAYER,
+        STATE_WHETHERDEFEND,
         STATE_REALIZING_CARDS,
         STATE_THROW_CARDS,
         STATE_JUDGE_CARDS,

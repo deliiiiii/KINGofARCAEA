@@ -3,7 +3,6 @@ using Mirror;
 using System.Collections.Generic;
 using Telepathy;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class Empty : NetworkBehaviour
 {
@@ -322,6 +321,7 @@ public class Empty : NetworkBehaviour
     [Command]
     public void CmdCheckCard_2001and2002(int index_Card,int id_attacker, List<int> list_index_offender)
     {
+        instance.ServerSetState(GameManager.Temp_STATE.STATE_WHETHERDEFEND);
         instance.RpcCard_2001and2002_ShowPanel(index_Card, id_attacker, list_index_offender);
 
     }
@@ -419,6 +419,7 @@ public class Empty : NetworkBehaviour
     {
         index_Round = 0;
         init_draw_num = 4;
+        instance.list_stateCards.Clear();
         isSwitchHolder = false;
         index_CurrentHolder = index_CurrentPlayer = 0;
 
@@ -442,6 +443,7 @@ public class Empty : NetworkBehaviour
     [Server]
     public void ServerNewRound()
     {
+        instance.RpcClearUsedCards();
         index_Round++;
         index_Circle = 1;
         isSwitchHolder = true;
@@ -484,6 +486,7 @@ public class Empty : NetworkBehaviour
             return;
         }
         instance.RpcClearAllSuspectedCardOnNewRound();
+        instance.RpcClearStates(2);/////////位置好不好？ 2:新一局
         for (int i = 0; i < list_netId.Count; i++)
         {
             RpcDrawScoreCard(list_netId[i], true);////判空
@@ -527,12 +530,14 @@ public class Empty : NetworkBehaviour
                 index_Circle++;
                 instance.ServerSetState(GameManager.Temp_STATE.STATE_JUDGE_CARDS);
                 UIPlayerManager.instance.Card_1008_Collect(index_CurrentPlayer - 1);//从当前主持人开始获取1008状态卡
+                
                 instance.ServerDelay_NewCircle();
                 return;
             }
         }
         RpcSetIndex(index_Circle, index_CurrentPlayer, index_CurrentHolder, index_Round);
         RpcMyTurn(index_CurrentPlayer - 1);
+        instance.RpcClearStates(0,index_CurrentPlayer - 1);/////////位置好不好？ 0:
     }
     [Server]
     public void ServerDelay_NewCircle()
@@ -542,7 +547,7 @@ public class Empty : NetworkBehaviour
             Invoke(nameof(ServerDelay_NewCircle), 0.3f);
             return;
         }
-        instance.RpcClearStatesOnNewCircle();/////////位置好不好？
+        instance.RpcClearStates(1);/////////位置好不好？ 1:新一轮
         if (index_Circle == 3)
         {
             ServerNewRound();
@@ -568,17 +573,16 @@ public class Empty : NetworkBehaviour
     [Server]
     public void ServerDelay_RpcCard_1005_GetLeftScoreCard()
     {
-        Debug.Log("TTT");
         if (instance.list_Card_1005or1006_ScoreCard.Count != list_netId.Count)
         {
-            Debug.Log("[Server]Delay_RpcCard_1005_GetLeftScoreCard");
+            //Debug.Log("[Server]Delay_RpcCard_1005_GetLeftScoreCard");
             Invoke(nameof(ServerDelay_RpcCard_1005_GetLeftScoreCard), delay);
             return;
         }
         
-        Debug.Log("#1005 分数牌列表 = " +  GetContent_int(instance.list_Card_1005or1006_ScoreCard));
-        Debug.Log("分数牌主人的id列表 = " +  GetContent_int(instance.list_Card_1005or1006_netId_ScoreCard));
-        Debug.Log("受击者的id列表 = " +  GetContent_int(instance.temp_card_1005or1006_list_index_offender));
+        //Debug.Log("#1005 分数牌列表 = " +  GetContent_int(instance.list_Card_1005or1006_ScoreCard));
+        //Debug.Log("分数牌主人的id列表 = " +  GetContent_int(instance.list_Card_1005or1006_netId_ScoreCard));
+        //Debug.Log("受击者的id列表 = " +  GetContent_int(instance.temp_card_1005or1006_list_index_offender));
         instance.RpcCard_1005_GetLeftScoreCard(instance.temp_card_1005or1006_list_index_offender,instance.list_Card_1005or1006_ScoreCard,instance.list_Card_1005or1006_netId_ScoreCard);
     }
     [Server]
@@ -586,7 +590,7 @@ public class Empty : NetworkBehaviour
     {
         if (instance.list_Card_1005or1006_ScoreCard.Count != list_netId.Count)
         {
-            Debug.Log("[Server]Delay_RpcCard_1006_GetRightScoreCard");
+            //Debug.Log("[Server]Delay_RpcCard_1006_GetRightScoreCard");
             Invoke(nameof(ServerDelay_RpcCard_1006_GetRightScoreCard), delay);
             return;
         }
@@ -637,7 +641,7 @@ public class Empty : NetworkBehaviour
                 return;
             }
         }
-        Invoke(nameof(ServerDelay_ClientCard_1008_Realize), 3f);
+        Invoke(nameof(ServerDelay_ClientCard_1008_Realize), 5f);
     }
     [Server]
     public void ServerDelay_RpcStartGainScore()
@@ -868,7 +872,10 @@ public class Empty : NetworkBehaviour
     [ClientRpc]
     public void RpcCard_1003_GetHisScoreCard(int id_attacker,List<int> list_index_offender,int index_Card)
     {
-        if (list_index_offender.Count == 0) return;
+        if (list_index_offender.Count == 0)
+        {
+            return;
+        }
         if (list_index_offender[0] == GetIndex_in_list_netId((int)instance.netId))
         {
             if (index_Card == 1008)
@@ -1097,9 +1104,14 @@ public class Empty : NetworkBehaviour
         Debug.Log(GameManager.instance.state_ = state);
     }
     [ClientRpc]
-    public void RpcClearStatesOnNewCircle()
+    public void RpcClearStates(int circumstance)
     {
-        UIPlayerManager.instance.ClearStatesOnNewRound();
+        UIPlayerManager.instance.ClearStates(circumstance);
+    }
+    [ClientRpc]
+    public void RpcClearStates(int circumstance,int index_id)
+    {
+        UIPlayerManager.instance.ClearStates(circumstance,index_id);
     }
     [ClientRpc]
     public void RpcClearAllSuspectedCardOnNewRound()
@@ -1111,7 +1123,11 @@ public class Empty : NetworkBehaviour
         }
         UIPlayerManager.instance.Card_1002_ClearSuspectedCard(temp_list_all_index);
     }
-
+    [ClientRpc]
+    public void RpcClearUsedCards()
+    {
+        UIManager.instance.ClearChild(UIManager.instance.panel_DiscardedCards.transform);
+    }
     [Client]
     public void ClientAddPlayer(int added_netId,string added_name)
     {
@@ -1181,6 +1197,7 @@ public class Empty : NetworkBehaviour
             {
                 instance.temp_list_index_offender.Add(i);
             }
+            
             instance.CmdCheckCard_2001and2002(instance.selectedCard.GetComponent<HandCard>().index_Card, (int)instance.netId, instance.temp_list_index_offender);
             instance.ClientRealizeHandCard();
         }
@@ -1226,15 +1243,26 @@ public class Empty : NetworkBehaviour
             Invoke(nameof(ClientRealizeHandCard), 1f);
             return;
         }
-        if(instance.selectedCard.GetComponent<HandCard>().isAttackCard && instance.selectedCard.GetComponent<HandCard>().count_offender == 1 && instance.temp_list_index_offender.Count == 0)
+        
+        
+        if(instance.selectedCard.GetComponent<HandCard>().isAttackCard)
+        {
+            instance.temp_list_index_offender = UIPlayerManager.instance.CheckStates(instance.temp_list_index_offender, 3002);
+        }
+        
+        if (instance.selectedCard.GetComponent<HandCard>().isAttackCard && instance.selectedCard.GetComponent<HandCard>().count_offender == 1 && instance.temp_list_index_offender.Count == 0)
         {
             UIManager.instance.UINotice_Defend();
             instance.ClientOnEndRealizeHandCard();
             return;
         }
+        if (instance.selectedCard.GetComponent<HandCard>().isTimingCard)
+        {
+            instance.CmdAddStateCard((int)instance.netId, instance.temp_list_index_offender, instance.selectedCard.GetComponent<HandCard>().index_Card);
+        }
         //if (list_index_offender[0]!= -1)//不是放弃选择
         //{
-            switch (instance.selectedCard.GetComponent<HandCard>().index_Card)////手牌新增
+        switch (instance.selectedCard.GetComponent<HandCard>().index_Card)////手牌新增
             {
                 case 1001://代打
                     Debug.Log("代打");
@@ -1278,7 +1306,6 @@ public class Empty : NetworkBehaviour
                     break;
                 case 1008://音游王
                     Debug.Log("音游王");
-                    instance.CmdAddStateCard((int)instance.netId, instance.temp_list_index_offender,1008);
                     break;
                 case 1009://联机
                     Debug.Log("联机");

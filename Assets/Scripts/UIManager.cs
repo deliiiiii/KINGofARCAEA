@@ -79,10 +79,8 @@ public class UIManager : MonoBehaviour
         }
         if (canvas.activeSelf)
         {
-            //Debug.Log(GameManager.state_);
             switch (GameManager.instance.state_)
             {
-                
                 case GameManager.Temp_STATE.STATE_YIELD_CARDS:
                     {
                         if((Empty.index_CurrentPlayer - 1) == Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId))
@@ -94,9 +92,8 @@ public class UIManager : MonoBehaviour
                         {
                             button_YieldCard.gameObject.SetActive(false);
                             button_FinishYieldCard.gameObject.SetActive(false);
+                            panel_NoticeDefendCard.SetActive(false);
                         }
-                        
-                        
                         button_ThrowCard.gameObject.SetActive(false);
                         text_NoticeThrowCard.gameObject.SetActive(false);
                         break;
@@ -113,14 +110,15 @@ public class UIManager : MonoBehaviour
                             button_ThrowCard.gameObject.SetActive(false);
                             text_NoticeThrowCard.gameObject.SetActive(false);
                         }
+                        panel_NoticeDefendCard.SetActive(false);
                         button_YieldCard.gameObject.SetActive(false);
                         button_FinishYieldCard.gameObject.SetActive(false);
-                        
-                        //Debug.Log("THROW CARDS !!!");
                         break;
                     }
                 case GameManager.Temp_STATE.STATE_SELECTING_TARGETPLAYER:
                     {
+                        panel_NoticeDefendCard.SetActive(false);
+
                         button_ThrowCard.gameObject.SetActive(false);
                         text_NoticeThrowCard.gameObject.SetActive(false);
                         button_YieldCard.gameObject.SetActive(false);
@@ -129,6 +127,7 @@ public class UIManager : MonoBehaviour
                     }
                 default:
                     {
+                        panel_NoticeDefendCard.SetActive(false);
                         //button_YieldCard.gameObject.SetActive(false);
                         button_FinishYieldCard.gameObject.SetActive(false);
                         button_ThrowCard.gameObject.SetActive(false);
@@ -555,6 +554,7 @@ public class UIManager : MonoBehaviour
         instance.temp_list_index_offender.Remove(Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId));
         Debug.Log("#200X 剩余index " + Empty.instance.GetContent_int(instance.temp_list_index_offender));
         DestroyHandcard_SpecificForCard_200X(instance.card_200X_temp_index_Card);//先自己销毁，再派出卡
+        Empty.instance.count_MyHandCard--;
         Empty.instance.ClientDiscardHandCard((int)Empty.instance.netId, instance.card_200X_temp_index_Card);
         UICard_200X_WhetherYield();
     }

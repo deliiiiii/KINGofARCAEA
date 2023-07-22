@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class StateCard : MonoBehaviour
 {
+    [Tooltip("0:本次行动结束时 1:本轮结束时 2:一轮后的自己出牌时 ")]
+    public int category;
+
     public int index_Card;
     public string name_Card;
     public string notice_State;

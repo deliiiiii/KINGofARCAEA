@@ -29,13 +29,25 @@ public class HandCard : GrandCard
     public void ShowDetail()
     {
         panel_New.SetActive(false);
-        if ( GameManager.instance.state_ == GameManager.Temp_STATE.STATE_YIELD_CARDS || GameManager.instance.state_ == GameManager.Temp_STATE.STATE_THROW_CARDS || GameManager.instance.state_ == GameManager.Temp_STATE.STATE_SELECTING_TARGETPLAYER)
+        if (GameManager.instance.state_ == GameManager.Temp_STATE.STATE_YIELD_CARDS
+            || GameManager.instance.state_ == GameManager.Temp_STATE.STATE_THROW_CARDS
+            //|| (GameManager.instance.state_ == GameManager.Temp_STATE.STATE_WHETHERDEFEND
+            //    &&
+            //    (Empty.index_CurrentPlayer - 1) != Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId)
+            //)
+
+            //&& 
+
+            //!((Empty.index_CurrentPlayer - 1) == Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId) 
+            //&& GameManager.instance.state_ == GameManager.Temp_STATE.STATE_SELECTING_TARGETPLAYER)
+            )
         {
-            Empty.instance.selectedCard = gameObject;
+                Empty.instance.selectedCard = gameObject;
         }
+        
 
 
-        if(gameObject.GetComponent<GrandCard>().used == true)//已用过
+        if (gameObject.GetComponent<GrandCard>().used == true)//已用过
         {
             panel_HandCardDetail_ReadOnly.SetActive(true);
             panel_HandCardDetail.SetActive(false);
@@ -47,8 +59,9 @@ public class HandCard : GrandCard
             panel_HandCardDetail.SetActive(true);
             image_HandCard.sprite = gameObject.GetComponent<Image>().sprite;
             UIPlayerManager.instance.ShowOrHide_OtherItems(false, -1);
-            int index_Card = Empty.instance.selectedCard.GetComponent<HandCard>().index_Card;
-            if ( (index_Card > 2000) && (index_Card < 3000) && GameManager.instance.state_ == GameManager.Temp_STATE.STATE_YIELD_CARDS)
+            int index_Card = gameObject.GetComponent<HandCard>().index_Card;
+            UIPlayerManager.instance.ShowOrHide_OtherItems(true, index_Card);
+            if ((index_Card > 2000) && (index_Card < 3000))
             {
                 UIManager.instance.panel_NoticeDefendCard.SetActive(true);
             }
@@ -56,9 +69,11 @@ public class HandCard : GrandCard
             {
                 UIManager.instance.panel_NoticeDefendCard.SetActive(false);
             }
-            UIPlayerManager.instance.ShowOrHide_OtherItems(true, index_Card);
+            if (UIManager.instance.panel_Card_200X_WhetherYield.activeSelf)
+            {
+                UIManager.instance.panel_NoticeDefendCard.SetActive(false);
+            }
         }
-
     }
     public void CloseDetail()
     {
