@@ -1,4 +1,4 @@
-using Mirror;
+ï»¿using Mirror;
 //using System;
 using System.Collections.Generic;
 using Telepathy;
@@ -8,8 +8,8 @@ public class Empty : NetworkBehaviour
 {
     public static Empty instance;
 
-    public static List<int> list_netId = new();//Íæ¼ÒIdÁĞ±í
-    public static List<string> list_playerName = new();//Íæ¼ÒĞÕÃûÁĞ±í
+    public static List<int> list_netId = new();//ç©å®¶Idåˆ—è¡¨
+    public static List<string> list_playerName = new();//ç©å®¶å§“ååˆ—è¡¨
 
 
     /// <summary>
@@ -26,25 +26,25 @@ public class Empty : NetworkBehaviour
     //    STATE_THROW_CARDS
     //}
     //public static Temp_STATE state_ = Temp_STATE.STATE_GAME_IDLING;
-    public static int index_Round;//¾ÖÊı£¬1¾Ö = 2È¦
-    public static int index_Circle;//È¦Êı
-    public static bool isSwitchHolder;//»»Ö÷³ÖÈË
-    public static int init_draw_num;//³õÊ¼ÊÖÅÆÊı
+    public static int index_Round;//å±€æ•°ï¼Œ1å±€ = 2åœˆ
+    public static int index_Circle;//åœˆæ•°
+    public static bool isSwitchHolder;//æ¢ä¸»æŒäºº
+    public static int init_draw_num;//åˆå§‹æ‰‹ç‰Œæ•°
 
     /// <summary>
     /// Empty <- UIPlayerManager
     /// </summary>
-    public static int index_CurrentPlayer = 0;//´Ó1¿ªÊ¼Êı
-    public static int index_CurrentHolder = 0;//´Ó1¿ªÊ¼Êı
+    public static int index_CurrentPlayer = 0;//ä»1å¼€å§‹æ•°
+    public static int index_CurrentHolder = 0;//ä»1å¼€å§‹æ•°
 
 
     /// <summary>
     /// Empty <- Player
     /// </summary>
     //public int totalScore;
-    //public List<int> roundScore = new();////´ıÌí¼Ó
+    //public List<int> roundScore = new();////å¾…æ·»åŠ 
     //public int totalMove;
-    public List<int> turnMove = new();////´ıÌí¼Ó
+    public List<int> turnMove = new();////å¾…æ·»åŠ 
     public int count_MyHandCard;
     //public int count_RoundUsedCard;
     //public int count_TotalUsedCard;
@@ -104,8 +104,8 @@ public class Empty : NetworkBehaviour
     public void CmdSetState(GameManager.Temp_STATE state)
     {
         if (GameManager.instance.state_ == state) return;
-        //Debug.Log(GameManager.instance.state_ = state);
-        GameManager.instance.state_ = state;
+        Debug.Log(GameManager.instance.state_ = state);
+        //GameManager.instance.state_ = state;
         instance.RpcSetState(state);
     }
     [Command]
@@ -145,27 +145,27 @@ public class Empty : NetworkBehaviour
         instance.ServerNewTurn();
     }
     [Command]
-    public void CmdGetHisAllHandCards(int id_attacker, List<int> list_index_offender)//1001 ´ú´ò
+    public void CmdGetHisAllHandCards(int id_attacker, List<int> list_index_offender)//1001 ä»£æ‰“
     {
         RpcGetHisAllHandCards(id_attacker, list_index_offender);
     }
     [Command]
-    public void CmdGiveMyAllHandCards(int id_attacker, List<int> list_index_handCard)//1001 ´ú´ò
+    public void CmdGiveMyAllHandCards(int id_attacker, List<int> list_index_handCard)//1001 ä»£æ‰“
     {
         RpcReceiveHisAllHandCards(id_attacker, list_index_handCard);
     }
     [Command]
-    public void CmdClearAllHandCards(int onlineID)//1001 ´ú´ò
+    public void CmdClearAllHandCards(int onlineID)//1001 ä»£æ‰“
     {
         RpcClearAllHandCards(onlineID);
     }
     [Command]
-    public void CmdDrawHandCards_Specific(int onlineID, List<int> list_index_handCard)//1001 ´ú´ò
+    public void CmdDrawHandCards_Specific(int onlineID, List<int> list_index_handCard)//1001 ä»£æ‰“
     {
         RpcDrawHandCards_Specific(onlineID, list_index_handCard);
     }
     [Command]
-    public void CmdDrawScoreCard_Specific(int onlineID, int score)//1003 Ö¸µã½­É½
+    public void CmdDrawScoreCard_Specific(int onlineID, int score)//1003 æŒ‡ç‚¹æ±Ÿå±±
     {
         //RpcDrawScoreCard_Specific(onlineID, score);
     }
@@ -248,7 +248,7 @@ public class Empty : NetworkBehaviour
     {
         instance.list_Card_1005or1006_netId_ScoreCard.Add(onlineId);
         instance.list_Card_1005or1006_ScoreCard.Add(score);
-        Debug.Log("¼ÓÈë·ÖÊıÖµ" + score + "  id  = " + onlineId) ;
+        Debug.Log("åŠ å…¥åˆ†æ•°å€¼" + score + "  id  = " + onlineId) ;
     }
     [Command]
     public void CmdCard_1006_GetRightSuspectedScore(List<int> list_index_offender)
@@ -260,33 +260,37 @@ public class Empty : NetworkBehaviour
     {
         instance.list_Card_1005or1006_ScoreCard.Clear();
         instance.list_Card_1005or1006_netId_ScoreCard.Clear();
-        instance.temp_Card_1007_checkCount = 0;
+        instance.temp_Card_1007_checkCount = list_index_offender.Count;
         //int temp_index_CurrentPlayer = index_CurrentPlayer;
-        int my_index = GetIndex_in_list_netId(id_attacker);
-        if(index_Circle < 2)
+        //int my_index = GetIndex_in_list_netId(id_attacker);
+        //if(index_Circle < 2)
+        //{
+        //    Debug.Log("  Ò»È¦ my_index = " + my_index);
+        //    for (int i = 0; i < list_netId.Count; i++)
+        //    {
+        //        if (i == my_index) continue;
+        //        if(!list_index_offender.Contains(i)) continue;
+        //        instance.temp_Card_1007_checkCount++;
+        //        RpcCard_1007_CollectScoreCards(list_netId[i]);
+        //    }
+        //}
+        //else if(index_Circle == 2)
+        //{
+        //    for(int i = my_index + 1; ;i++)
+        //    {
+        //        if (i == list_netId.Count) i = 0;
+
+        //        if (i == index_CurrentHolder - 1) break;
+        //        if (!list_index_offender.Contains(i)) continue;
+        //        instance.temp_Card_1007_checkCount++;
+        //        RpcCard_1007_CollectScoreCards(list_netId[i]);
+        //    }
+        //}
+        for (int i = 0; i < list_index_offender.Count; i++)
         {
-            Debug.Log("µÚÒ»È¦ my_index = " + my_index);
-            for (int i = 0; i < list_netId.Count; i++)
-            {
-                if (i == my_index) continue;
-                if(!list_index_offender.Contains(i)) continue;
-                instance.temp_Card_1007_checkCount++;
-                RpcCard_1007_CollectScoreCards(list_netId[i]);
-            }
+            RpcCard_1007_CollectScoreCards(list_netId[list_index_offender[i]]);
         }
-        else if(index_Circle == 2)
-        {
-            for(int i = my_index + 1; ;i++)
-            {
-                if (i == list_netId.Count) i = 0;
-               
-                if (i == index_CurrentHolder - 1) break;
-                if (!list_index_offender.Contains(i)) continue;
-                instance.temp_Card_1007_checkCount++;
-                RpcCard_1007_CollectScoreCards(list_netId[i]);
-            }
-        }
-        Debug.Log("checkcount " + instance.temp_Card_1007_checkCount);
+        Debug.Log("#1007 checkcount " + instance.temp_Card_1007_checkCount);
         instance.temp_Card_1007_id_attacker = id_attacker;
         instance.ServerDelay_ClientCard_1007_ShowPanel();
     }
@@ -357,7 +361,7 @@ public class Empty : NetworkBehaviour
     {
         if (CheckRepeatedNetId(added_netId))
         {
-            Debug.Log("idÖØ¸´£¡");
+            Debug.Log("idé‡å¤ï¼");
             return;
         }
         //Debug.Log("ServerAddPlayer  netId = " + netId + " || instance.netId = " + instance.netId);
@@ -394,13 +398,13 @@ public class Empty : NetworkBehaviour
         }
         if (removed_index == -1)
         {
-            Debug.LogError("Î´ÕÒµ½IDÀ´É¾³ı!!");
+            Debug.LogError("æœªæ‰¾åˆ°IDæ¥åˆ é™¤!!");
             return;
         }
 
 
 
-        Debug.Log("[Server] Àë¿ª " + removed_netId + " " + list_playerName[removed_index]);
+        Debug.Log("[Server] ç¦»å¼€ " + removed_netId + " " + list_playerName[removed_index]);
         list_netId.RemoveAt(removed_index);
         list_playerName.RemoveAt(removed_index);
         //Debug.Log("[Server] list_netId = " + GetContent_int(list_netId));
@@ -449,15 +453,15 @@ public class Empty : NetworkBehaviour
         isSwitchHolder = true;
         UIManager.instance.text_CircleNum.text = index_Circle.ToString();
         
-        if (index_Round == 1)//µÚÒ»¾ÖÖ®Ç°
+        if (index_Round == 1)//ç¬¬ä¸€å±€ä¹‹å‰
         {
             index_CurrentHolder = 1;
             RpcSetHolder(index_CurrentHolder - 1, true);
 
             for (int i = 0; i < list_netId.Count; i++)
             {
-                RpcDrawScoreCard(list_netId[i],true);////ÅĞ¿Õ
-                RpcDrawHandCards(list_netId[i], init_draw_num);////ÅĞ¿Õ
+                RpcDrawScoreCard(list_netId[i],true);////åˆ¤ç©º
+                RpcDrawHandCards(list_netId[i], init_draw_num);////åˆ¤ç©º
             }
             instance.ServerSetState(GameManager.Temp_STATE.STATE_TURNING_TURN);
             instance.ServerNewTurn();
@@ -486,10 +490,10 @@ public class Empty : NetworkBehaviour
             return;
         }
         instance.RpcClearAllSuspectedCardOnNewRound();
-        instance.RpcClearStates(2);/////////Î»ÖÃºÃ²»ºÃ£¿ 2:ĞÂÒ»¾Ö
+        instance.RpcClearStates(2);/////////ä½ç½®å¥½ä¸å¥½ï¼Ÿ 2:æ–°ä¸€å±€
         for (int i = 0; i < list_netId.Count; i++)
         {
-            RpcDrawScoreCard(list_netId[i], true);////ÅĞ¿Õ
+            RpcDrawScoreCard(list_netId[i], true);////åˆ¤ç©º
         }
         RpcSetHolder(index_CurrentHolder - 1, false);
         index_CurrentHolder++;
@@ -507,11 +511,11 @@ public class Empty : NetworkBehaviour
     {
         if (isSwitchHolder)
         {
-            if (index_Round == 1)//µÚÒ»¾Ö
+            if (index_Round == 1)//ç¬¬ä¸€å±€
             {
                 index_CurrentPlayer = 1;
             }
-            else if (index_Round != 1)//·ÇµÚÒ»¾Ö
+            else if (index_Round != 1)//éç¬¬ä¸€å±€
             {
                 RpcPassTurn(index_CurrentPlayer - 1);
                 index_CurrentPlayer = index_CurrentHolder;
@@ -529,7 +533,7 @@ public class Empty : NetworkBehaviour
             {
                 index_Circle++;
                 instance.ServerSetState(GameManager.Temp_STATE.STATE_JUDGE_CARDS);
-                UIPlayerManager.instance.Card_1008_Collect(index_CurrentPlayer - 1);//´Óµ±Ç°Ö÷³ÖÈË¿ªÊ¼»ñÈ¡1008×´Ì¬¿¨
+                UIPlayerManager.instance.Card_1008_Collect(index_CurrentPlayer - 1);//ä»å½“å‰ä¸»æŒäººå¼€å§‹è·å–1008çŠ¶æ€å¡
                 
                 instance.ServerDelay_NewCircle();
                 return;
@@ -537,7 +541,7 @@ public class Empty : NetworkBehaviour
         }
         RpcSetIndex(index_Circle, index_CurrentPlayer, index_CurrentHolder, index_Round);
         RpcMyTurn(index_CurrentPlayer - 1);
-        instance.RpcClearStates(0,index_CurrentPlayer - 1);/////////Î»ÖÃºÃ²»ºÃ£¿ 0:
+        instance.RpcClearStates(0,index_CurrentPlayer - 1);/////////ä½ç½®å¥½ä¸å¥½ï¼Ÿ 0:
     }
     [Server]
     public void ServerDelay_NewCircle()
@@ -547,7 +551,7 @@ public class Empty : NetworkBehaviour
             Invoke(nameof(ServerDelay_NewCircle), 0.3f);
             return;
         }
-        instance.RpcClearStates(1);/////////Î»ÖÃºÃ²»ºÃ£¿ 1:ĞÂÒ»ÂÖ
+        instance.RpcClearStates(1);/////////ä½ç½®å¥½ä¸å¥½ï¼Ÿ 1:æ–°ä¸€è½®
         if (index_Circle == 3)
         {
             ServerNewRound();
@@ -566,7 +570,7 @@ public class Empty : NetworkBehaviour
             Invoke(nameof(ServerDelay_RpcCard_1002_Show_Panel_SelectScoreCard), delay);
             return;
         }
-        Debug.Log("#1002 ·ÖÊıÅÆÁĞ±í = " + GetContent_int(instance.list_Card_1002_ScoreCard));
+        Debug.Log("#1002 åˆ†æ•°ç‰Œåˆ—è¡¨ = " + GetContent_int(instance.list_Card_1002_ScoreCard));
         List<int> randomed_list_scoreCard = RandomList(instance.list_Card_1002_ScoreCard);
         instance.RpcCard_1002_Show_Panel_SelectScoreCard(instance.temp_Card_1002_id_attacker, instance.temp_Card_1002_list_index_offender, randomed_list_scoreCard);
     }
@@ -580,9 +584,9 @@ public class Empty : NetworkBehaviour
             return;
         }
         
-        //Debug.Log("#1005 ·ÖÊıÅÆÁĞ±í = " +  GetContent_int(instance.list_Card_1005or1006_ScoreCard));
-        //Debug.Log("·ÖÊıÅÆÖ÷ÈËµÄidÁĞ±í = " +  GetContent_int(instance.list_Card_1005or1006_netId_ScoreCard));
-        //Debug.Log("ÊÜ»÷ÕßµÄidÁĞ±í = " +  GetContent_int(instance.temp_card_1005or1006_list_index_offender));
+        //Debug.Log("#1005 åˆ†æ•°ç‰Œåˆ—è¡¨ = " +  GetContent_int(instance.list_Card_1005or1006_ScoreCard));
+        //Debug.Log("åˆ†æ•°ç‰Œä¸»äººçš„idåˆ—è¡¨ = " +  GetContent_int(instance.list_Card_1005or1006_netId_ScoreCard));
+        //Debug.Log("å—å‡»è€…çš„idåˆ—è¡¨ = " +  GetContent_int(instance.temp_card_1005or1006_list_index_offender));
         instance.RpcCard_1005_GetLeftScoreCard(instance.temp_card_1005or1006_list_index_offender,instance.list_Card_1005or1006_ScoreCard,instance.list_Card_1005or1006_netId_ScoreCard);
     }
     [Server]
@@ -595,7 +599,7 @@ public class Empty : NetworkBehaviour
             return;
         }
         
-        Debug.Log("·ÖÊıÅÆÁĞ±í = " + GetContent_int(list_Card_1005or1006_ScoreCard));
+        Debug.Log("åˆ†æ•°ç‰Œåˆ—è¡¨ = " + GetContent_int(list_Card_1005or1006_ScoreCard));
         instance.RpcCard_1006_GetRightScoreCard(instance.temp_card_1005or1006_list_index_offender, instance.list_Card_1005or1006_ScoreCard, instance.list_Card_1005or1006_netId_ScoreCard);
     }
     [Server]
@@ -615,7 +619,7 @@ public class Empty : NetworkBehaviour
         //Debug.Log("#1008 index_holder = " + instance.temp_1008_index_holder);
         
         bool found_id = false;
-        //Debug.Log("#1008 ×´Ì¬ÅÆÊıÁ¿ =" + instance.list_stateCards.Count);
+        //Debug.Log("#1008 çŠ¶æ€ç‰Œæ•°é‡ =" + instance.list_stateCards.Count);
         for (int i = 0; i < instance.list_stateCards.Count; i++)
         {
             if (instance.list_stateCards[i].id_attacker == Empty.list_netId[instance.temp_1008_index_holder] && (instance.list_stateCards[i].index_Card == 1008))
@@ -623,7 +627,7 @@ public class Empty : NetworkBehaviour
                 found_id = true;
                 instance.RpcCard_1003_GetHisScoreCard(instance.list_stateCards[i].id_attacker, instance.list_stateCards[i].list_index_offender,1008);
                 instance.list_stateCards.RemoveAt(i);
-                //Debug.Log("#1008 ÒÆ³ıµÚ " + i + "ÕÅ×´Ì¬ÅÆ");
+                //Debug.Log("#1008 ç§»é™¤ç¬¬ " + i + "å¼ çŠ¶æ€ç‰Œ");
             }
         }
         if (!found_id)
@@ -635,7 +639,7 @@ public class Empty : NetworkBehaviour
             }
             if (instance.temp_1008_index_holder == index_CurrentHolder - 1)
             {
-                //Debug.Log("#1008 ½áÊø");
+                //Debug.Log("#1008 ç»“æŸ");
                 instance.RpcCard_1008_ClosePanel();
                 instance.ServerSetState(GameManager.Temp_STATE.STATE_TURNING_TURN);
                 return;
@@ -652,7 +656,7 @@ public class Empty : NetworkBehaviour
             Invoke(nameof(ServerDelay_RpcStartGainScore), delay);
             return;
         }
-        Debug.Log("·ÖÊıÁĞ±í = " + GetContent_int(instance.list_Card_1002_ScoreCard) + " ·ÖÊıidÁĞ±í = " + GetContent_int(instance.list_Card_1002_netId_ScoreCard));
+        Debug.Log("åˆ†æ•°åˆ—è¡¨ = " + GetContent_int(instance.list_Card_1002_ScoreCard) + " åˆ†æ•°idåˆ—è¡¨ = " + GetContent_int(instance.list_Card_1002_netId_ScoreCard));
         instance.RpcStartGainScore(index_CurrentHolder - 1,instance.list_Card_1002_ScoreCard,instance.list_Card_1002_netId_ScoreCard);
     }
     [Server]
@@ -710,7 +714,7 @@ public class Empty : NetworkBehaviour
         }
     }
     [ClientRpc]
-    public void RpcDrawScoreCard_Specific(int onlineID, int score)//1003 Ö¸µã½­É½
+    public void RpcDrawScoreCard_Specific(int onlineID, int score)//1003 æŒ‡ç‚¹æ±Ÿå±±
     {
         if((int)instance.netId == onlineID)
         {
@@ -760,7 +764,7 @@ public class Empty : NetworkBehaviour
         {
             if ((int)instance.netId != onlineID)
             {
-                //HandCardManager.instance.Sync_DrawOneCard_Specific(); //²¢Ã»ÓĞÊµÏÖ
+                //HandCardManager.instance.Sync_DrawOneCard_Specific(); //å¹¶æ²¡æœ‰å®ç°
             }
             else
             {
@@ -813,6 +817,7 @@ public class Empty : NetworkBehaviour
         index_CurrentPlayer = index_currentPlayer;
         index_CurrentHolder = index_currentHolder;
         index_Round = index_round;
+        index_Circle = num_circle;
     }
     [ClientRpc]
     public void RpcGetHisAllHandCards(int id_attacker, List<int> list_index_offender)
@@ -820,7 +825,7 @@ public class Empty : NetworkBehaviour
         if (list_index_offender.Contains(GetIndex_in_list_netId((int)instance.netId)))
         {
             int count_myHandCards = HandCardManager.instance.GetCountOfMyHandCards();
-            Debug.Log("ÎÒµÄÊÖÅÆÊı = " + instance.count_MyHandCard);
+            Debug.Log("æˆ‘çš„æ‰‹ç‰Œæ•° = " + instance.count_MyHandCard);
             instance.ClientGiveMyAllHandCards(id_attacker,HandCardManager.instance.GetIndexesOfMyHandCards());
             
 
@@ -884,9 +889,10 @@ public class Empty : NetworkBehaviour
                 instance.CmdCard_1003_ReceiveScoreCard(id_attacker, list_index_offender, instance.scoreCard.GetComponent<ScoreCard>().score);
                 return; 
             }
-            if (list_index_offender[0] == GetIndex_in_list_netId(id_attacker))//Ñ¡Ôñ×Ô¼ºÏàµ±ÓÚremake
+            if (list_index_offender[0] == GetIndex_in_list_netId(id_attacker))//é€‰æ‹©è‡ªå·±ç›¸å½“äºremake
             {
                 instance.ClientDrawScoreCard((int)instance.netId, true);
+                GameManager.instance.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
             }
             else
             {
@@ -949,7 +955,7 @@ public class Empty : NetworkBehaviour
         }
         if (!list_index_offender.Contains(GetIndex_in_list_netId((int)instance.netId)))
         {
-            Debug.Log("·À³öÈ¥ÁË");
+            Debug.Log("é˜²å‡ºå»äº†");
             return;
         }
 
@@ -968,7 +974,7 @@ public class Empty : NetworkBehaviour
             }
             if (last_index < -10)
             {
-                Debug.Log("ËÀÑ­»·ÁË");
+                Debug.Log("æ­»å¾ªç¯äº†");
                 return;
             }
         }
@@ -982,7 +988,7 @@ public class Empty : NetworkBehaviour
                 break;
             }
         }
-        Debug.Log("my_index" + my_index + " last_index = " + last_index + " ·ÖÊıÁĞ±í" + GetContent_int(list_Score) + " ÕæÕı·ÖÊıÎ»ÖÃ " + index_trueId);
+        Debug.Log("my_index" + my_index + " last_index = " + last_index + " åˆ†æ•°åˆ—è¡¨" + GetContent_int(list_Score) + " çœŸæ­£åˆ†æ•°ä½ç½® " + index_trueId);
         ScoreCardManager.instance.Card_1002_ReGetScoreCard(ScoreCardManager.instance.GetScoreCardByScore(list_Score[index_trueId]));
         Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
     }
@@ -996,7 +1002,7 @@ public class Empty : NetworkBehaviour
         }
         if (!list_index_offender.Contains(GetIndex_in_list_netId((int)instance.netId)))
         {
-            Debug.Log("·À³öÈ¥ÁË");
+            Debug.Log("é˜²å‡ºå»äº†");
             return;
         }
 
@@ -1015,7 +1021,7 @@ public class Empty : NetworkBehaviour
             }
             if (next_index > 990)
             {
-                Debug.Log("ËÀÑ­»·ÁË");
+                Debug.Log("æ­»å¾ªç¯äº†");
                 return;
             }
         }
@@ -1029,7 +1035,7 @@ public class Empty : NetworkBehaviour
                 break;
             }
         }
-        //Debug.Log("my_index" + my_index + " next_index = " + next_index + " ·ÖÊıÁĞ±í" + GetContent_int(list_Score) + " ÕæÕı·ÖÊıÎ»ÖÃ " + index_trueId);
+        //Debug.Log("my_index" + my_index + " next_index = " + next_index + " åˆ†æ•°åˆ—è¡¨" + GetContent_int(list_Score) + " çœŸæ­£åˆ†æ•°ä½ç½® " + index_trueId);
         ScoreCardManager.instance.Card_1002_ReGetScoreCard(ScoreCardManager.instance.GetScoreCardByScore(list_Score[index_trueId]));
         Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
     }
@@ -1131,7 +1137,7 @@ public class Empty : NetworkBehaviour
     [Client]
     public void ClientAddPlayer(int added_netId,string added_name)
     {
-        Debug.Log("[Client] ¼ÓÈë :" + added_netId + " " + added_name);
+        Debug.Log("[Client] åŠ å…¥ :" + added_netId + " " + added_name);
         instance.CmdAddPlayer(added_netId, added_name);
     }
     [Client]
@@ -1197,7 +1203,35 @@ public class Empty : NetworkBehaviour
             {
                 instance.temp_list_index_offender.Add(i);
             }
-            
+            if (instance.selectedCard.GetComponent<HandCard>().index_Card == 1007)
+            {
+                instance.temp_list_index_offender.Clear();
+                int my_index = GetIndex_in_list_netId((int)instance.netId);
+                if (index_Circle < 2)
+                {
+                    Debug.Log("ç¬¬ä¸€åœˆ my_index = " + my_index);
+                    for (int i = 0; i < list_netId.Count; i++)
+                    {
+                        if (i == my_index) continue;
+                        instance.temp_list_index_offender.Add(i);
+                        //if (!instance.temp_list_index_offender.Contains(i)) continue;
+                        //instance.temp_Card_1007_checkCount++;
+                        //RpcCard_1007_CollectScoreCards(list_netId[i]);
+                    }
+                }
+                else if (index_Circle == 2)
+                {
+                    for (int i = my_index + 1; ; i++)
+                    {
+                        if (i == list_netId.Count) i = 0;
+                        if (i == index_CurrentHolder - 1) break;
+                        instance.temp_list_index_offender.Add(i);
+                        //if (!temp_list_index_offender.Contains(i)) continue;
+                        //instance.temp_Card_1007_checkCount++;
+                        //RpcCard_1007_CollectScoreCards(list_netId[i]);
+                    }
+                }
+            }
             instance.CmdCheckCard_2001and2002(instance.selectedCard.GetComponent<HandCard>().index_Card, (int)instance.netId, instance.temp_list_index_offender);
             instance.ClientRealizeHandCard();
         }
@@ -1218,7 +1252,7 @@ public class Empty : NetworkBehaviour
     public void ClientThrowCard()
     {
         instance.selectedCard.GetComponent<HandCard>().CloseDetail();
-        Debug.Log("¶ªÆúĞòºÅ" + instance.selectedCard.GetComponent<HandCard>().index_Card);
+        Debug.Log("ä¸¢å¼ƒåºå·" + instance.selectedCard.GetComponent<HandCard>().index_Card);
         instance.count_MyHandCard--;
         instance.ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
         Destroy(instance.selectedCard);
@@ -1228,7 +1262,7 @@ public class Empty : NetworkBehaviour
     public void Client_ThrowCard_EndJudge(int onlineID)
     {
         //if(onlineID != (int)instance.netId) { return; }
-        Debug.Log("ĞèÒªÆúÅÆ£¿Ê£ÓàÊÖÅÆÊı = " + instance.count_MyHandCard);
+        Debug.Log("éœ€è¦å¼ƒç‰Œï¼Ÿå‰©ä½™æ‰‹ç‰Œæ•° = " + instance.count_MyHandCard);
         if (instance.count_MyHandCard <= 4)
         {
             instance.CmdSetState(GameManager.Temp_STATE.STATE_TURNING_TURN);
@@ -1253,35 +1287,34 @@ public class Empty : NetworkBehaviour
         if (instance.selectedCard.GetComponent<HandCard>().isAttackCard && instance.selectedCard.GetComponent<HandCard>().count_offender == 1 && instance.temp_list_index_offender.Count == 0)
         {
             UIManager.instance.UINotice_Defend();
-            instance.ClientOnEndRealizeHandCard();
             return;
         }
         if (instance.selectedCard.GetComponent<HandCard>().isTimingCard)
         {
             instance.CmdAddStateCard((int)instance.netId, instance.temp_list_index_offender, instance.selectedCard.GetComponent<HandCard>().index_Card);
         }
-        //if (list_index_offender[0]!= -1)//²»ÊÇ·ÅÆúÑ¡Ôñ
+        //if (list_index_offender[0]!= -1)//ä¸æ˜¯æ”¾å¼ƒé€‰æ‹©
         //{
-        switch (instance.selectedCard.GetComponent<HandCard>().index_Card)////ÊÖÅÆĞÂÔö
+        switch (instance.selectedCard.GetComponent<HandCard>().index_Card)////æ‰‹ç‰Œæ–°å¢
             {
-                case 1001://´ú´ò
-                    Debug.Log("´ú´ò");
+                case 1001://ä»£æ‰“
+                    Debug.Log("ä»£æ‰“");
                     instance.CmdGetHisAllHandCards((int)instance.netId,instance.temp_list_index_offender);
                     break;
-                case 1002://ÌìÏÂµÚÒ»ÒôÓÎ¼À
-                    Debug.Log("ÌìÏÂµÚÒ»ÒôÓÎ¼À");
+                case 1002://å¤©ä¸‹ç¬¬ä¸€éŸ³æ¸¸ç¥­
+                    Debug.Log("å¤©ä¸‹ç¬¬ä¸€éŸ³æ¸¸ç¥­");
                     instance.CmdCard_1002_CollectAllScoreCards((int)instance.netId, instance.temp_list_index_offender);
                     break;
-                case 1003://Ö¸µã½­É½
-                    Debug.Log("Ö¸µã½­É½");
+                case 1003://æŒ‡ç‚¹æ±Ÿå±±
+                    Debug.Log("æŒ‡ç‚¹æ±Ÿå±±");
                     instance.CmdCard_1003_GetHisScoreCard((int)instance.netId, instance.temp_list_index_offender,1003);
                     break;
-                case 1004://¹Û¿´ÊÖÔª
-                    Debug.Log("¹Û¿´ÊÖÔª");
+                case 1004://è§‚çœ‹æ‰‹å…ƒ
+                    Debug.Log("è§‚çœ‹æ‰‹å…ƒ");
                     instance.CmdCard_1004_GetHisScoreCard(instance.temp_list_index_offender);
                     break;
-                case 1005://ÉñÖ®×óÊÖ
-                    Debug.Log("ÉñÖ®×óÊÖ");
+                case 1005://ç¥ä¹‹å·¦æ‰‹
+                    Debug.Log("ç¥ä¹‹å·¦æ‰‹");
                     //instance.temp_list_index_offender.Clear();
                     //for (int i=0;i<list_netId.Count;i++)
                     //{
@@ -1290,8 +1323,8 @@ public class Empty : NetworkBehaviour
                     instance.CmdCard_1005_GetLeftSuspectedScore(instance.temp_list_index_offender);
                     instance.CmdCard_1005or1006_CollectAllScoreCards(instance.temp_list_index_offender,1005);
                     break;
-                case 1006://¹íÖ®ÓÒÊÖ
-                    Debug.Log("¹íÖ®ÓÒÊÖ");
+                case 1006://é¬¼ä¹‹å³æ‰‹
+                    Debug.Log("é¬¼ä¹‹å³æ‰‹");
                     //instance.temp_list_index_offender.Clear();
                     //for (int i = 0; i < list_netId.Count; i++)
                     //{
@@ -1300,45 +1333,45 @@ public class Empty : NetworkBehaviour
                     instance.CmdCard_1006_GetRightSuspectedScore(instance.temp_list_index_offender);
                     instance.CmdCard_1005or1006_CollectAllScoreCards(instance.temp_list_index_offender, 1006);
                     break;
-                case 1007://ÒôÓÎÎÑ
-                    Debug.Log("ÒôÓÎÎÑ");
+                case 1007://éŸ³æ¸¸çª
+                    Debug.Log("éŸ³æ¸¸çª");
                     instance.CmdCard_1007_CollectScoreCards((int)instance.netId, instance.temp_list_index_offender);
                     break;
-                case 1008://ÒôÓÎÍõ
-                    Debug.Log("ÒôÓÎÍõ");
+                case 1008://éŸ³æ¸¸ç‹
+                    Debug.Log("éŸ³æ¸¸ç‹");
                     break;
-                case 1009://Áª»ú
-                    Debug.Log("Áª»ú");
+                case 1009://è”æœº
+                    Debug.Log("è”æœº");
                     instance.CmdCard_1005_GetLeftSuspectedScore(instance.temp_list_index_offender);
                     instance.CmdCard_1005or1006_CollectAllScoreCards(instance.temp_list_index_offender, 1005);
                     break;
-                case 1010://×ÔÀ´Êì
-                    Debug.Log("×ÔÀ´Êì");
+                case 1010://è‡ªæ¥ç†Ÿ
+                    Debug.Log("è‡ªæ¥ç†Ÿ");
                     break;
 
-                case 2001://ÊÖñ±
-                    Debug.Log("ÊÖñ±");
+                case 2001://æ‰‹ç™–
+                    Debug.Log("æ‰‹ç™–");
                     break;
-                case 2002://½µÔë¶ú»ú
-                    Debug.Log("½µÔë¶ú»ú");
+                case 2002://é™å™ªè€³æœº
+                    Debug.Log("é™å™ªè€³æœº");
                     break;
-                case 2003://ÍøÂçÑÓ³Ù
-                    Debug.Log("ÍøÂçÑÓ³Ù");
+                case 2003://ç½‘ç»œå»¶è¿Ÿ
+                    Debug.Log("ç½‘ç»œå»¶è¿Ÿ");
                     break;
 
-                case 3001://¿´ÆÌ
-                    Debug.Log("¿´ÆÌ");
+                case 3001://çœ‹é“º
+                    Debug.Log("çœ‹é“º");
                     break;
-                case 3002://Ë½ÈË¶©ÖÆÊÖÌ¨
-                    Debug.Log("Ë½ÈË¶©ÖÆÊÖÌ¨");
+                case 3002://ç§äººè®¢åˆ¶æ‰‹å°
+                    Debug.Log("ç§äººè®¢åˆ¶æ‰‹å°");
                     break;
-                case 3003://µ×Á¦ÌáÉı
-                    Debug.Log("µ×Á¦ÌáÉı");
+                case 3003://åº•åŠ›æå‡
+                    Debug.Log("åº•åŠ›æå‡");
                     instance.ClientDrawHandCards((int)instance.netId, 5);
                     Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
                     break;
-                case 3004://´ÓÍ·¿ªÊ¼
-                    Debug.Log("´ÓÍ·¿ªÊ¼");
+                case 3004://ä»å¤´å¼€å§‹
+                    Debug.Log("ä»å¤´å¼€å§‹");
                     instance.ClientDrawScoreCard((int)instance.netId,true);
                     Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
                     break;
@@ -1353,28 +1386,27 @@ public class Empty : NetworkBehaviour
     [Client]
     public void ClientOnEndRealizeHandCard()
     {
-        if(GameManager.instance.state_ == GameManager.Temp_STATE.STATE_REALIZING_CARDS)
+        Destroy(instance.selectedCard);
+        if (GameManager.instance.state_ == GameManager.Temp_STATE.STATE_REALIZING_CARDS)
         {
             Invoke(nameof(ClientOnEndRealizeHandCard), delay);
             return;
         }
-        //Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
 
         int count_turn = instance.turnMove.Count;
         instance.turnMove[count_turn - 1]++;
-        Debug.Log("ÒÑĞĞ¶¯´ÎÊı =" + instance.turnMove[count_turn - 1]);
+        Debug.Log("å·²è¡ŒåŠ¨æ¬¡æ•° =" + instance.turnMove[count_turn - 1]);
         //instance.totalMove++;
         if (instance.turnMove[count_turn - 1] >= 3)
         {
-            Debug.Log("×¼±¸ÆúÅÆ");
+            Debug.Log("å‡†å¤‡å¼ƒç‰Œ");
             UIManager.instance.UIFinishYieldCard();
         }
-        Destroy(instance.selectedCard);
     }
     [Client]
-    public void ClientGiveMyAllHandCards(int id_attacker, List<int> list_index_handCard)//1001 ´ú´ò
+    public void ClientGiveMyAllHandCards(int id_attacker, List<int> list_index_handCard)//1001 ä»£æ‰“
     {
-        //Debug.Log("#1001 ClientGiveMyAllHandCards Ó¦½ÓÊÜID = " + id_attacker);
+        //Debug.Log("#1001 ClientGiveMyAllHandCards åº”æ¥å—ID = " + id_attacker);
         CmdGiveMyAllHandCards(id_attacker, list_index_handCard);
     }
     [Client]
@@ -1468,7 +1500,7 @@ public class Empty : NetworkBehaviour
             newList.Add(tempT);
             inList.Remove(tempT);
         }
-        //½«×îºóÒ»¸öÔªËØÔÙËæ»ú²åÈë
+        //å°†æœ€åä¸€ä¸ªå…ƒç´ å†éšæœºæ’å…¥
         T tempT2 = newList[newList.Count - 1];
         newList.RemoveAt(newList.Count - 1);
         newList.Insert(UnityEngine.Random.Range(0, newList.Count), tempT2);
@@ -1489,7 +1521,7 @@ public class Empty : NetworkBehaviour
         Debug.Log("[Server] CmdAddPlayer()");
         ServerAddPlayer(added_netId);
     }
-    [Command]//¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı¡ı
+    [Command]//â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“â†“
     public void CmdRemovePlayer(int added_netId)
     {
         //Debug.Log(NetworkClient.ready + " " + NetworkClient.active + "" + NetworkClient.isConnected);
@@ -1497,7 +1529,7 @@ public class Empty : NetworkBehaviour
         //NetworkClient.connectState = ConnectState.Connected;
         //Debug.Log(NetworkClient.ready + " " + NetworkClient.active + "" + NetworkClient.isConnected);
 
-        //if(!isServer)//¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü¡ü
+        //if(!isServer)//â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘â†‘
         //{
         //    return;
         //}
@@ -1529,17 +1561,17 @@ public class Empty : NetworkBehaviour
         }
         if (i == UIPlayerManager.list_netId.Count)
         {
-            Debug.LogError("Î´ÕÒµ½idÀ´É¾³ı!!");
+            Debug.LogError("æœªæ‰¾åˆ°idæ¥åˆ é™¤!!");
             return;
         }
         //Debug.Log("i = " + i);
         UIPlayerManager.list_netId.RemoveAt(i);
         UIPlayerManager.instance.RefreshPlayer();
         
-        Debug.Log("Ç° RpcRemovePlayer(i)--- Empty.instance = " + Empty.instance.name);
+        Debug.Log("å‰ RpcRemovePlayer(i)--- Empty.instance = " + Empty.instance.name);
         TEST_2();
         RpcRemovePlayer(UIPlayerManager.list_netId);
-        Debug.Log("ºó RpcRemovePlayer(i)--- Empty.instance = " + Empty.instance.name);
+        Debug.Log("å RpcRemovePlayer(i)--- Empty.instance = " + Empty.instance.name);
     }
     [ClientRpc]
     public void TEST_2()
