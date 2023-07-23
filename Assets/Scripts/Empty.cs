@@ -1287,6 +1287,7 @@ public class Empty : NetworkBehaviour
         if (instance.selectedCard.GetComponent<HandCard>().isAttackCard && instance.selectedCard.GetComponent<HandCard>().count_offender == 1 && instance.temp_list_index_offender.Count == 0)
         {
             UIManager.instance.UINotice_Defend();
+            instance.ClientOnEndRealizeHandCard();
             return;
         }
         if (instance.selectedCard.GetComponent<HandCard>().isTimingCard)
