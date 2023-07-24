@@ -559,6 +559,7 @@ public class Empty : NetworkBehaviour
         }
         RpcSetIndex(index_Circle, index_CurrentPlayer, index_CurrentHolder, index_Round);
         RpcMyTurn(index_CurrentPlayer - 1);
+        instance.RpcClearStates(0, index_CurrentPlayer - 1);/////////位置好不好？ 0:
     }
     [Server]
     public void ServerDelay_RpcCard_1002_Show_Panel_SelectScoreCard()
@@ -773,7 +774,7 @@ public class Empty : NetworkBehaviour
             }
             UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) + 1).ToString();
         }
-        instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
     }
     [ClientRpc]
     public void RpcDiscardScoreCard(int onlineID)
@@ -800,6 +801,7 @@ public class Empty : NetworkBehaviour
     [ClientRpc]
     public void RpcMyTurn(int index)
     {
+        UIManager.instance.panel_HandCardDetail.SetActive(false);
         instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
         if (list_netId[index] == (int)instance.netId)
         {
@@ -892,7 +894,7 @@ public class Empty : NetworkBehaviour
             if (list_index_offender[0] == GetIndex_in_list_netId(id_attacker))//选择自己相当于remake
             {
                 instance.ClientDrawScoreCard((int)instance.netId, true);
-                GameManager.instance.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
+                Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
             }
             else
             {
@@ -915,7 +917,7 @@ public class Empty : NetworkBehaviour
                 instance.CmdCard_1008_ShowPanel(id_attacker, list_netId[list_index_offender[0]], score);
                 return; 
             }
-            instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+            Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
         }
     }
     [ClientRpc]
@@ -990,7 +992,7 @@ public class Empty : NetworkBehaviour
         }
         Debug.Log("my_index" + my_index + " last_index = " + last_index + " 分数列表" + GetContent_int(list_Score) + " 真正分数位置 " + index_trueId);
         ScoreCardManager.instance.Card_1002_ReGetScoreCard(ScoreCardManager.instance.GetScoreCardByScore(list_Score[index_trueId]));
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
     }
     [ClientRpc]
     public void RpcCard_1006_GetRightScoreCard(List<int> list_index_offender, List<int> list_Score, List<int> list_onlineId_of_ScoreCard)
@@ -1037,7 +1039,7 @@ public class Empty : NetworkBehaviour
         }
         //Debug.Log("my_index" + my_index + " next_index = " + next_index + " 分数列表" + GetContent_int(list_Score) + " 真正分数位置 " + index_trueId);
         ScoreCardManager.instance.Card_1002_ReGetScoreCard(ScoreCardManager.instance.GetScoreCardByScore(list_Score[index_trueId]));
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
     }
     [ClientRpc]
     public void RpcCard_1006_GetRightSuspectedScore(List<int> list_index_offender)
@@ -1369,12 +1371,12 @@ public class Empty : NetworkBehaviour
                 case 3003://底力提升
                     Debug.Log("底力提升");
                     instance.ClientDrawHandCards((int)instance.netId, 5);
-                    Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+                    Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
                     break;
                 case 3004://从头开始
                     Debug.Log("从头开始");
                     instance.ClientDrawScoreCard((int)instance.netId,true);
-                    Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+                    Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
                     break;
             }
         //}
@@ -1387,13 +1389,14 @@ public class Empty : NetworkBehaviour
     [Client]
     public void ClientOnEndRealizeHandCard()
     {
-        Destroy(instance.selectedCard);
+        
         if (GameManager.instance.state_ == GameManager.Temp_STATE.STATE_REALIZING_CARDS)
         {
             Invoke(nameof(ClientOnEndRealizeHandCard), delay);
             return;
         }
-
+        instance.selectedCard.GetComponent<HandCard>().CloseDetail();
+        Destroy(instance.selectedCard);
         int count_turn = instance.turnMove.Count;
         instance.turnMove[count_turn - 1]++;
         Debug.Log("已行动次数 =" + instance.turnMove[count_turn - 1]);
@@ -1402,7 +1405,9 @@ public class Empty : NetworkBehaviour
         {
             Debug.Log("准备弃牌");
             UIManager.instance.UIFinishYieldCard();
+            return;
         }
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
     }
     [Client]
     public void ClientGiveMyAllHandCards(int id_attacker, List<int> list_index_handCard)//1001 代打

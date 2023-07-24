@@ -7874,6 +7874,7 @@ MonoBehaviour:
   temp_list_index_offender: 
   delay: 0.2
   content_MyHandCard: {fileID: 623635226}
+  panel_HandCardDetail: {fileID: 1291318559}
   panel_DiscardedCards: {fileID: 1927692809}
   panel_Notice_Back: {fileID: 561003995}
   panel_Card_1002: {fileID: 1193219297}

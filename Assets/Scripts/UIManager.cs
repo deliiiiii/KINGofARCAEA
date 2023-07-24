@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
     public List<int> temp_list_index_offender;
     public float delay = 0.2f;
     public GameObject content_MyHandCard;
+    public GameObject panel_HandCardDetail;
     public GameObject panel_DiscardedCards;
     public GameObject panel_Notice_Back;
     public GameObject panel_Card_1002;
@@ -128,7 +129,7 @@ public class UIManager : MonoBehaviour
                 default:
                     {
                         panel_NoticeDefendCard.SetActive(false);
-                        //button_YieldCard.gameObject.SetActive(false);
+                        button_YieldCard.gameObject.SetActive(false);
                         button_FinishYieldCard.gameObject.SetActive(false);
                         button_ThrowCard.gameObject.SetActive(false);
                         text_NoticeThrowCard.gameObject.SetActive(false);
@@ -146,6 +147,10 @@ public class UIManager : MonoBehaviour
     }
     public void UIYieldCard()
     {
+        //if(Empty.instance.selectedCard.GetComponent<HandCard>().index_Card/1000 == 2)
+        //{
+        //    return;
+        //}
         Empty.instance.ClientYieldCard();
     }
     public void UIFinishYieldCard()
@@ -174,8 +179,8 @@ public class UIManager : MonoBehaviour
             panel_Notice_Back.SetActive(true);
             return;
         }
-        //GameManager.instance.state_ = GameManager.Temp_STATE.STATE_REALIZING_CARDS;
-        //Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_REALIZING_CARDS);
+        //GameManager.instance.state_ = GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS;
+        //Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
         
         UIPlayerManager.instance.Hide_Button_Select();
         Empty.instance.CmdCheckCard_2001and2002(Empty.instance.selectedCard.GetComponent<HandCard>().index_Card, (int)Empty.instance.netId, temp_list_index_offender);
@@ -186,7 +191,7 @@ public class UIManager : MonoBehaviour
 
     public void UIGiveUpSelection()
     {
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
         //Empty.instance.ClientRealizeHandCard(new List<int> {-1});
         UIPlayerManager.instance.Hide_Button_Select();
 
@@ -347,7 +352,7 @@ public class UIManager : MonoBehaviour
         panel_Wait.SetActive(false);
         panel_Card_1002.SetActive(false);
         //Debug.Log("?");
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
     }
     public void UICard_1004_ShowPanel(int index_offender, int score)
     {
@@ -356,7 +361,7 @@ public class UIManager : MonoBehaviour
         GameObject temp = Instantiate(ScoreCardManager.instance.GetScoreCardByScore(score), panel_CardDetail_1004.transform);
         temp.SetActive(true);
         panel_Card_1004.SetActive(true);
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
     }
     public void UICard_1007_ShowPanel(List<int>list_score,List<int>list_id_of_score)
     {
@@ -368,7 +373,7 @@ public class UIManager : MonoBehaviour
         {
             panel_Notice_Back.SetActive(true);
             text_Notice.text = "没有符合条件的玩家！";
-            Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+            Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
             return;
         }
         int index_id = -1;
@@ -432,7 +437,7 @@ public class UIManager : MonoBehaviour
                 if(card_1007_temp_circled)
                 {
                     panel_Card_1007.SetActive(false);
-                    Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+                    Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
                     return;
                 }
                 card_1007_temp_circled = true;
@@ -443,7 +448,7 @@ public class UIManager : MonoBehaviour
         card_1007_temp_last_id = target_id;
         if (card_1007_temp_circled && (target_id >= (int)Empty.instance.netId))
         {
-            Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+            Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
             panel_Card_1007.SetActive(false);
             return;
         }
@@ -464,7 +469,7 @@ public class UIManager : MonoBehaviour
         if(index_id == -1)
         {
             panel_Card_1007.SetActive(false);
-            Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+            Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
             return;
         }
         Debug.Log("last_id = " + card_1007_temp_list_id_of_score[index_id]);
@@ -566,19 +571,19 @@ public class UIManager : MonoBehaviour
     {
         text_Notice.text = "选择对象防出去了！";
         panel_Notice_Back.SetActive(true);
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
     }
     public void UINotice_Card_1002_LackPeople()
     {
         text_Notice.text = "没有人参与音游祭！";
         panel_Notice_Back.SetActive(true);
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
     }
     public void UINotice_Card_1005_LackPeople()
     {
         text_Notice.text = "交换人数过少！";
         panel_Notice_Back.SetActive(true);
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
     }
     public List<int> MayDefendWhichIndex_Card(bool isA, bool isE, bool haveCard_2001, bool haveCard_2002)
     {

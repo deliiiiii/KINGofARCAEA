@@ -145,7 +145,7 @@ public class Player : NetworkBehaviour
         temp.GetComponent<StateCard>().notice_State = temp.GetComponent<StateCard>().notice_State.Replace("%", temp.GetComponent<StateCard>().ChangeIndexToString());
         temp.GetComponent<StateCard>().id_attacker = id_attacker;
         temp.SetActive(true);
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
     }
     //public void DrawHandCards(int num,int index)//0¿ªÊ¼
     //{
