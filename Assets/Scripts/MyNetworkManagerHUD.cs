@@ -16,7 +16,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
     List<GameObject> gameObjects;
 
     public GameObject canvas;
-
+    public GameObject canvas_0;
     public GameObject inputfield_IP;
     public Text input_IP;
     public GameObject text_connecting;
@@ -24,6 +24,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
     public Button start_Client;
     public Button stop_Host;
     public Button stop_Client;
+    public Button button_Exit;//ÍË³ö
     public Button cancel_connection_attempt;
     public GameObject inputfield_PlayerName;
     public Text input_PlayerName;
@@ -53,6 +54,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
         stop_Host.onClick.AddListener(CheckState);
         stop_Client.onClick.AddListener(MyStopClient);
         stop_Client.onClick.AddListener(CheckState);
+        button_Exit.onClick.AddListener(ExitGame);
         cancel_connection_attempt.onClick.AddListener(MyStopClient);
         cancel_connection_attempt.onClick.AddListener(CheckState);
         //hereWeGo.onClick.AddListener(HereWeGo);
@@ -178,6 +180,14 @@ public class MyNetworkManagerHUD : MonoBehaviour
             manager.StopHost();
         }
     }
+    public void ExitGame()
+    {
+    #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+    #else
+            Application.Quit();
+    #endif
+    }
     //void Delay_EditName()
     //{
     //    if (stop_ALL_delay)
@@ -191,7 +201,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
     //        Invoke(nameof(Delay_EditName), delay);
     //        return; 
     //    }
-        
+
     //    Debug.Log("HUD ID = " + Empty.instance.netId);
     //    EditName();
     //}
@@ -213,7 +223,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
             return;
         }
 
-        Debug.Log("AddName()");
+        //Debug.Log("AddName()");
         Delay_AddPlayer();
         
     }
@@ -225,10 +235,11 @@ public class MyNetworkManagerHUD : MonoBehaviour
             Invoke(nameof(Delay_AddPlayer), delay);
             return;
         }
-        Debug.Log("ClientAddPlayer()");
+        //Debug.Log("ClientAddPlayer()");
         Empty.instance.ClientAddPlayer((int)Empty.instance.netId, input_PlayerName.text);
         ClearAll();
         canvas.SetActive(true);
+        canvas_0.SetActive(false);
         UIManager.instance.Delay_ShowStartGame();
         stop_Client.gameObject.SetActive(false);
         //stop_Client.gameObject.SetActive(true);

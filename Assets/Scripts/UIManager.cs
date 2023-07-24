@@ -53,6 +53,7 @@ public class UIManager : MonoBehaviour
     public Text Text_Card_200X_WhetherYield;
     public Text text_name_DisclosedPlayer;
     public Button button_Start_Game;//开始游戏
+    
     public Button button_YieldCard;//打出按钮
     public Button button_FinishYieldCard;//结束出牌按钮
     public Button button_ThrowCard;//结束出牌按钮
@@ -63,6 +64,7 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
         button_Start_Game.onClick.AddListener(UIStartGame);
+        
         button_YieldCard.onClick.AddListener(UIYieldCard);
         button_FinishYieldCard.onClick.AddListener(UIFinishYieldCard);
         button_ThrowCard.onClick.AddListener(UIThrowCard);
@@ -145,6 +147,7 @@ public class UIManager : MonoBehaviour
         Empty.instance.ClientStartGame();
         //button_Start_Game.gameObject.SetActive(false);
     }
+    
     public void UIYieldCard()
     {
         //if(Empty.instance.selectedCard.GetComponent<HandCard>().index_Card/1000 == 2)
