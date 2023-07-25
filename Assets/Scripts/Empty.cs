@@ -489,20 +489,21 @@ public class Empty : NetworkBehaviour
             Invoke(nameof(ServerDelay_NextRound), 0.75f);
             return;
         }
+        Debug.Log("[Server]Delay_NextRound");
         instance.RpcClearAllSuspectedCardOnNewRound();
         instance.RpcClearStates(2);/////////位置好不好？ 2:新一局
-        for (int i = 0; i < list_netId.Count; i++)
-        {
-            RpcDrawScoreCard(list_netId[i], true);////判空
-        }
         RpcSetHolder(index_CurrentHolder - 1, false);
         index_CurrentHolder++;
         if (index_CurrentHolder > list_netId.Count)
         {
-            ///////SummaryGame();
+            instance.ServerSummaryGame();
             return;
         }
         RpcSetHolder(index_CurrentHolder - 1, true);
+        for (int i = 0; i < list_netId.Count; i++)
+        {
+            RpcDrawScoreCard(list_netId[i], true);////判空
+        }
         instance.ServerNewTurn();
         isSwitchHolder = false;
     }
@@ -659,6 +660,11 @@ public class Empty : NetworkBehaviour
         }
         Debug.Log("分数列表 = " + GetContent_int(instance.list_Card_1002_ScoreCard) + " 分数id列表 = " + GetContent_int(instance.list_Card_1002_netId_ScoreCard));
         instance.RpcStartGainScore(index_CurrentHolder - 1,instance.list_Card_1002_ScoreCard,instance.list_Card_1002_netId_ScoreCard);
+    }
+    [Server]
+    public void ServerSummaryGame()
+    {
+        instance.ServerSetState(GameManager.Temp_STATE.STATE_GAME_SUMMARY);
     }
     [Server]
     public void ServerSetState(GameManager.Temp_STATE state)
@@ -1108,7 +1114,7 @@ public class Empty : NetworkBehaviour
     public void RpcSetState(GameManager.Temp_STATE state)
     {
         if (GameManager.instance.state_ == state) return;
-        GameManager.instance.state_ = state;
+        //GameManager.instance.state_ = state;
         Debug.Log(GameManager.instance.state_ = state);
     }
     [ClientRpc]

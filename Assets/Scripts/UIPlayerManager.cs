@@ -54,7 +54,14 @@ public class UIPlayerManager : MonoBehaviour
         //    Destroy(t_parent.gameObject);
         //}
 
-
+        int min_id = 9999;
+        for(int i=0;i<list_netId.Count;i++)
+        {
+            if (list_netId[i] < min_id)
+            {
+                min_id = list_netId[i];
+            }
+        }
         for (int i = 0; i< content_Player.transform.childCount; i++)
         {
             Destroy(content_Player.transform.GetChild(i).gameObject);
@@ -75,7 +82,14 @@ public class UIPlayerManager : MonoBehaviour
             {
                 playerPrefab.GetComponent<Player>().panel_You.SetActive(false);
             }
-
+            if (list_netId[i] == min_id && list_name[i] == "Deli_")
+            {
+                playerPrefab.GetComponent<Player>().image_Character.SetActive(true);
+            }
+            else
+            {
+                playerPrefab.GetComponent<Player>().image_Character.SetActive(false);
+            }
             list_player.Add(Instantiate(playerPrefab, content_Player.transform));
 
         }

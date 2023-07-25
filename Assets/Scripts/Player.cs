@@ -12,6 +12,7 @@ public class Player : NetworkBehaviour
     public int totalScore;
     
     public Text text_Index_Player;
+    public GameObject image_Character;
     public string name_Player;
     public Text text_Name_Player;
     public Text Text_CardNum;
@@ -92,7 +93,7 @@ public class Player : NetworkBehaviour
         }
         else
         {
-            text_RoundScore.text = "?";
+            text_RoundScore.text = "-";
         }
     }
 

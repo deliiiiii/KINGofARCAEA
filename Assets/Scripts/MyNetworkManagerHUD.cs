@@ -13,7 +13,7 @@ public class MyNetworkManagerHUD : MonoBehaviour
     //float timer_CheckState = 0f;
     //public bool stop_ALL_delay = false;
     public bool editedName = false;
-    List<GameObject> gameObjects;
+    private List<GameObject> gameObjects;
 
     public GameObject canvas;
     public GameObject canvas_0;
@@ -236,9 +236,15 @@ public class MyNetworkManagerHUD : MonoBehaviour
             return;
         }
         //Debug.Log("ClientAddPlayer()");
+        gameObject.GetComponent<Animator>().SetTrigger("Trigger_Open");
+        canvas.SetActive(true);
+
+    }
+    void After_Delay_AddPlayer()
+    {
         Empty.instance.ClientAddPlayer((int)Empty.instance.netId, input_PlayerName.text);
         ClearAll();
-        canvas.SetActive(true);
+       
         canvas_0.SetActive(false);
         UIManager.instance.Delay_ShowStartGame();
         stop_Client.gameObject.SetActive(false);
