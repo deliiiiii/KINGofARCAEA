@@ -407,6 +407,7 @@
 "Assets/Scripts/InputManager.cs"
 "Assets/Scripts/MyNetworkManager.cs"
 "Assets/Scripts/MyNetworkManagerHUD.cs"
+"Assets/Scripts/MyUI.cs"
 "Assets/Scripts/Player.cs"
 "Assets/Scripts/UIManager.cs"
 "Assets/Scripts/UIPlayerManager.cs"

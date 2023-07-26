@@ -11,21 +11,6 @@ public class Empty : NetworkBehaviour
     public static List<int> list_netId = new();//玩家Id列表
     public static List<string> list_playerName = new();//玩家姓名列表
 
-
-    /// <summary>
-    /// Empty <- GameManager
-    /// </summary>
-    //public enum Temp_STATE
-    //{
-    //    STATE_GAME_IDLING,
-    //    STATE_GAME_STARTED,
-    //    STATE_GAME_SUMMARY,
-    //    STATE_DRAW_CARDS,
-    //    STATE_JUDGE_CARDS,
-    //    STATE_YIELD_CARDS,
-    //    STATE_THROW_CARDS
-    //}
-    //public static Temp_STATE state_ = Temp_STATE.STATE_GAME_IDLING;
     public static int index_Round;//局数，1局 = 2圈
     public static int index_Circle;//圈数
     public static bool isSwitchHolder;//换主持人
@@ -754,6 +739,10 @@ public class Empty : NetworkBehaviour
             
             UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text)+1).ToString();
         }
+        if ((int)instance.netId == onlineID)
+        {
+            UIManager.instance.UIAnimDrawHandCard(times,false);
+        }
     }
     [ClientRpc]
     public void RpcDrawHandCards_Specific(int onlineID, List<int> list_index_handCard)
@@ -779,6 +768,10 @@ public class Empty : NetworkBehaviour
 
             }
             UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text = (int.Parse(UIPlayerManager.list_player[index].GetComponent<Player>().Text_CardNum.text) + 1).ToString();
+        }
+        if ((int)instance.netId == onlineID)
+        {
+            UIManager.instance.UIAnimDrawHandCard(list_index_handCard.Count, true);
         }
         Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
     }
@@ -808,7 +801,7 @@ public class Empty : NetworkBehaviour
     public void RpcMyTurn(int index)
     {
         UIManager.instance.panel_HandCardDetail.SetActive(false);
-        instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        //instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
         if (list_netId[index] == (int)instance.netId)
         {
             UIPlayerManager.instance.MyTurn(index);
@@ -833,7 +826,7 @@ public class Empty : NetworkBehaviour
         if (list_index_offender.Contains(GetIndex_in_list_netId((int)instance.netId)))
         {
             int count_myHandCards = HandCardManager.instance.GetCountOfMyHandCards();
-            Debug.Log("我的手牌数 = " + instance.count_MyHandCard);
+            Debug.Log("#1001 我的手牌数 = " + instance.count_MyHandCard);
             instance.ClientGiveMyAllHandCards(id_attacker,HandCardManager.instance.GetIndexesOfMyHandCards());
             
 
@@ -1402,7 +1395,7 @@ public class Empty : NetworkBehaviour
             return;
         }
         instance.selectedCard.GetComponent<HandCard>().CloseDetail();
-        Destroy(instance.selectedCard);
+        
         int count_turn = instance.turnMove.Count;
         instance.turnMove[count_turn - 1]++;
         Debug.Log("已行动次数 =" + instance.turnMove[count_turn - 1]);
@@ -1413,6 +1406,7 @@ public class Empty : NetworkBehaviour
             UIManager.instance.UIFinishYieldCard();
             return;
         }
+        Destroy(instance.selectedCard);
         Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
     }
     [Client]

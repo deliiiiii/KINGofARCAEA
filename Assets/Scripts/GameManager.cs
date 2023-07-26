@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
         STATE_GAME_IDLING,
         //STATE_GAME_STARTED,
-        
+        STATE_UI_MYTURN,
         //STATE_DRAW_CARDS,
         STATE_YIELD_CARDS,
         STATE_SELECTING_TARGETPLAYER,

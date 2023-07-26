@@ -23,9 +23,15 @@ public class UIManager : MonoBehaviour
     
     public List<int> temp_list_index_offender;
     public float delay = 0.2f;
+
+    public GameObject panel_UIDrawHandCard;
+    public GameObject panel_UIHandCard;
+    public GameObject panel_UIMyTurn;
+
     public GameObject content_MyHandCard;
     public GameObject panel_HandCardDetail;
     public GameObject panel_DiscardedCards;
+    
     public GameObject panel_Notice_Back;
     public GameObject panel_Card_1002;
     public GameObject panel_Card_1004;
@@ -161,6 +167,22 @@ public class UIManager : MonoBehaviour
         Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_THROW_CARDS);
         Empty.instance.Client_ThrowCard_EndJudge((int)Empty.instance.netId);
     }
+
+    public void UIAnimDrawHandCard(int num,bool whetherSpecific)
+    {
+        //Debug.Log(" whetherSpecific= " + whetherSpecific);
+        GameObject p = Instantiate(panel_UIHandCard, panel_UIDrawHandCard.transform);
+        p.transform.GetChild(0).gameObject.GetComponent<Text>().text = num.ToString();
+        p.SetActive(true);
+        if(whetherSpecific)
+        {
+            p.GetComponent<Animator>().SetTrigger("Trigger_OnDrawn_Specific");
+        }
+        else
+        {
+            p.GetComponent<Animator>().SetTrigger("Trigger_OnDrawn");
+        }
+    }
     public void UIThrowCard()
     {
         Empty.instance.ClientThrowCard();
@@ -179,6 +201,16 @@ public class UIManager : MonoBehaviour
         if(Empty.instance.selectedCard.GetComponent<HandCard>().count_offender != temp_list_index_offender.Count)
         {
             text_Notice.text = "选择数量不正确! 请重新选择";
+            panel_Notice_Back.SetActive(true);
+            return;
+        }
+        if(
+            Empty.instance.selectedCard.GetComponent<HandCard>().index_Card == 1001 
+            && 
+            Empty.instance.GetIndex_in_list_netId((int)Empty.instance.netId) == temp_list_index_offender[0]
+          )
+        {
+            text_Notice.text = "不能找自己代打音游! 请重新选择";
             panel_Notice_Back.SetActive(true);
             return;
         }

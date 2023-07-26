@@ -109,7 +109,21 @@ public class UIPlayerManager : MonoBehaviour
     {
         list_player[index].GetComponent<Player>().image_MyTurn.SetActive(true);
         ////////GameManager.state = GameManager.Temp_STATE.STATE_DRAW_CARDS;
-        Empty.instance.ClientDrawHandCards((int)Empty.instance.netId,2);
+        GameManager.instance.state_ = GameManager.Temp_STATE.STATE_UI_MYTURN;
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_UI_MYTURN);
+        GameObject p = Instantiate(UIManager.instance.panel_UIMyTurn,UIManager.instance.canvas.transform);
+        p.SetActive(true);
+        Delay_ClientDrawHandCards();
+    }
+    public void Delay_ClientDrawHandCards()
+    {
+        if(GameManager.instance.state_ == GameManager.Temp_STATE.STATE_UI_MYTURN)
+        {
+            //Debug.Log("[Client]Delay_ClientDrawHandCards");
+            Invoke(nameof(Delay_ClientDrawHandCards), 0.5f);
+            return;
+        }
+        Empty.instance.ClientDrawHandCards((int)Empty.instance.netId, 2);
         ////////GameManager.state_ = GameManager.Temp_STATE.STATE_YIELD_CARDS;
         Empty.instance.turnMove.Add(0);
     }
