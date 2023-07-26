@@ -100,6 +100,11 @@ public class Empty : NetworkBehaviour
         ServerAddPlayer(added_netId, added_name);
     }
     [Command]
+    public void CmdDelayShowStartGame()
+    {
+        instance.RpcShowStartGame();
+    }
+    [Command] 
     public void CmdStartGame()
     {
         ServerStartGame();
@@ -329,8 +334,21 @@ public class Empty : NetworkBehaviour
     {
         RpcAddStateCard(id_attacker, list_index_offender, index_Card);
     }
-
-
+    [Command]
+    public void CmdShowLastYieldCard(string name_attacker, int index_Card, List<int> list_index_offender)
+    {
+        RpcShowLastYieldCard(name_attacker, index_Card, list_index_offender);
+    }
+    [Command]
+    public void CmdRefreshLastYieldCard(List<int> list_index_offender)
+    {
+        instance.RpcRefreshLastYieldCard(list_index_offender);
+    }
+    [Command]
+    public void CmdCloseLastYieldCard()
+    {
+        instance.RpcCloseLastYieldCard();
+    }
     //[Command]
     //public void CmdYieldCard()
     //{
@@ -656,6 +674,11 @@ public class Empty : NetworkBehaviour
     {
         GameManager.instance.state_ = state;
         instance.RpcSetState(state);
+    }
+    [ClientRpc]
+    public void RpcShowStartGame()
+    {
+        UIManager.instance.Delay_ShowStartGame();
     }
     [ClientRpc]
     public void RpcClearPlayer()
@@ -1128,6 +1151,21 @@ public class Empty : NetworkBehaviour
     {
         UIManager.instance.ClearChild(UIManager.instance.panel_DiscardedCards.transform);
     }
+    [ClientRpc]
+    public void RpcShowLastYieldCard(string name_attacker, int index_Card, List<int> list_index_offender)
+    {
+        UIManager.instance.UIShowLastYieldCard(name_attacker, index_Card, list_index_offender);
+    }
+    [ClientRpc]
+    public void RpcRefreshLastYieldCard(List<int> list_index_offender)
+    {
+        UIManager.instance.UIRefreshLastYieldCard(list_index_offender);
+    }
+    [ClientRpc]
+    public void RpcCloseLastYieldCard()
+    {
+        UIManager.instance.UICloseLastYieldCard();
+    }
     [Client]
     public void ClientAddPlayer(int added_netId,string added_name)
     {
@@ -1184,15 +1222,16 @@ public class Empty : NetworkBehaviour
 
         //ClientDelay_AfterYieldCard();
 
-
+        instance.temp_list_index_offender.Clear();
         instance.selectedCard.GetComponent<HandCard>().CloseDetail();
+        
         if (instance.selectedCard.GetComponent<HandCard>().count_offender != 0)
         {
+            instance.ClientShowLastYieldCard(list_playerName[GetIndex_in_list_netId((int)instance.netId)], instance.selectedCard.GetComponent<HandCard>().index_Card, instance.temp_list_index_offender);
             UIPlayerManager.instance.Show_Button_Select();
         }
         else
         {
-            instance.temp_list_index_offender.Clear();
             for (int i = 0; i < list_netId.Count; i++)
             {
                 instance.temp_list_index_offender.Add(i);
@@ -1226,6 +1265,12 @@ public class Empty : NetworkBehaviour
                     }
                 }
             }
+            if (instance.selectedCard.GetComponent<HandCard>().index_Card / 1000 == 3)
+            {
+                instance.temp_list_index_offender.Clear();
+                instance.temp_list_index_offender.Add(GetIndex_in_list_netId((int)instance.netId));
+            }
+            instance.ClientShowLastYieldCard(list_playerName[GetIndex_in_list_netId((int)instance.netId)], instance.selectedCard.GetComponent<HandCard>().index_Card, instance.temp_list_index_offender);
             instance.CmdCheckCard_2001and2002(instance.selectedCard.GetComponent<HandCard>().index_Card, (int)instance.netId, instance.temp_list_index_offender);
             instance.ClientRealizeHandCard();
         }
@@ -1233,14 +1278,29 @@ public class Empty : NetworkBehaviour
         instance.ClientDiscardHandCard((int)instance.netId, instance.selectedCard.GetComponent<HandCard>().index_Card);
         instance.selectedCard.SetActive(false);
     }
+    [Client]
+    public void ClientShowLastYieldCard(string name_attacker,int index_Card,List<int> list_index_offender)
+    {
+        CmdShowLastYieldCard(name_attacker, index_Card, list_index_offender);
+    }
+    [Client]
+    public void ClientRefreshLastYieldCard(List<int> list_index_offender)
+    {
+        instance.CmdRefreshLastYieldCard(list_index_offender);
+    }
+    [Client]
+    public void ClientCloseLastYieldCard()
+    {
+        instance.CmdCloseLastYieldCard();
+    }
     //[Client]
     //public void ClientDelay_AfterYieldCard()
     //{
-        //if(GameManager.instance.state_ != GameManager.Temp_STATE.STATE_BUSYCONNECTING)
-        //{
-        //    Invoke(nameof(ClientDelay_AfterYieldCard), 0.3f);
-        //    return;
-        //}
+    //if(GameManager.instance.state_ != GameManager.Temp_STATE.STATE_BUSYCONNECTING)
+    //{
+    //    Invoke(nameof(ClientDelay_AfterYieldCard), 0.3f);
+    //    return;
+    //}
     //}
     [Client]
     public void ClientThrowCard()
@@ -1277,7 +1337,7 @@ public class Empty : NetworkBehaviour
         {
             instance.temp_list_index_offender = UIPlayerManager.instance.CheckStates(instance.temp_list_index_offender, 3002);
         }
-        
+        instance.ClientRefreshLastYieldCard(instance.temp_list_index_offender);
         if (instance.selectedCard.GetComponent<HandCard>().isAttackCard && instance.selectedCard.GetComponent<HandCard>().count_offender == 1 && instance.temp_list_index_offender.Count == 0)
         {
             UIManager.instance.UINotice_Defend();
@@ -1387,20 +1447,10 @@ public class Empty : NetworkBehaviour
             Invoke(nameof(ClientOnEndRealizeHandCard), delay);
             return;
         }
-        instance.selectedCard.GetComponent<HandCard>().CloseDetail();
-        
-        int count_turn = instance.turnMove.Count;
-        instance.turnMove[count_turn - 1]++;
-        Debug.Log("已行动次数 =" + instance.turnMove[count_turn - 1]);
-        //instance.totalMove++;
-        if (instance.turnMove[count_turn - 1] >= 3)
-        {
-            Debug.Log("准备弃牌");
-            UIManager.instance.UIFinishYieldCard();
-            return;
-        }
-        Destroy(instance.selectedCard);
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+        Empty.instance.ClientCloseLastYieldCard();
+
+
+        //Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
     }
     [Client]
     public void ClientGiveMyAllHandCards(int id_attacker, List<int> list_index_handCard)//1001 代打
@@ -1482,6 +1532,19 @@ public class Empty : NetworkBehaviour
             if(netId == list_netId[i]) return i;
         }
         return -1;
+    }
+    public string GetContent_by_IndexId(List<int> list_index_offender) 
+    {
+        string a = "";
+        for(int i=0;i<list_index_offender.Count;i++)
+        {
+            a += list_playerName[list_index_offender[i]];
+            if(i!= list_index_offender.Count -1)
+            {
+                a += "\n";
+            }
+        }
+        return a;
     }
     public void Call_ClientCard_1002_NextTurn(GameObject scoreCard)
     {

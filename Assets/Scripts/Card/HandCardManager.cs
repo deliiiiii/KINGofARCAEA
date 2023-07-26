@@ -23,21 +23,21 @@ public class HandCardManager : MonoBehaviour
             new HandCard(1001,20/*2*/,true,1,false,false),//代打
             new HandCard(1002,20/*2*/,false,0,true,false),//天下第一音游祭
             new HandCard(1003,20/*4*/,true,1,false,false),//指点江山
-            new HandCard(1004,0/*4*/,true,1,false,false),//观看手元
-            new HandCard(1005,0/*4*/,false,0,true,false),//神之左手
-            new HandCard(1006,0/*4*/,false,0,true,false),//鬼之右手
-            new HandCard(1007,0/*4*/,true,0,false,false),//音游窝
-            new HandCard(1008,0/*4*/,true,1,false,true),//音游王
-            new HandCard(1009,0/*4*/,true,2,true,false),//联机
+            new HandCard(1004,20/*4*/,true,1,false,false),//观看手元
+            new HandCard(1005,20/*4*/,false,0,true,false),//神之左手
+            new HandCard(1006,20/*4*/,false,0,true,false),//鬼之右手
+            new HandCard(1007,20/*4*/,true,0,false,false),//音游窝
+            new HandCard(1008,20/*4*/,true,1,false,true),//音游王
+            new HandCard(1009,20/*4*/,true,2,true,false),//联机
             new HandCard(1010,0/*4*/,true,1,false,false),//自来熟
 
-            new HandCard(2001,0/*6*/,false,0,false,false),//手癖
-            new HandCard(2002,0/*6*/,false,0,false,false),//降噪耳机
+            new HandCard(2001,20/*6*/,false,0,false,false),//手癖
+            new HandCard(2002,20/*6*/,false,0,false,false),//降噪耳机
             new HandCard(2003,0/*6*/,false,0,false,false),//网络延迟
 
             new HandCard(3001,0/*4*/,false,0,false,false),//看铺
-            new HandCard(3002,40/*4*/,false,0,false,true),//私人订制手台
-            new HandCard(3003,0/*4*/,false,0,false,false),//底力提升
+            new HandCard(3002,20/*4*/,false,0,false,true),//私人订制手台
+            new HandCard(3003,20/*4*/,false,0,false,false),//底力提升
             new HandCard(3004,20/*4*/,false,0,false,false),//从头开始
         };
 

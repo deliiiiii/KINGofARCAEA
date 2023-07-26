@@ -1462,7 +1462,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Deli_
+  m_Text: p
 --- !u!1 &2125194802048825726
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,7 +1985,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1926787559759131062
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2471,7 +2471,7 @@ MonoBehaviour:
   totalScore: 0
   text_Index_Player: {fileID: 8811834377527052746}
   image_Character: {fileID: 3486862673913790321}
-  name_Player: Deli_
+  name_Player: p
   text_Name_Player: {fileID: 8435454733472148680}
   Text_CardNum: {fileID: 6163462258460298109}
   panel_You: {fileID: 8567184456656390288}

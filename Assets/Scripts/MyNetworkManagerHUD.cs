@@ -171,7 +171,9 @@ public class MyNetworkManagerHUD : MonoBehaviour
         {
             manager.StopClient();
             canvas.SetActive(false);
+            canvas_0.SetActive(true);
         }
+        Debug.Log("MyStopClient");
     }
     void MyStopHost()
     {
@@ -246,8 +248,8 @@ public class MyNetworkManagerHUD : MonoBehaviour
         ClearAll();
        
         canvas_0.SetActive(false);
-        UIManager.instance.Delay_ShowStartGame();
+        Empty.instance.CmdDelayShowStartGame();
         stop_Client.gameObject.SetActive(false);
-        //stop_Client.gameObject.SetActive(true);
+        stop_Client.gameObject.SetActive(true);
     }
 }

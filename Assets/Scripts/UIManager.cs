@@ -32,6 +32,9 @@ public class UIManager : MonoBehaviour
     public GameObject panel_UIDrawScoreCard;
     public GameObject panel_UIScoreCard;
     public GameObject panel_UIMyTurn;
+    public GameObject panel_LastYieldCard_Back;
+    public GameObject panel_LastYieldCard;
+
 
     public GameObject content_MyHandCard;
     public GameObject panel_HandCardDetail;
@@ -63,6 +66,8 @@ public class UIManager : MonoBehaviour
     public Text text_name_1008_2;
     public Text Text_Card_200X_WhetherYield;
     public Text text_name_DisclosedPlayer;
+    public Text text_Name_Attacker;
+    public Text text_Name_Offender;
     public Button button_Start_Game;//开始游戏
     
     public Button button_YieldCard;//打出按钮
@@ -172,7 +177,44 @@ public class UIManager : MonoBehaviour
         Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_THROW_CARDS);
         Empty.instance.Client_ThrowCard_EndJudge((int)Empty.instance.netId);
     }
-
+    public void UIShowLastYieldCard(string name_attacker, int index_Card, List<int> list_index_offender)
+    {
+        
+        text_Name_Attacker.text = name_attacker;
+        if (panel_LastYieldCard.transform.childCount != 0)
+        {
+            Destroy(panel_LastYieldCard.transform.GetChild(0).gameObject);
+        }
+        GameObject c = Instantiate(HandCardManager.instance.GetHandCardByIndex(index_Card),panel_LastYieldCard.transform);
+        c.GetComponent<HandCard>().used = true;
+        c.GetComponent<HandCard>().panel_New.SetActive(false);
+        c.SetActive(true);
+        text_Name_Offender.text = Empty.instance.GetContent_by_IndexId(list_index_offender);
+        panel_LastYieldCard_Back.SetActive(true);
+        panel_LastYieldCard_Back.GetComponent<Animator>().ResetTrigger("Trigger_Open");
+        panel_LastYieldCard_Back.GetComponent<Animator>().ResetTrigger("Trigger_Close");
+        panel_LastYieldCard_Back.GetComponent<Animator>().SetTrigger("Trigger_Open");
+        Debug.Log("SetTrigger OPEN");
+        
+    }
+    
+    public void UIRefreshLastYieldCard(List<int> list_index_offender)
+    {
+        text_Name_Offender.text = Empty.instance.GetContent_by_IndexId(list_index_offender);
+    }
+    public void UICloseLastYieldCard()
+    {
+        panel_LastYieldCard_Back.GetComponent<Animator>().ResetTrigger("Trigger_Open");
+        panel_LastYieldCard_Back.GetComponent<Animator>().ResetTrigger("Trigger_Close");
+        panel_LastYieldCard_Back.GetComponent<Animator>().SetTrigger("Trigger_Close");
+        Debug.Log("SetTrigger CLOSE");
+        //Invoke(nameof(UICloseLastYieldCard_After),3f);
+    }
+    public void UICloseLastYieldCard_After()
+    {
+        //Destroy(panel_LastYieldCard.transform.GetChild(0).gameObject);
+        
+    }
     public void UIAnimDrawHandCard(int num,bool whetherSpecific)
     {
         //Debug.Log(" whetherSpecific= " + whetherSpecific);
@@ -239,6 +281,7 @@ public class UIManager : MonoBehaviour
         UIPlayerManager.instance.Hide_Button_Select();
         Empty.instance.CmdCheckCard_2001and2002(Empty.instance.selectedCard.GetComponent<HandCard>().index_Card, (int)Empty.instance.netId, temp_list_index_offender);
         Empty.instance.temp_list_index_offender = temp_list_index_offender;
+        Empty.instance.ClientRefreshLastYieldCard(temp_list_index_offender);
         Empty.instance.ClientRealizeHandCard();
 
     }
@@ -353,7 +396,6 @@ public class UIManager : MonoBehaviour
         UIPlayerManager.instance.Card_1002_ClearSuspectedCard(list_index_offender);
         
     }
-
     public void UICard_1002_NextTurn(int last_id_turn,int this_id_turn, int index_last_Selected)
     {
         if(!UICard_1002_CheckButtonInteractive())
@@ -614,6 +656,7 @@ public class UIManager : MonoBehaviour
         Debug.Log("#200X 剩余index " + Empty.instance.GetContent_int(instance.temp_list_index_offender));
         DestroyHandcard_SpecificForCard_200X(instance.card_200X_temp_index_Card);//先自己销毁，再派出卡
         Empty.instance.count_MyHandCard--;
+        Empty.instance.ClientRefreshLastYieldCard(instance.temp_list_index_offender);
         Empty.instance.ClientDiscardHandCard((int)Empty.instance.netId, instance.card_200X_temp_index_Card);
         UICard_200X_WhetherYield();
     }
@@ -728,14 +771,22 @@ public class UIManager : MonoBehaviour
             Invoke(nameof(Delay_ShowStartGame), delay);
             return;
         }
-        if (Empty.list_netId[0] == (int)Empty.instance.netId)
-        {
+        //int min_id = 9999;
+        //for(int i=0;i<Empty.list_netId.Count;i++)
+        //{
+        //    if (Empty.list_netId[i] < min_id)
+        //    {
+        //        min_id = Empty.list_netId[i];
+        //    }
+        //}
+        //if (Empty.instance.netId == min_id)
+        //{
             button_Start_Game.gameObject.SetActive(true);
-        }
-        else
-        {
-            button_Start_Game.gameObject.SetActive(false);
-        }
+        //}
+        //else
+        //{
+        //    button_Start_Game.gameObject.SetActive(false);
+        //}
     }
 
 
