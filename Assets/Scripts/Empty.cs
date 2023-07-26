@@ -703,13 +703,6 @@ public class Empty : NetworkBehaviour
         else
         {
             ScoreCardManager.instance.DrawOneCard(canDiscard);
-        }
-    }
-    [ClientRpc]
-    public void RpcDrawScoreCard_Specific(int onlineID, int score)//1003 指点江山
-    {
-        if((int)instance.netId == onlineID)
-        {
             
         }
     }

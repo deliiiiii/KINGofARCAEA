@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,9 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
+
     public GameObject canvas;
+    
 
     public bool card_1002_shouldCheckButtonInteractive = false;
 
@@ -26,6 +29,8 @@ public class UIManager : MonoBehaviour
 
     public GameObject panel_UIDrawHandCard;
     public GameObject panel_UIHandCard;
+    public GameObject panel_UIDrawScoreCard;
+    public GameObject panel_UIScoreCard;
     public GameObject panel_UIMyTurn;
 
     public GameObject content_MyHandCard;
@@ -182,6 +187,20 @@ public class UIManager : MonoBehaviour
         {
             p.GetComponent<Animator>().SetTrigger("Trigger_OnDrawn");
         }
+    }
+    public void UIAnimDrawScoreCard()
+    {
+        GameObject p = Instantiate(panel_UIScoreCard, panel_UIDrawScoreCard.transform);
+        p.SetActive(true);
+        //if (whetherSpecific)
+        //{
+        //    p.GetComponent<Animator>().SetTrigger("Trigger_OnDrawn_Specific");
+        //}
+        //else
+        //{
+        //    p.GetComponent<Animator>().SetTrigger("Trigger_OnDrawn");
+        //}
+        p.GetComponent<Animator>().SetTrigger("Trigger_OnDrawn");
     }
     public void UIThrowCard()
     {

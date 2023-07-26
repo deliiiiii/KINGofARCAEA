@@ -18,4 +18,8 @@ public class MyUI : MonoBehaviour
         Debug.Log(Empty.instance.netId);
         Empty.instance.CmdSetState(state);
     }
+    void MyShowScoreCard()
+    {
+        Empty.instance.scoreCard.SetActive(true);
+    }
 }
