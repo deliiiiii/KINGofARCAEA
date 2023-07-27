@@ -502,7 +502,7 @@ namespace Mirror
 
         #region server message handlers
 
-        [Command]
+        [Command(requiresAuthority = false)]
         void CmdOnAnimationServerMessage(int stateHash, float normalizedTime, int layerId, float weight, byte[] parameters)
         {
             // Ignore messages from client if not in client authority mode
@@ -519,7 +519,7 @@ namespace Mirror
             }
         }
 
-        [Command]
+        [Command(requiresAuthority = false)]
         void CmdOnAnimationParametersServerMessage(byte[] parameters)
         {
             // Ignore messages from client if not in client authority mode
@@ -534,7 +534,7 @@ namespace Mirror
             }
         }
 
-        [Command]
+        [Command(requiresAuthority = false)]
         void CmdOnAnimationTriggerServerMessage(int hash)
         {
             // Ignore messages from client if not in client authority mode
@@ -552,7 +552,7 @@ namespace Mirror
             RpcOnAnimationTriggerClientMessage(hash);
         }
 
-        [Command]
+        [Command(requiresAuthority = false)]
         void CmdOnAnimationResetTriggerServerMessage(int hash)
         {
             // Ignore messages from client if not in client authority mode
@@ -570,7 +570,7 @@ namespace Mirror
             RpcOnAnimationResetTriggerClientMessage(hash);
         }
 
-        [Command]
+        [Command(requiresAuthority = false)]
         void CmdSetAnimatorSpeed(float newSpeed)
         {
             // set animator

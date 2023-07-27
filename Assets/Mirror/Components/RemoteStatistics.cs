@@ -165,7 +165,7 @@ namespace Mirror
             stats = v;
         }
 
-        [Command]
+        [Command(requiresAuthority = false)]
         public void CmdAuthenticate(string v)
         {
             // was a valid password loaded on the server,

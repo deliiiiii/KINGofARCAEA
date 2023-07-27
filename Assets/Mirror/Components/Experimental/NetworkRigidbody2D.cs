@@ -248,7 +248,7 @@ namespace Mirror.Experimental
         /// <summary>
         /// Called when only Velocity has changed on the client
         /// </summary>
-        [Command]
+        [Command(requiresAuthority = false)]
         void CmdSendVelocity(Vector2 velocity)
         {
             // Ignore messages from client if not in client authority mode
@@ -262,7 +262,7 @@ namespace Mirror.Experimental
         /// <summary>
         /// Called when angularVelocity has changed on the client
         /// </summary>
-        [Command]
+        [Command(requiresAuthority = false)]
         void CmdSendVelocityAndAngular(Vector2 velocity, float angularVelocity)
         {
             // Ignore messages from client if not in client authority mode
@@ -278,7 +278,7 @@ namespace Mirror.Experimental
             target.angularVelocity = angularVelocity;
         }
 
-        [Command]
+        [Command(requiresAuthority = false)]
         void CmdSendIsKinematic(bool isKinematic)
         {
             // Ignore messages from client if not in client authority mode
@@ -289,7 +289,7 @@ namespace Mirror.Experimental
             target.isKinematic = isKinematic;
         }
 
-        [Command]
+        [Command(requiresAuthority = false)]
         void CmdChangeGravityScale(float gravityScale)
         {
             // Ignore messages from client if not in client authority mode
@@ -300,7 +300,7 @@ namespace Mirror.Experimental
             target.gravityScale = gravityScale;
         }
 
-        [Command]
+        [Command(requiresAuthority = false)]
         void CmdSendDrag(float drag)
         {
             // Ignore messages from client if not in client authority mode
@@ -311,7 +311,7 @@ namespace Mirror.Experimental
             target.drag = drag;
         }
 
-        [Command]
+        [Command(requiresAuthority = false)]
         void CmdSendAngularDrag(float angularDrag)
         {
             // Ignore messages from client if not in client authority mode

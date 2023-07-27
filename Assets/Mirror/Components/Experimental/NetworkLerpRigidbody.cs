@@ -64,7 +64,7 @@ namespace Mirror.Experimental
             }
         }
 
-        [Command]
+        [Command(requiresAuthority = false)]
         void CmdSendState(Vector3 velocity, Vector3 position)
         {
             target.velocity = velocity;

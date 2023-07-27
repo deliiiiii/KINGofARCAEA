@@ -66,7 +66,7 @@ public class Empty : NetworkBehaviour
 
 
 
-    private void Awake()
+    public void Awake()
     {
         Delay_set_instance();
     }
@@ -74,18 +74,30 @@ public class Empty : NetworkBehaviour
 
     public void Delay_set_instance()
     {
-        //Debug.Log("Delay_set_instance()");
-        if (isLocalPlayer)
+        Debug.Log("Delay_set_instance()");
+        if (isLocalPlayer && this.netId == 1)
+        {
+            return;
+        }
+        if(isLocalPlayer || (!isLocalPlayer&&this.netId == 1))
         {
             instance = this;
-            //Debug.Log("AWAKE instance.netId = " + instance.netId);
+            Debug.Log("AWAKE instance.netId = " + instance.netId);
+            return;
         }
         if (!instance)
         {
-            Invoke(nameof(Delay_set_instance), delay);
+            //if (this.netId == 1 && !this.isServer)
+            //{
+            //    return;
+            //}
+            Debug.Log("Delay_set_instance ");
+            Invoke(nameof(Delay_set_instance), 0.8f);
+            return;
         }
     }
-    [Command]
+    
+    [Command(requiresAuthority = false)]
     public void CmdSetState(GameManager.Temp_STATE state)
     {
         if (GameManager.instance.state_ == state) return;
@@ -93,73 +105,73 @@ public class Empty : NetworkBehaviour
         //GameManager.instance.state_ = state;
         instance.RpcSetState(state);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdAddPlayer(int added_netId, string added_name)
     {
         //Debug.Log("CmdAddPlayer()");
         ServerAddPlayer(added_netId, added_name);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdDelayShowStartGame()
     {
         instance.RpcShowStartGame();
     }
-    [Command] 
+    [Command(requiresAuthority = false)] 
     public void CmdStartGame()
     {
         ServerStartGame();
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdDiscardScoreCard(int index_ScoreCard)
     {
         RpcDiscardScoreCard(index_ScoreCard);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdDiscardHandCard(int onlineID, int index)
     {
         RpcDiscardHandCard(onlineID, index);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdDrawHandCards(int onlineID, int times)
     {
         RpcDrawHandCards(onlineID, times);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdDrawScoreCard(int onlineID, bool canDiscard)
     {
         RpcDrawScoreCard(onlineID,canDiscard);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdNewTurn()
     {
         instance.ServerNewTurn();
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdGetHisAllHandCards(int id_attacker, List<int> list_index_offender)//1001 代打
     {
         RpcGetHisAllHandCards(id_attacker, list_index_offender);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdGiveMyAllHandCards(int id_attacker, List<int> list_index_handCard)//1001 代打
     {
         RpcReceiveHisAllHandCards(id_attacker, list_index_handCard);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdClearAllHandCards(int onlineID)//1001 代打
     {
         RpcClearAllHandCards(onlineID);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdDrawHandCards_Specific(int onlineID, List<int> list_index_handCard)//1001 代打
     {
         RpcDrawHandCards_Specific(onlineID, list_index_handCard);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdDrawScoreCard_Specific(int onlineID, int score)//1003 指点江山
     {
         //RpcDrawScoreCard_Specific(onlineID, score);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1002_CollectAllScoreCards(int id_attacker, List<int> list_index_offender)
     {
         instance.list_Card_1002_ScoreCard.Clear();
@@ -173,7 +185,7 @@ public class Empty : NetworkBehaviour
         instance.temp_Card_1002_list_index_offender = list_index_offender;
         instance.ServerDelay_RpcCard_1002_Show_Panel_SelectScoreCard();
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1002_AddScoreCard(int score, int index_offender)
     {
         instance.list_Card_1002_ScoreCard.Add(score);
@@ -181,37 +193,37 @@ public class Empty : NetworkBehaviour
         Debug.Log("1002   #" + GetContent_int(instance.list_Card_1002_ScoreCard));
         
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1002_NextTurn(int id_turn, int index_last_Selected)
     {
         RpcCard_1002_NextTurn(id_turn, index_last_Selected);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1003_GetHisScoreCard(int id_attacker, List<int> list_index_offender,int index_Card)
     {
         RpcCard_1003_GetHisScoreCard(id_attacker, list_index_offender,index_Card);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1003_ReceiveScoreCard(int id_attacker, List<int> list_index_offender,int score)
     {
         RpcCard_1003_ReceiveScoreCard(id_attacker, list_index_offender,score);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1004_GetHisScoreCard(List<int> list_index_offender)
     {
         RpcCard_1004_GetHisScoreCard(list_index_offender);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1004_Show_Panel(int index_offender,int score)
     {
         RpcCard_1004_Show_Panel(index_offender,score);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1005_GetLeftSuspectedScore(List<int> list_index_offender)
     {
         RpcCard_1005_GetLeftSuspectedScore(list_index_offender);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1005or1006_CollectAllScoreCards(List<int> list_index_offender,int index_card)
     {
         instance.list_Card_1005or1006_ScoreCard.Clear();
@@ -233,19 +245,19 @@ public class Empty : NetworkBehaviour
             default:break;
         }
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1005or1006_AddScoreCard(int onlineId, int score/*, bool isover*/)
     {
         instance.list_Card_1005or1006_netId_ScoreCard.Add(onlineId);
         instance.list_Card_1005or1006_ScoreCard.Add(score);
         Debug.Log("加入分数值" + score + "  id  = " + onlineId) ;
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1006_GetRightSuspectedScore(List<int> list_index_offender)
     {
         RpcCard_1006_GetRightSuspectedScore(list_index_offender);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1007_CollectScoreCards(int id_attacker, List<int> list_index_offender)
     {
         instance.list_Card_1005or1006_ScoreCard.Clear();
@@ -284,7 +296,7 @@ public class Empty : NetworkBehaviour
         instance.temp_Card_1007_id_attacker = id_attacker;
         instance.ServerDelay_ClientCard_1007_ShowPanel();
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1008_AddBeforeRealize(int index_Card,int id_attacker,List<int> list_index_offender)
     {
 
@@ -295,66 +307,66 @@ public class Empty : NetworkBehaviour
         instance.list_stateCards.Add(added);
 
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1008_Realize(int index_holder)
     {
         instance.temp_1008_index_holder = index_holder;
         instance.ServerDelay_ClientCard_1008_Realize();
         //instance.RpcCard_1008_BeforeRealize(index_holder);
     }
-    //[Command]
+    //[Command(requiresAuthority = false)]
     //public void CmdCard_1008_Realize()
     //{
     //    instance.RpcCard_1008_Realize();
     //}
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_1008_ShowPanel(int id_attacker, int id_offender, int score)
     {
         RpcCard_1008_ShowPanel(id_attacker, id_offender, score);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCheckCard_2001and2002(int index_Card,int id_attacker, List<int> list_index_offender)
     {
         instance.ServerSetState(GameManager.Temp_STATE.STATE_WHETHERDEFEND);
         instance.RpcCard_2001and2002_ShowPanel(index_Card, id_attacker, list_index_offender);
 
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_2001and2002_NextTurn(int index_Card,int id_attacker, int id_turn, List<int> list_index_offender)
     {
         instance.RpcCard_2001and2002_NextTurn(index_Card, id_attacker,id_turn, list_index_offender);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCard_2001and2002_RefreshList(List<int> list_index_offender)
     {
         instance.RpcCard_2001and2002_RefreshList(list_index_offender);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdAddStateCard(int id_attacker, List<int> list_index_offender,int index_Card)
     {
         RpcAddStateCard(id_attacker, list_index_offender, index_Card);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdShowLastYieldCard(string name_attacker, int index_Card, List<int> list_index_offender)
     {
         RpcShowLastYieldCard(name_attacker, index_Card, list_index_offender);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdRefreshLastYieldCard(List<int> list_index_offender)
     {
         instance.RpcRefreshLastYieldCard(list_index_offender);
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdCloseLastYieldCard()
     {
         instance.RpcCloseLastYieldCard();
     }
-    //[Command]
+    //[Command(requiresAuthority = false)]
     //public void CmdYieldCard()
     //{
     //    RpcYieldCard();
     //}
-    //[Command]
+    //[Command(requiresAuthority = false)]
     //public void CmdThrowCard()
     //{
     //    RpcThrowCard();
@@ -1600,13 +1612,13 @@ public class Empty : NetworkBehaviour
 
 
     /*
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdAddPlayer(int added_netId)
     {
         Debug.Log("[Server] CmdAddPlayer()");
         ServerAddPlayer(added_netId);
     }
-    [Command]//↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+    [Command(requiresAuthority = false)]//↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
     public void CmdRemovePlayer(int added_netId)
     {
         //Debug.Log(NetworkClient.ready + " " + NetworkClient.active + "" + NetworkClient.isConnected);

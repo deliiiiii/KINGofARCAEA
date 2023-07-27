@@ -193,7 +193,7 @@ namespace Mirror
         // client->server teleport to force position without interpolation.
         // otherwise it would interpolate to a (far away) new position.
         // => manually calling Teleport is the only 100% reliable solution.
-        [Command]
+        [Command(requiresAuthority = false)]
         public void CmdTeleport(Vector3 destination)
         {
             // client can only teleport objects that it has authority over.
@@ -215,7 +215,7 @@ namespace Mirror
         // client->server teleport to force position and rotation without interpolation.
         // otherwise it would interpolate to a (far away) new position.
         // => manually calling Teleport is the only 100% reliable solution.
-        [Command]
+        [Command(requiresAuthority = false)]
         public void CmdTeleport(Vector3 destination, Quaternion rotation)
         {
             // client can only teleport objects that it has authority over.

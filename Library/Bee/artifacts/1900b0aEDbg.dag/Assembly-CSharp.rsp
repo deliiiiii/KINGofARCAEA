@@ -395,6 +395,7 @@
 -analyzer:"D:/Program Files/2022.3.1f1c1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"D:/Program Files/2022.3.1f1c1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/ParrelSync/Examples/CustomArgumentExample.cs"
+"Assets/Scripts/AutoServer.cs"
 "Assets/Scripts/Card/GrandCard.cs"
 "Assets/Scripts/Card/HandCard.cs"
 "Assets/Scripts/Card/HandCardManager.cs"

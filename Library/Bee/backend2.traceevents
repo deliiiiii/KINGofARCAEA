@@ -1,251 +1,143 @@
 { "cat":"", "pid":12345, "tid":0, "ts":0, "ph":"M", "name":"process_name", "args": { "name":"bee_backend" } }
-,{ "pid":12345, "tid":0, "ts":1690395132249916, "dur":7233, "ph":"X", "name": "DriverInitData",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1690395132257156, "dur":114, "ph":"X", "name": "RemoveStaleOutputs",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1690395132257303, "dur":366, "ph":"X", "name": "BuildQueueInit",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1690395132258113, "dur":60, "ph":"X", "name": "EmitFirstTimeEnqueue",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.DirectorModule.dll" }}
-,{ "pid":12345, "tid":0, "ts":1690395132258313, "dur":53, "ph":"X", "name": "EmitFirstTimeEnqueue",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.PerformanceReportingModule.dll" }}
-,{ "pid":12345, "tid":0, "ts":1690395132257686, "dur":2275, "ph":"X", "name": "EnqueueRequestedNodes",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1690395132259963, "dur":136183, "ph":"X", "name": "WaitForBuildFinished", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1690395132396147, "dur":454, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1690395132396784, "dur":2827, "ph":"X", "name": "Tundra",  "args": { "detail":"Write AllBuiltNodes" }}
-,{ "pid":12345, "tid":1, "ts":1690395132257915, "dur":2071, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1690395132259994, "dur":216, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1690395132260211, "dur":2995, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":1, "ts":1690395132263217, "dur":221, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\Program Files\\2022.3.1f1c1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\etc\\mono\\4.5\\machine.config" }}
-,{ "pid":12345, "tid":1, "ts":1690395132263207, "dur":232, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/MonoBleedingEdge/etc/mono/4.5/machine.config" }}
-,{ "pid":12345, "tid":1, "ts":1690395132274614, "dur":13693, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Security.dll" }}
-,{ "pid":12345, "tid":1, "ts":1690395132288340, "dur":15522, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Mono.Security.dll" }}
-,{ "pid":12345, "tid":1, "ts":1690395132303894, "dur":14617, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.2D.Common.Runtime.dll" }}
-,{ "pid":12345, "tid":1, "ts":1690395132318550, "dur":12224, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.VideoModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1690395132330791, "dur":12578, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UIModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1690395132343400, "dur":13056, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.ScreenCaptureModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1690395132356471, "dur":13730, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.HotReloadModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1690395132370231, "dur":12100, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.AndroidJNIModule.dll" }}
-,{ "pid":12345, "tid":1, "ts":1690395132382346, "dur":14071, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1690395132258286, "dur":1875, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1690395132260161, "dur":3064, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1690395132263225, "dur":252, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/MonoBleedingEdge/etc/mono/4.0/settings.map" }}
-,{ "pid":12345, "tid":2, "ts":1690395132274433, "dur":13209, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Runtime.Serialization.dll" }}
-,{ "pid":12345, "tid":2, "ts":1690395132287665, "dur":15455, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.ComponentModel.Composition.dll" }}
-,{ "pid":12345, "tid":2, "ts":1690395132317905, "dur":59, "ph":"X", "name": "EmitNodeFinish",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1690395132303159, "dur":14821, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Telepathy.dll" }}
-,{ "pid":12345, "tid":2, "ts":1690395132318023, "dur":12365, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.VirtualTexturingModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1690395132330408, "dur":12866, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UmbraModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1690395132343308, "dur":12961, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.SharedInternalsModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1690395132356291, "dur":13667, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.IMGUIModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1690395132382227, "dur":53, "ph":"X", "name": "EmitNodeFinish",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":2, "ts":1690395132369994, "dur":12301, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.AnimationModule.dll" }}
-,{ "pid":12345, "tid":2, "ts":1690395132382316, "dur":13824, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1690395132257881, "dur":2096, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1690395132259983, "dur":3157, "ph":"X", "name": "CheckDagSignatures",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":3, "ts":1690395132268091, "dur":348, "ph":"X", "name": "WriteText",  "args": { "detail":"Library/Bee/artifacts/csharpactions/boot.config_tyr4.info" }}
-,{ "pid":12345, "tid":3, "ts":1690395132268442, "dur":94, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Library\\PlayerDataCache\\Win64\\Data\\boot.config" }}
-,{ "pid":12345, "tid":3, "ts":1690395132268541, "dur":84, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Library\\PlayerDataCache\\Win64\\Data\\ScriptingAssemblies.json" }}
-,{ "pid":12345, "tid":3, "ts":1690395132268743, "dur":76, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Library\\Bee\\Playere3e6b63c-inputdata.json" }}
-,{ "pid":12345, "tid":3, "ts":1690395132268442, "dur":420, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"AddBootConfigGUID Library/Bee/artifacts/WinPlayerBuildProgram/boot.config" }}
-,{ "pid":12345, "tid":3, "ts":1690395132269364, "dur":105612, "ph":"X", "name": "AddBootConfigGUID",  "args": { "detail":"Library/Bee/artifacts/WinPlayerBuildProgram/boot.config" }}
-,{ "pid":12345, "tid":3, "ts":1690395132375761, "dur":126, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Library\\Bee\\artifacts\\WinPlayerBuildProgram\\boot.config" }}
-,{ "pid":12345, "tid":3, "ts":1690395132375760, "dur":128, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/boot.config" }}
-,{ "pid":12345, "tid":3, "ts":1690395132375897, "dur":3828, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/boot.config" }}
-,{ "pid":12345, "tid":3, "ts":1690395132379747, "dur":6537, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/globalgamemanagers.assets.resS" }}
-,{ "pid":12345, "tid":3, "ts":1690395132386304, "dur":9909, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1690395132257986, "dur":2038, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1690395132260038, "dur":258, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1690395132260297, "dur":2905, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":4, "ts":1690395132263214, "dur":220, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\Program Files\\2022.3.1f1c1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\etc\\mono\\4.5\\web.config" }}
-,{ "pid":12345, "tid":4, "ts":1690395132263202, "dur":233, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/MonoBleedingEdge/etc/mono/4.5/web.config" }}
-,{ "pid":12345, "tid":4, "ts":1690395132272806, "dur":11340, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.ServiceModel.Internals.dll" }}
-,{ "pid":12345, "tid":4, "ts":1690395132284166, "dur":16041, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Core.dll" }}
-,{ "pid":12345, "tid":4, "ts":1690395132300243, "dur":14781, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/SimpleWebTransport.dll" }}
-,{ "pid":12345, "tid":4, "ts":1690395132315053, "dur":13185, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.WindModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1690395132328267, "dur":12883, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1690395132341187, "dur":13207, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.SpriteMaskModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1690395132354425, "dur":13715, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.ImageConversionModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1690395132368181, "dur":13536, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.AssetBundleModule.dll" }}
-,{ "pid":12345, "tid":4, "ts":1690395132381741, "dur":14397, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":5, "ts":1690395132257960, "dur":2041, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":5, "ts":1690395132260010, "dur":285, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":5, "ts":1690395132260295, "dur":2912, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":5, "ts":1690395132263207, "dur":220, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx" }}
-,{ "pid":12345, "tid":5, "ts":1690395132277558, "dur":14401, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Transactions.dll" }}
-,{ "pid":12345, "tid":5, "ts":1690395132291987, "dur":15538, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/kcp2k.dll" }}
-,{ "pid":12345, "tid":5, "ts":1690395132307553, "dur":14113, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.2D.Animation.Runtime.dll" }}
-,{ "pid":12345, "tid":5, "ts":1690395132321697, "dur":12976, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll" }}
-,{ "pid":12345, "tid":5, "ts":1690395132334690, "dur":12300, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll" }}
-,{ "pid":12345, "tid":5, "ts":1690395132347020, "dur":13745, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.Physics2DModule.dll" }}
-,{ "pid":12345, "tid":5, "ts":1690395132360792, "dur":15058, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.DSPGraphModule.dll" }}
-,{ "pid":12345, "tid":5, "ts":1690395132375880, "dur":6961, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/sharedassets0.assets" }}
-,{ "pid":12345, "tid":5, "ts":1690395132382923, "dur":13429, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":6, "ts":1690395132258024, "dur":2040, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":6, "ts":1690395132260071, "dur":216, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":6, "ts":1690395132260288, "dur":2926, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":6, "ts":1690395132263214, "dur":206, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser" }}
-,{ "pid":12345, "tid":6, "ts":1690395132276264, "dur":13713, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Xml.Linq.dll" }}
-,{ "pid":12345, "tid":6, "ts":1690395132289994, "dur":15886, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Runtime.dll" }}
-,{ "pid":12345, "tid":6, "ts":1690395132305962, "dur":14341, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Mirror.Components.dll" }}
-,{ "pid":12345, "tid":6, "ts":1690395132320319, "dur":13241, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.VRModule.dll" }}
-,{ "pid":12345, "tid":6, "ts":1690395132333595, "dur":12538, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.TilemapModule.dll" }}
-,{ "pid":12345, "tid":6, "ts":1690395132346150, "dur":13534, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.PropertiesModule.dll" }}
-,{ "pid":12345, "tid":6, "ts":1690395132359704, "dur":15075, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.GameCenterModule.dll" }}
-,{ "pid":12345, "tid":6, "ts":1690395132374810, "dur":7861, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.AIModule.dll" }}
-,{ "pid":12345, "tid":6, "ts":1690395132382683, "dur":13700, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":7, "ts":1690395132258079, "dur":2003, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":7, "ts":1690395132260092, "dur":261, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":7, "ts":1690395132260353, "dur":2876, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":7, "ts":1690395132263246, "dur":275, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\Program Files\\2022.3.1f1c1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\etc\\mono\\4.0\\machine.config" }}
-,{ "pid":12345, "tid":7, "ts":1690395132263237, "dur":285, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/MonoBleedingEdge/etc/mono/4.0/machine.config" }}
-,{ "pid":12345, "tid":7, "ts":1690395132274644, "dur":13950, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Net.Http.dll" }}
-,{ "pid":12345, "tid":7, "ts":1690395132288628, "dur":15446, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/netstandard.dll" }}
-,{ "pid":12345, "tid":7, "ts":1690395132304105, "dur":14704, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.InternalAPIEngineBridge.001.dll" }}
-,{ "pid":12345, "tid":7, "ts":1690395132318838, "dur":12515, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.VehiclesModule.dll" }}
-,{ "pid":12345, "tid":7, "ts":1690395132331384, "dur":13537, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UIElementsModule.dll" }}
-,{ "pid":12345, "tid":7, "ts":1690395132344941, "dur":12732, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll" }}
-,{ "pid":12345, "tid":7, "ts":1690395132357694, "dur":13344, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.GridModule.dll" }}
-,{ "pid":12345, "tid":7, "ts":1690395132371071, "dur":11562, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.AccessibilityModule.dll" }}
-,{ "pid":12345, "tid":7, "ts":1690395132382651, "dur":13748, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":8, "ts":1690395132258119, "dur":1976, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":8, "ts":1690395132260105, "dur":315, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":8, "ts":1690395132260420, "dur":2743, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":8, "ts":1690395132263163, "dur":177, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/MonoBleedingEdge/etc/mono/config" }}
-,{ "pid":12345, "tid":8, "ts":1690395132277325, "dur":15471, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.dll" }}
-,{ "pid":12345, "tid":8, "ts":1690395132292822, "dur":15373, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.2D.PixelPerfect.dll" }}
-,{ "pid":12345, "tid":8, "ts":1690395132308225, "dur":13736, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.Burst.dll" }}
-,{ "pid":12345, "tid":8, "ts":1690395132321991, "dur":13283, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll" }}
-,{ "pid":12345, "tid":8, "ts":1690395132335306, "dur":12145, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.TerrainModule.dll" }}
-,{ "pid":12345, "tid":8, "ts":1690395132347467, "dur":13613, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.PerformanceReportingModule.dll" }}
-,{ "pid":12345, "tid":8, "ts":1690395132361192, "dur":15203, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.CrashReportingModule.dll" }}
-,{ "pid":12345, "tid":8, "ts":1690395132376441, "dur":1445, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Resources/unity_builtin_extra" }}
-,{ "pid":12345, "tid":8, "ts":1690395132377907, "dur":6719, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/level0" }}
-,{ "pid":12345, "tid":8, "ts":1690395132384663, "dur":11580, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":9, "ts":1690395132258152, "dur":1982, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":9, "ts":1690395132260139, "dur":305, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":9, "ts":1690395132260444, "dur":2697, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":9, "ts":1690395132263616, "dur":473, "ph":"X", "name": "WriteText",  "args": { "detail":"Library/Bee/artifacts/WinPlayerBuildProgram/Data/app.info" }}
-,{ "pid":12345, "tid":9, "ts":1690395132268962, "dur":7780, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/app.info" }}
-,{ "pid":12345, "tid":9, "ts":1690395132277131, "dur":14500, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.EnterpriseServices.dll" }}
-,{ "pid":12345, "tid":9, "ts":1690395132291663, "dur":15180, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.Burst.Unsafe.dll" }}
-,{ "pid":12345, "tid":9, "ts":1690395132306875, "dur":14273, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UI.dll" }}
-,{ "pid":12345, "tid":9, "ts":1690395132321169, "dur":13069, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.VFXModule.dll" }}
-,{ "pid":12345, "tid":9, "ts":1690395132334276, "dur":12376, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll" }}
-,{ "pid":12345, "tid":9, "ts":1690395132346669, "dur":13129, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.ProfilerModule.dll" }}
-,{ "pid":12345, "tid":9, "ts":1690395132359831, "dur":14714, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.GIModule.dll" }}
-,{ "pid":12345, "tid":9, "ts":1690395132374585, "dur":8268, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.ARModule.dll" }}
-,{ "pid":12345, "tid":9, "ts":1690395132382865, "dur":13467, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":10, "ts":1690395132258184, "dur":1959, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":10, "ts":1690395132260149, "dur":146, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":10, "ts":1690395132260295, "dur":2848, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":10, "ts":1690395132263191, "dur":95, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\Program Files\\2022.3.1f1c1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\mono\\Managed\\UnityEngine.ClusterInputModule.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132263402, "dur":168, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Assembly-CSharp.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132263571, "dur":104, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.2D.IK.Runtime.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132263676, "dur":83, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.AI.Navigation.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132263760, "dur":195, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.Burst.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132263955, "dur":143, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Mirror.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132264099, "dur":91, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.2D.Animation.Runtime.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132264190, "dur":88, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Mirror.Transports.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132264279, "dur":188, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\UnityEngine.UI.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132264467, "dur":119, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Mirror.Components.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132264586, "dur":67, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.InternalAPIEngineBridge.001.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132264654, "dur":85, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.2D.Common.Runtime.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132264740, "dur":75, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Telepathy.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132264816, "dur":114, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.Timeline.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132264930, "dur":79, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\SimpleWebTransport.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132265010, "dur":71, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Mirror.Authenticators.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132265082, "dur":204, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.Collections.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132265287, "dur":113, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.2D.SpriteShape.Runtime.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132265400, "dur":77, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.2D.PixelPerfect.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132265477, "dur":385, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.Mathematics.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132265862, "dur":270, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.TextMeshPro.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132266133, "dur":167, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\kcp2k.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132263147, "dur":3209, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"GenerateNativePluginsForAssemblies Library/Bee/artifacts/WinPlayerBuildProgram/AsyncPluginsFromLinker" }}
-,{ "pid":12345, "tid":10, "ts":1690395132276841, "dur":1322, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Plugins/x86_64/lib_burst_generated.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132278512, "dur":15029, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Data.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132293570, "dur":15758, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.Collections.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132309354, "dur":13632, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Assembly-CSharp.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132323002, "dur":13338, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UnityCurlModule.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132336371, "dur":11885, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.SubstanceModule.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132348285, "dur":13727, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.JSONSerializeModule.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132362042, "dur":14378, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.ClusterInputModule.dll" }}
-,{ "pid":12345, "tid":10, "ts":1690395132376440, "dur":16388, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/resources.assets.resS" }}
-,{ "pid":12345, "tid":10, "ts":1690395132392845, "dur":3309, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":11, "ts":1690395132258305, "dur":1876, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":11, "ts":1690395132260181, "dur":3038, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":11, "ts":1690395132263229, "dur":251, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\Program Files\\2022.3.1f1c1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\etc\\mono\\4.0\\web.config" }}
-,{ "pid":12345, "tid":11, "ts":1690395132263220, "dur":260, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/MonoBleedingEdge/etc/mono/4.0/web.config" }}
-,{ "pid":12345, "tid":11, "ts":1690395132272199, "dur":10659, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Numerics.dll" }}
-,{ "pid":12345, "tid":11, "ts":1690395132282897, "dur":15423, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Data.DataSetExtensions.dll" }}
-,{ "pid":12345, "tid":11, "ts":1690395132298358, "dur":14388, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Mirror.Authenticators.dll" }}
-,{ "pid":12345, "tid":11, "ts":1690395132312788, "dur":13665, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.dll" }}
-,{ "pid":12345, "tid":11, "ts":1690395132326484, "dur":13519, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UnityConnectModule.dll" }}
-,{ "pid":12345, "tid":11, "ts":1690395132340040, "dur":12836, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.StreamingModule.dll" }}
-,{ "pid":12345, "tid":11, "ts":1690395132352911, "dur":13486, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.InputModule.dll" }}
-,{ "pid":12345, "tid":11, "ts":1690395132366457, "dur":14484, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.ClothModule.dll" }}
-,{ "pid":12345, "tid":11, "ts":1690395132380984, "dur":4598, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/globalgamemanagers.assets" }}
-,{ "pid":12345, "tid":11, "ts":1690395132385598, "dur":10588, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":12, "ts":1690395132258353, "dur":1964, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":12, "ts":1690395132260318, "dur":2854, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":12, "ts":1690395132263173, "dur":125, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/MonoBleedingEdge/etc/mono/browscap.ini" }}
-,{ "pid":12345, "tid":12, "ts":1690395132277270, "dur":15267, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Xml.dll" }}
-,{ "pid":12345, "tid":12, "ts":1690395132292566, "dur":15443, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.TextMeshPro.dll" }}
-,{ "pid":12345, "tid":12, "ts":1690395132308066, "dur":13889, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Mirror.dll" }}
-,{ "pid":12345, "tid":12, "ts":1690395132321986, "dur":13294, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UnityWebRequestModule.dll" }}
-,{ "pid":12345, "tid":12, "ts":1690395132335310, "dur":12714, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.TLSModule.dll" }}
-,{ "pid":12345, "tid":12, "ts":1690395132348051, "dur":13667, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.LocalizationModule.dll" }}
-,{ "pid":12345, "tid":12, "ts":1690395132361751, "dur":14823, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.ClusterRendererModule.dll" }}
-,{ "pid":12345, "tid":12, "ts":1690395132376635, "dur":7006, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/resources.assets" }}
-,{ "pid":12345, "tid":12, "ts":1690395132383653, "dur":12575, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":13, "ts":1690395132258401, "dur":1891, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":13, "ts":1690395132260293, "dur":2910, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":13, "ts":1690395132263203, "dur":120, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/MonoBleedingEdge/etc/mono/4.5/settings.map" }}
-,{ "pid":12345, "tid":13, "ts":1690395132276433, "dur":15289, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/mscorlib.dll" }}
-,{ "pid":12345, "tid":13, "ts":1690395132291783, "dur":15420, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.Collections.LowLevel.ILSupport.dll" }}
-,{ "pid":12345, "tid":13, "ts":1690395132307237, "dur":14020, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Mirror.Transports.dll" }}
-,{ "pid":12345, "tid":13, "ts":1690395132321294, "dur":12901, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll" }}
-,{ "pid":12345, "tid":13, "ts":1690395132334229, "dur":12420, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.TextRenderingModule.dll" }}
-,{ "pid":12345, "tid":13, "ts":1690395132346678, "dur":13467, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.PhysicsModule.dll" }}
-,{ "pid":12345, "tid":13, "ts":1690395132360175, "dur":14670, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.DirectorModule.dll" }}
-,{ "pid":12345, "tid":13, "ts":1690395132374908, "dur":21084, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/sharedassets0.assets.resS" }}
-,{ "pid":12345, "tid":14, "ts":1690395132258467, "dur":1872, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":14, "ts":1690395132260339, "dur":2908, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":14, "ts":1690395132263247, "dur":301, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx" }}
-,{ "pid":12345, "tid":14, "ts":1690395132274035, "dur":11006, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.IO.Compression.dll" }}
-,{ "pid":12345, "tid":14, "ts":1690395132285098, "dur":15419, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Configuration.dll" }}
-,{ "pid":12345, "tid":14, "ts":1690395132300543, "dur":14419, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.Timeline.dll" }}
-,{ "pid":12345, "tid":14, "ts":1690395132315001, "dur":13231, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.XRModule.dll" }}
-,{ "pid":12345, "tid":14, "ts":1690395132328269, "dur":12658, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UnityAnalyticsModule.dll" }}
-,{ "pid":12345, "tid":14, "ts":1690395132340945, "dur":13077, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.SpriteShapeModule.dll" }}
-,{ "pid":12345, "tid":14, "ts":1690395132354043, "dur":13370, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.InputLegacyModule.dll" }}
-,{ "pid":12345, "tid":14, "ts":1690395132367449, "dur":13562, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.AudioModule.dll" }}
-,{ "pid":12345, "tid":14, "ts":1690395132381040, "dur":4546, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/globalgamemanagers" }}
-,{ "pid":12345, "tid":14, "ts":1690395132385600, "dur":10569, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":15, "ts":1690395132258641, "dur":1725, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":15, "ts":1690395132260366, "dur":2786, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":15, "ts":1690395132263190, "dur":98, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":15, "ts":1690395132275723, "dur":2378, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Resources/unity default resources" }}
-,{ "pid":12345, "tid":15, "ts":1690395132278438, "dur":14531, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.Drawing.dll" }}
-,{ "pid":12345, "tid":15, "ts":1690395132293017, "dur":15485, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.2D.SpriteShape.Runtime.dll" }}
-,{ "pid":12345, "tid":15, "ts":1690395132308527, "dur":13619, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.2D.IK.Runtime.dll" }}
-,{ "pid":12345, "tid":15, "ts":1690395132322172, "dur":13675, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UnityTestProtocolModule.dll" }}
-,{ "pid":12345, "tid":15, "ts":1690395132335904, "dur":11921, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.SubsystemsModule.dll" }}
-,{ "pid":12345, "tid":15, "ts":1690395132347853, "dur":13469, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.NVIDIAModule.dll" }}
-,{ "pid":12345, "tid":15, "ts":1690395132361354, "dur":14884, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.ContentLoadModule.dll" }}
-,{ "pid":12345, "tid":15, "ts":1690395132376254, "dur":6788, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/RuntimeInitializeOnLoads.json" }}
-,{ "pid":12345, "tid":15, "ts":1690395132383056, "dur":13226, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":16, "ts":1690395132258513, "dur":1846, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":16, "ts":1690395132260359, "dur":2791, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":16, "ts":1690395132263170, "dur":180, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\Program Files\\2022.3.1f1c1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\UnityCrashHandler64.exe" }}
-,{ "pid":12345, "tid":16, "ts":1690395132263151, "dur":200, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/UnityCrashHandler64.exe" }}
-,{ "pid":12345, "tid":16, "ts":1690395132263376, "dur":573, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Temp\\StagingArea\\WindowsPlayer.exe" }}
-,{ "pid":12345, "tid":16, "ts":1690395132263376, "dur":573, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA.exe" }}
-,{ "pid":12345, "tid":16, "ts":1690395132271183, "dur":65, "ph":"X", "name": "EmitNodeFinish",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":16, "ts":1690395132263974, "dur":7285, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA.exe" }}
-,{ "pid":12345, "tid":16, "ts":1690395132278172, "dur":14522, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.IO.Compression.FileSystem.dll" }}
-,{ "pid":12345, "tid":16, "ts":1690395132292710, "dur":15536, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.Mathematics.dll" }}
-,{ "pid":12345, "tid":16, "ts":1690395132308283, "dur":13724, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.AI.Navigation.dll" }}
-,{ "pid":12345, "tid":16, "ts":1690395132322066, "dur":13198, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll" }}
-,{ "pid":12345, "tid":16, "ts":1690395132335284, "dur":12205, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.TerrainPhysicsModule.dll" }}
-,{ "pid":12345, "tid":16, "ts":1690395132347539, "dur":13647, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.ParticleSystemModule.dll" }}
-,{ "pid":12345, "tid":16, "ts":1690395132361203, "dur":14978, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.CoreModule.dll" }}
-,{ "pid":12345, "tid":16, "ts":1690395132376210, "dur":7064, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA v0.1/Client_Windows/KINGOFARCAEA_Data/ScriptingAssemblies.json" }}
-,{ "pid":12345, "tid":16, "ts":1690395132383289, "dur":12982, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
-,{ "pid":12345, "tid":0, "ts":1690395132402883, "dur":1106, "ph":"X", "name": "ProfilerWriteOutput" }
+,{ "pid":12345, "tid":0, "ts":1690492163056196, "dur":6942, "ph":"X", "name": "DriverInitData",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1690492163063149, "dur":256, "ph":"X", "name": "RemoveStaleOutputs",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1690492163063452, "dur":323, "ph":"X", "name": "BuildQueueInit",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1690492163064395, "dur":77, "ph":"X", "name": "EmitFirstTimeEnqueue",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.ParticleSystemModule.dll" }}
+,{ "pid":12345, "tid":0, "ts":1690492163064661, "dur":52, "ph":"X", "name": "EmitFirstTimeEnqueue",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.TerrainPhysicsModule.dll" }}
+,{ "pid":12345, "tid":0, "ts":1690492163064830, "dur":73, "ph":"X", "name": "EmitFirstTimeEnqueue",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll" }}
+,{ "pid":12345, "tid":0, "ts":1690492163065634, "dur":61, "ph":"X", "name": "EmitFirstTimeEnqueue",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/System.ServiceModel.Internals.dll" }}
+,{ "pid":12345, "tid":0, "ts":1690492163063793, "dur":2343, "ph":"X", "name": "EnqueueRequestedNodes",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1690492163066137, "dur":2075531, "ph":"X", "name": "WaitForBuildFinished", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1690492165141669, "dur":126, "ph":"X", "name": "JoinBuildThread",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1690492165141986, "dur":2033, "ph":"X", "name": "Tundra",  "args": { "detail":"Write AllBuiltNodes" }}
+,{ "pid":12345, "tid":1, "ts":1690492163063935, "dur":2333, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1690492163066272, "dur":3044, "ph":"X", "name": "CheckDagSignatures",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":1, "ts":1690492163069885, "dur":359, "ph":"X", "name": "WriteText",  "args": { "detail":"Library/Bee/artifacts/csharpactions/boot.config_tyr4.info" }}
+,{ "pid":12345, "tid":1, "ts":1690492163070246, "dur":85, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Library\\PlayerDataCache\\Win64\\Data\\boot.config" }}
+,{ "pid":12345, "tid":1, "ts":1690492163070334, "dur":65, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Library\\PlayerDataCache\\Win64\\Data\\RuntimeInitializeOnLoads.json" }}
+,{ "pid":12345, "tid":1, "ts":1690492163070461, "dur":1188, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Assembly-CSharp.dll" }}
+,{ "pid":12345, "tid":1, "ts":1690492163071650, "dur":329, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.2D.IK.Runtime.dll" }}
+,{ "pid":12345, "tid":1, "ts":1690492163072016, "dur":79, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Library\\Bee\\Player265641eb-inputdata.json" }}
+,{ "pid":12345, "tid":1, "ts":1690492163070245, "dur":1889, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"AddBootConfigGUID Library/Bee/artifacts/WinPlayerBuildProgram/boot.config" }}
+,{ "pid":12345, "tid":1, "ts":1690492163072547, "dur":110969, "ph":"X", "name": "AddBootConfigGUID",  "args": { "detail":"Library/Bee/artifacts/WinPlayerBuildProgram/boot.config" }}
+,{ "pid":12345, "tid":1, "ts":1690492163184321, "dur":149, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Library\\Bee\\artifacts\\WinPlayerBuildProgram\\boot.config" }}
+,{ "pid":12345, "tid":1, "ts":1690492163184320, "dur":151, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/boot.config" }}
+,{ "pid":12345, "tid":1, "ts":1690492163184485, "dur":773, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/boot.config" }}
+,{ "pid":12345, "tid":1, "ts":1690492163185261, "dur":1956472, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1690492163063975, "dur":2333, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1690492163066315, "dur":279, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1690492163066594, "dur":2945, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1690492163069770, "dur":386, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":2, "ts":1690492163070158, "dur":1637, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\UnityEngine.UI.dll" }}
+,{ "pid":12345, "tid":2, "ts":1690492163070158, "dur":1638, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/UnityEngine.UI.dll" }}
+,{ "pid":12345, "tid":2, "ts":1690492163071826, "dur":2069770, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1690492163064050, "dur":2276, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1690492163066329, "dur":140, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1690492163066469, "dur":183, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1690492163066652, "dur":2704, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":3, "ts":1690492163069382, "dur":445, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\Program Files\\2022.3.1f1c1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\mono\\Managed\\UnityEngine.AssetBundleModule.dll" }}
+,{ "pid":12345, "tid":3, "ts":1690492163069973, "dur":1480, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Assembly-CSharp.dll" }}
+,{ "pid":12345, "tid":3, "ts":1690492163071453, "dur":529, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.2D.IK.Runtime.dll" }}
+,{ "pid":12345, "tid":3, "ts":1690492163069359, "dur":2674, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"GenerateNativePluginsForAssemblies Library/Bee/artifacts/WinPlayerBuildProgram/AsyncPluginsFromLinker" }}
+,{ "pid":12345, "tid":3, "ts":1690492163074622, "dur":2066312, "ph":"X", "name": "GenerateNativePluginsForAssemblies",  "args": { "detail":"Library/Bee/artifacts/WinPlayerBuildProgram/AsyncPluginsFromLinker" }}
+,{ "pid":12345, "tid":4, "ts":1690492163064213, "dur":2362, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1690492163066575, "dur":2967, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":4, "ts":1690492163069792, "dur":1411, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.2D.PixelPerfect.dll" }}
+,{ "pid":12345, "tid":4, "ts":1690492163069792, "dur":1412, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.2D.PixelPerfect.dll" }}
+,{ "pid":12345, "tid":4, "ts":1690492163071378, "dur":2070336, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1690492163064011, "dur":2306, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1690492163066319, "dur":192, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1690492163066512, "dur":3273, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":5, "ts":1690492163069791, "dur":1218, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.TextMeshPro.dll" }}
+,{ "pid":12345, "tid":5, "ts":1690492163069785, "dur":1225, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.TextMeshPro.dll" }}
+,{ "pid":12345, "tid":5, "ts":1690492163071020, "dur":898, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.2D.IK.Runtime.dll" }}
+,{ "pid":12345, "tid":5, "ts":1690492163071020, "dur":899, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.2D.IK.Runtime.dll" }}
+,{ "pid":12345, "tid":5, "ts":1690492163071928, "dur":2069825, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1690492163064044, "dur":2278, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1690492163066324, "dur":221, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1690492163066545, "dur":3304, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":6, "ts":1690492163069853, "dur":1414, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Mirror.Authenticators.dll" }}
+,{ "pid":12345, "tid":6, "ts":1690492163069849, "dur":1418, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Mirror.Authenticators.dll" }}
+,{ "pid":12345, "tid":6, "ts":1690492163071370, "dur":2070359, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":7, "ts":1690492163064071, "dur":2285, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":7, "ts":1690492163066358, "dur":230, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":7, "ts":1690492163066588, "dur":2829, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":7, "ts":1690492163069417, "dur":518, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/MonoBleedingEdge/etc/mono/config" }}
+,{ "pid":12345, "tid":7, "ts":1690492163069947, "dur":1041, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.InternalAPIEngineBridge.001.dll" }}
+,{ "pid":12345, "tid":7, "ts":1690492163069943, "dur":1046, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.InternalAPIEngineBridge.001.dll" }}
+,{ "pid":12345, "tid":7, "ts":1690492163071009, "dur":852, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.AI.Navigation.dll" }}
+,{ "pid":12345, "tid":7, "ts":1690492163071009, "dur":853, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.AI.Navigation.dll" }}
+,{ "pid":12345, "tid":7, "ts":1690492163071874, "dur":2069905, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":8, "ts":1690492163064100, "dur":2317, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":8, "ts":1690492163066418, "dur":139, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":8, "ts":1690492163066557, "dur":3272, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":8, "ts":1690492163069834, "dur":1315, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.Collections.dll" }}
+,{ "pid":12345, "tid":8, "ts":1690492163069830, "dur":1320, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.Collections.dll" }}
+,{ "pid":12345, "tid":8, "ts":1690492163071374, "dur":2070278, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":9, "ts":1690492163064118, "dur":2302, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":9, "ts":1690492163066421, "dur":123, "ph":"X", "name": "EarlyStatNonGeneratedFile",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":9, "ts":1690492163066545, "dur":3309, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":9, "ts":1690492163069859, "dur":1130, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\SimpleWebTransport.dll" }}
+,{ "pid":12345, "tid":9, "ts":1690492163069854, "dur":1135, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/SimpleWebTransport.dll" }}
+,{ "pid":12345, "tid":9, "ts":1690492163070997, "dur":814, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.Burst.dll" }}
+,{ "pid":12345, "tid":9, "ts":1690492163070997, "dur":815, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.Burst.dll" }}
+,{ "pid":12345, "tid":9, "ts":1690492163071820, "dur":2069790, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":10, "ts":1690492163064135, "dur":2341, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":10, "ts":1690492163066477, "dur":3394, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":10, "ts":1690492163069876, "dur":1183, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.Timeline.dll" }}
+,{ "pid":12345, "tid":10, "ts":1690492163069871, "dur":1188, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.Timeline.dll" }}
+,{ "pid":12345, "tid":10, "ts":1690492163071067, "dur":686, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Assembly-CSharp.dll" }}
+,{ "pid":12345, "tid":10, "ts":1690492163071066, "dur":687, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Assembly-CSharp.dll" }}
+,{ "pid":12345, "tid":10, "ts":1690492163071766, "dur":2188, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Assembly-CSharp.dll" }}
+,{ "pid":12345, "tid":10, "ts":1690492163073959, "dur":2067630, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":11, "ts":1690492163064172, "dur":2394, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":11, "ts":1690492163066566, "dur":3032, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":11, "ts":1690492163069598, "dur":63, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/MonoBleedingEdge/etc/mono/2.0/machine.config" }}
+,{ "pid":12345, "tid":11, "ts":1690492163069791, "dur":1332, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.Mathematics.dll" }}
+,{ "pid":12345, "tid":11, "ts":1690492163069790, "dur":1333, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.Mathematics.dll" }}
+,{ "pid":12345, "tid":11, "ts":1690492163071376, "dur":2070360, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":12, "ts":1690492163064235, "dur":2349, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":12, "ts":1690492163066584, "dur":3235, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":12, "ts":1690492163069824, "dur":1135, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.2D.SpriteShape.Runtime.dll" }}
+,{ "pid":12345, "tid":12, "ts":1690492163069820, "dur":1140, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.2D.SpriteShape.Runtime.dll" }}
+,{ "pid":12345, "tid":12, "ts":1690492163070971, "dur":831, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Mirror.dll" }}
+,{ "pid":12345, "tid":12, "ts":1690492163070970, "dur":832, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Mirror.dll" }}
+,{ "pid":12345, "tid":12, "ts":1690492163071811, "dur":2069822, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":13, "ts":1690492163064255, "dur":2337, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":13, "ts":1690492163066593, "dur":2811, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":13, "ts":1690492163069409, "dur":488, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\Program Files\\2022.3.1f1c1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\etc\\mono\\mconfig\\config.xml" }}
+,{ "pid":12345, "tid":13, "ts":1690492163069404, "dur":494, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/MonoBleedingEdge/etc/mono/mconfig/config.xml" }}
+,{ "pid":12345, "tid":13, "ts":1690492163069908, "dur":1166, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.2D.Common.Runtime.dll" }}
+,{ "pid":12345, "tid":13, "ts":1690492163069908, "dur":1167, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.2D.Common.Runtime.dll" }}
+,{ "pid":12345, "tid":13, "ts":1690492163071209, "dur":138, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":13, "ts":1690492163071373, "dur":2070294, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":14, "ts":1690492163064271, "dur":2326, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":14, "ts":1690492163066597, "dur":2793, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":14, "ts":1690492163069396, "dur":499, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\Program Files\\2022.3.1f1c1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\UnityCrashHandler64.exe" }}
+,{ "pid":12345, "tid":14, "ts":1690492163069391, "dur":505, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/UnityCrashHandler64.exe" }}
+,{ "pid":12345, "tid":14, "ts":1690492163069905, "dur":1013, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Telepathy.dll" }}
+,{ "pid":12345, "tid":14, "ts":1690492163069905, "dur":1014, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Telepathy.dll" }}
+,{ "pid":12345, "tid":14, "ts":1690492163070934, "dur":849, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Unity.2D.Animation.Runtime.dll" }}
+,{ "pid":12345, "tid":14, "ts":1690492163070934, "dur":850, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Unity.2D.Animation.Runtime.dll" }}
+,{ "pid":12345, "tid":14, "ts":1690492163071797, "dur":2069847, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":15, "ts":1690492163064280, "dur":2321, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":15, "ts":1690492163066601, "dur":2855, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":15, "ts":1690492163069638, "dur":315, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"Temp\\StagingArea\\WindowsPlayer.exe" }}
+,{ "pid":12345, "tid":15, "ts":1690492163069638, "dur":315, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA.exe" }}
+,{ "pid":12345, "tid":15, "ts":1690492163069962, "dur":1194, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Mirror.Components.dll" }}
+,{ "pid":12345, "tid":15, "ts":1690492163069962, "dur":1194, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Mirror.Components.dll" }}
+,{ "pid":12345, "tid":15, "ts":1690492163073155, "dur":131, "ph":"X", "name": "EmitNodeFinish",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":15, "ts":1690492163071210, "dur":2084, "ph":"X", "name": "CopyFiles",  "args": { "detail":"D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Mirror.Components.dll" }}
+,{ "pid":12345, "tid":15, "ts":1690492163073301, "dur":2068305, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":16, "ts":1690492163064308, "dur":2299, "ph":"X", "name": "FirstLock",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":16, "ts":1690492163066607, "dur":2742, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":16, "ts":1690492163069375, "dur":55, "ph":"X", "name": "OutputFilesMissingFor",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":16, "ts":1690492163069454, "dur":315, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\Program Files\\2022.3.1f1c1\\Editor\\Data\\PlaybackEngines\\WindowsStandaloneSupport\\Variations\\win64_player_nondevelopment_mono\\MonoBleedingEdge\\etc\\mono\\4.5\\web.config" }}
+,{ "pid":12345, "tid":16, "ts":1690492163069450, "dur":320, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/MonoBleedingEdge/etc/mono/4.5/web.config" }}
+,{ "pid":12345, "tid":16, "ts":1690492163069780, "dur":851, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\kcp2k.dll" }}
+,{ "pid":12345, "tid":16, "ts":1690492163069779, "dur":853, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/kcp2k.dll" }}
+,{ "pid":12345, "tid":16, "ts":1690492163070643, "dur":1021, "ph":"X", "name": "ComputeFileSignatureSha1",  "args": { "detail":"D:\\SAVE\\code\\NEW\\KINGofARCAEA\\Library\\Bee\\PlayerScriptAssemblies\\Mirror.Transports.dll" }}
+,{ "pid":12345, "tid":16, "ts":1690492163070642, "dur":1023, "ph":"X", "name": "CheckInputSignature",  "args": { "detail":"CopyFiles D:/SAVE/code/NEW/KINGofARCAEA_v0.1/Client_Windows/KINGOFARCAEA_Data/Managed/Mirror.Transports.dll" }}
+,{ "pid":12345, "tid":16, "ts":1690492163071674, "dur":2069998, "ph":"X", "name": "WaitingForWork", "cname":"thread_state_sleeping",  "args": { "detail":"" }}
+,{ "pid":12345, "tid":0, "ts":1690492165145555, "dur":521, "ph":"X", "name": "ProfilerWriteOutput" }
 ,

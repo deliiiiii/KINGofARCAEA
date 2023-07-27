@@ -15560,6 +15560,7 @@ GameObject:
   - component: {fileID: 1623169825}
   - component: {fileID: 1623169826}
   - component: {fileID: 1623169827}
+  - component: {fileID: 1623169829}
   - component: {fileID: 1623169828}
   m_Layer: 5
   m_Name: Canvas_Setting
@@ -15767,6 +15768,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1623169829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623169819}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd19872d698f904e82b1dd996f3307d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 0}
 --- !u!1 &1630565484
 GameObject:
   m_ObjectHideFlags: 0
