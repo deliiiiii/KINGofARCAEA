@@ -173,7 +173,9 @@ public class UIManager : MonoBehaviour
     }
     public void UIFinishYieldCard()
     {
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_THROW_CARDS);
+        Debug.Log(" ##  UI Throw");
+        GameManager.instance.state_ = GameManager.Temp_STATE.STATE_THROW_CARDS;
+        //Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_THROW_CARDS);
         Empty.instance.Client_ThrowCard_EndJudge((int)Empty.instance.netId);
     }
     public void UIShowLastYieldCard(string name_attacker, int index_Card, List<int> list_index_offender)

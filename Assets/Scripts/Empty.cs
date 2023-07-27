@@ -669,6 +669,7 @@ public class Empty : NetworkBehaviour
     public void ServerSummaryGame()
     {
         instance.ServerSetState(GameManager.Temp_STATE.STATE_GAME_SUMMARY);
+        instance.RpcShowStartGame();
     }
     [Server]
     public void ServerSetState(GameManager.Temp_STATE state)
@@ -1450,9 +1451,29 @@ public class Empty : NetworkBehaviour
             return;
         }
         Empty.instance.ClientCloseLastYieldCard();
-
-
+        Empty.instance.ClientOnEndUIRealizeHandCard();
         //Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
+    }
+    [Client]
+    public void ClientOnEndUIRealizeHandCard()
+    {
+        if (GameManager.instance.state_ == GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS)
+        {
+            Invoke(nameof(ClientOnEndUIRealizeHandCard), delay);
+            return;
+        }
+        int count_turn = Empty.instance.turnMove.Count;
+        Empty.instance.turnMove[count_turn - 1]++;
+        Debug.Log("已行动次数 =" + Empty.instance.turnMove[count_turn - 1]);
+        //instance.totalMove++;
+        if (Empty.instance.turnMove[count_turn - 1] >= 3)
+        {
+            Debug.Log("准备弃牌");
+            UIManager.instance.UIFinishYieldCard();
+            return;
+        }
+        Empty.instance.selectedCard.GetComponent<HandCard>().CloseDetail();
+        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_YIELD_CARDS);
     }
     [Client]
     public void ClientGiveMyAllHandCards(int id_attacker, List<int> list_index_handCard)//1001 代打
