@@ -161,7 +161,6 @@ public class UIManager : MonoBehaviour
     public void UIStartGame()
     {
         Empty.instance.ClientStartGame();
-        //button_Start_Game.gameObject.SetActive(false);
     }
     
     public void UIYieldCard()

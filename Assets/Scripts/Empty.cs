@@ -424,6 +424,7 @@ public class Empty : NetworkBehaviour
     [Server]
     public void ServerStartGame()
     {
+        
         index_Round = 0;
         init_draw_num = 4;
         instance.list_stateCards.Clear();
@@ -702,6 +703,7 @@ public class Empty : NetworkBehaviour
     [ClientRpc]
     public void RpcInitialize(List<int> list_index_ScoreCards,List<int> list_index_HandCards)
     {
+        UIManager.instance.button_Start_Game.gameObject.SetActive(false);
         instance.count_MyHandCard = 0;
         //instance.roundScore.Clear();
         instance.turnMove.Clear();
