@@ -290,7 +290,8 @@ public class UIManager : MonoBehaviour
 
     public void UIGiveUpSelection()
     {
-        Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
+        GameManager.instance.state_ = GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS;
+        //Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
         //Empty.instance.ClientRealizeHandCard(new List<int> {-1});
         UIPlayerManager.instance.Hide_Button_Select();
 
