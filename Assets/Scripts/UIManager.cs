@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour
 
     public GameObject content_MyHandCard;
     public GameObject panel_HandCardDetail;
+    public GameObject panel_HandCardDetail_ReadOnly;
     public GameObject panel_DiscardedCards;
     
     public GameObject panel_Notice_Back;

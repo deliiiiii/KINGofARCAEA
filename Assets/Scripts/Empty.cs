@@ -74,7 +74,13 @@ public class Empty : NetworkBehaviour
 
     public void Delay_set_instance()
     {
-        Debug.Log("Delay_set_instance()");
+        //Debug.Log("Delay_set_instance()");
+        if(isLocalPlayer && this.isServer && this.isClient && this.netId == 1)
+        {
+            instance = this;
+            Debug.Log("AWAKE instance.netId = " + instance.netId);
+            return;
+        }
         if (isLocalPlayer && this.netId == 1)
         {
             return;
@@ -91,7 +97,7 @@ public class Empty : NetworkBehaviour
             //{
             //    return;
             //}
-            Debug.Log("Delay_set_instance ");
+            //Debug.Log("Delay_set_instance ");
             Invoke(nameof(Delay_set_instance), 0.8f);
             return;
         }
@@ -1437,7 +1443,7 @@ public class Empty : NetworkBehaviour
                     break;
                 case 3003://底力提升
                     Debug.Log("底力提升");
-                    instance.ClientDrawHandCards((int)instance.netId, 5);
+                    instance.ClientDrawHandCards((int)instance.netId, 2);
                     Empty.instance.CmdSetState(GameManager.Temp_STATE.STATE_ONENDREALIZING_CARDS);
                     break;
                 case 3004://从头开始
@@ -1519,10 +1525,10 @@ public class Empty : NetworkBehaviour
         }
         if (instance.index_Shown == index_CurrentHolder - 1)
         {
-            Invoke(nameof(ClientDelay_EndGainScore), 3f);
+            Invoke(nameof(ClientDelay_EndGainScore), 5f);
             return;
         }
-        Invoke(nameof(ClientGainScore), 3f);
+        Invoke(nameof(ClientGainScore), 5f);
     }
     [Client]
     public void ClientDelay_EndGainScore()

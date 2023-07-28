@@ -92,7 +92,10 @@ public class MyNetworkManagerHUD : MonoBehaviour
         ClearAll();
         if (!NetworkClient.active)
         {
-            start_Host.gameObject.SetActive(true);
+            if(!GetComponent<AutoServer>().isActiveAndEnabled)
+            {
+                //start_Host.gameObject.SetActive(true);
+            }
             start_Client.gameObject.SetActive(true);
             inputfield_IP.SetActive(true);
             inputfield_PlayerName.SetActive(true);

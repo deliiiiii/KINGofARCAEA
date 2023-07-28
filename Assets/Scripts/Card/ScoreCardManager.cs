@@ -22,9 +22,9 @@ public class ScoreCardManager : MonoBehaviour
         instance = this;
         scoreCards_info = new List<ScoreCard>()
         {
-            new ScoreCard(101,3,6),//完美收割
-            new ScoreCard(102,1,5),//轻松全连
-            new ScoreCard(103,0,5),//遗憾离场
+            new ScoreCard(101,3,60),//完美收割
+            new ScoreCard(102,1,50),//轻松全连
+            new ScoreCard(103,0,50),//遗憾离场
         };
     }
     void Start()

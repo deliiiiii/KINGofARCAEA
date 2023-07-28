@@ -99,6 +99,10 @@ public class Player : NetworkBehaviour
 
     public void RefreshText_RoundScore_by_scoreCard(int score)
     {
+        if (!GameManager.instance.SuspectedScoreAssistant)
+        {
+            return;
+        }
         text_RoundScore.text = score.ToString();
         switch (score)
         {
@@ -124,7 +128,11 @@ public class Player : NetworkBehaviour
 
     public void Refresh_list_toggle_score(bool[] list_toggle_isOn)
     {
-        for(int i=0;i< list_toggle_score.Count;i++)
+        if (!GameManager.instance.SuspectedScoreAssistant)
+        {
+            return;
+        }
+        for (int i=0;i< list_toggle_score.Count;i++)
         {
             list_toggle_score[i].isOn = list_toggle_isOn[i];
         }

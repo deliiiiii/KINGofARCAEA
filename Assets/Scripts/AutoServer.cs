@@ -29,8 +29,8 @@ public class AutoServer : MonoBehaviour
             Invoke(nameof(Test_2), 1f);
             return;
         }
-        manager.networkAddress = "localhost";
-        //manager.networkAddress = "123.60.91.26";
+        //manager.networkAddress = "localhost";
+        manager.networkAddress = "123.60.91.26";
         manager.StartClient();
     }
     public void DelayAutoStartServer()

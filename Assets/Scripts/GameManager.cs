@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public bool isSwitchHolder;//换主持人
     public int init_draw_num;//初始手牌数
 
+    public bool SuspectedScoreAssistant = false;
     public enum Temp_STATE
     {
 
@@ -60,6 +61,10 @@ public class GameManager : MonoBehaviour
         //GameCardManager.list_instance.RefillHandCards();
     }
 
+    public void RefreshSuspectedScoreAssistant()
+    {
+        instance.SuspectedScoreAssistant = !instance.SuspectedScoreAssistant;
+    }
     //public void StartGame()
     //{
     //    Initialize();
@@ -81,7 +86,7 @@ public class GameManager : MonoBehaviour
     //            UIPlayerManager.list_player[i].GetComponent<Player>().DrawHandCards(4,i);
     //            UIPlayerManager.list_player[i].GetComponent<Player>().DrawScoreCards(1,i);
     //        }
-            
+
     //    }
     //    else
     //    {
@@ -94,7 +99,7 @@ public class GameManager : MonoBehaviour
     //        }
     //        UIPlayerManager.list_player[UIPlayerManager.index_CurrentHolder - 1].GetComponent<Player>().image_Holder.SetActive(true);
     //    }
-        
+
     //    NewTurn();
     //    instance.isSwitchHolder = false;
     //}
@@ -133,7 +138,7 @@ public class GameManager : MonoBehaviour
     //    }
     //    UIPlayerManager.instance.MyTurn();
     //}
-    
+
     public void SummaryGame()
     {
         //state_ = Temp_STATE.STATE_GAME_SUMMARY;
